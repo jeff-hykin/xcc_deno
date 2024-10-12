@@ -1,3 +1,4 @@
+
 "use strict";
 /*
 
@@ -31,7 +32,7 @@ IN THE SOFTWARE.
 
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-const bigint_1 = require("./polyfills/bigint");
+import bigint_1 from "./polyfills/bigint.js"
 exports.WASI_ESUCCESS = 0;
 exports.WASI_E2BIG = 1;
 exports.WASI_EACCES = 2;
@@ -394,3 +395,5 @@ exports.SIGNAL_MAP = {
     [exports.WASI_SIGXFSZ]: "SIGXFSZ",
     [exports.WASI_SIGVTALRM]: "SIGVTALRM"
 };
+
+;export default exports

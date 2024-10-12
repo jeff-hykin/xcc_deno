@@ -1,9 +1,10 @@
+
 "use strict";
 /* eslint-disable no-unused-vars */
 Object.defineProperty(exports, "__esModule", { value: true });
-const bigint_1 = require("./polyfills/bigint");
-const dataview_1 = require("./polyfills/dataview");
-const buffer_1 = require("./polyfills/buffer");
+import bigint_1 from "./polyfills/bigint.js"
+import dataview_1 from "./polyfills/dataview.js"
+import buffer_1 from "./polyfills/buffer.js"
 // Import our default bindings depending on the environment
 let defaultBindings;
 /*ROLLUP_REPLACE_NODE
@@ -46,7 +47,7 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 IN THE SOFTWARE.
 
  */
-const constants_1 = require("./constants");
+import constants_1 from "./constants.js"
 const STDIN_DEFAULT_RIGHTS = constants_1.WASI_RIGHT_FD_DATASYNC |
     constants_1.WASI_RIGHT_FD_READ |
     constants_1.WASI_RIGHT_FD_SYNC |
@@ -1139,3 +1140,5 @@ exports.default = WASIDefault;
 WASIDefault.defaultBindings = defaultBindings;
 // Also export it as a field in the export object
 exports.WASI = WASIDefault;
+
+;export default exports

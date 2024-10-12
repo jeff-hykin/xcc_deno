@@ -1,3 +1,4 @@
+
 "use strict";
 // A very simple workaround for Big int. Works in conjunction with our custom
 // Dataview workaround at ./dataview.ts
@@ -8,3 +9,5 @@ const globalObj = typeof globalThis !== "undefined"
         ? global
         : {};
 exports.BigIntPolyfill = typeof BigInt !== "undefined" ? BigInt : globalObj.BigInt || Number;
+
+;export default exports

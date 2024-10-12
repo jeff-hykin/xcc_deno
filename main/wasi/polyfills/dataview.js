@@ -1,8 +1,9 @@
+
 "use strict";
 // A very simple workaround for Big int. Works in conjunction with our custom
 // BigInt workaround at ./bigint.ts
 Object.defineProperty(exports, "__esModule", { value: true });
-const bigint_1 = require("./bigint");
+import bigint_1 from "./bigint.js"
 let exportedDataView = DataView;
 if (!exportedDataView.prototype.setBigUint64) {
     // Taken from https://gist.github.com/graup/815c9ac65c2bac8a56391f0ca23636fc
@@ -42,3 +43,5 @@ if (!exportedDataView.prototype.setBigUint64) {
     };
 }
 exports.DataViewPolyfill = exportedDataView;
+
+;export default exports
