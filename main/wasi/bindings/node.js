@@ -2,9 +2,9 @@ import crypto from "node:crypto"
 import fs from "node:fs"
 import { isatty as isTTY } from "node:tty"
 import path from "node:path"
-import hrtime_bigint_1 from "../polyfills/hrtime.bigint.js"
+import hrtime_bigint from "../polyfills/hrtime.bigint.js"
 
-let bigIntHrtime = hrtime_bigint_1.default(process.hrtime);
+let bigIntHrtime = hrtime_bigint(process.hrtime);
 if (process.hrtime && process.hrtime.bigint) {
     bigIntHrtime = process.hrtime.bigint;
 }

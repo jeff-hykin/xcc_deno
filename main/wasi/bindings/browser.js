@@ -6,7 +6,7 @@ import hrtime_bigint from "../polyfills/hrtime.bigint.js"
 import { WASIError, WASIExitError, WASIKillError } from "../errors.js" 
 
 const bindings = {
-    hrtime: hrtime_bigint.default(browser_hrtime.default),
+    hrtime: hrtime_bigint(browser_hrtime),
     exit: (code) => {
         throw new WASIExitError(code);
     },

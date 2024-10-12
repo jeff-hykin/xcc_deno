@@ -305,14 +305,14 @@ export class WASIDefault {
                 args.forEach(a => {
                     this.view.setUint32(coffset, offset, true);
                     coffset += 4;
-                    offset += Buffer.default.from(this.memory.buffer).write(`${a}\0`, offset);
+                    offset += Buffer.from(this.memory.buffer).write(`${a}\0`, offset);
                 });
                 return constants_1.WASI_ESUCCESS;
             },
             args_sizes_get: (argc, argvBufSize) => {
                 this.refreshMemory();
                 this.view.setUint32(argc, args.length, true);
-                const size = args.reduce((acc, a) => acc + Buffer.default.byteLength(a) + 1, 0);
+                const size = args.reduce((acc, a) => acc + Buffer.byteLength(a) + 1, 0);
                 this.view.setUint32(argvBufSize, size, true);
                 return constants_1.WASI_ESUCCESS;
             },
@@ -323,14 +323,14 @@ export class WASIDefault {
                 Object.entries(env).forEach(([key, value]) => {
                     this.view.setUint32(coffset, offset, true);
                     coffset += 4;
-                    offset += Buffer.default.from(this.memory.buffer).write(`${key}=${value}\0`, offset);
+                    offset += Buffer.from(this.memory.buffer).write(`${key}=${value}\0`, offset);
                 });
                 return constants_1.WASI_ESUCCESS;
             },
             environ_sizes_get: (environCount, environBufSize) => {
                 this.refreshMemory();
                 const envProcessed = Object.entries(env).map(([key, value]) => `${key}=${value}\0`);
-                const size = envProcessed.reduce((acc, e) => acc + Buffer.default.byteLength(e), 0);
+                const size = envProcessed.reduce((acc, e) => acc + Buffer.byteLength(e), 0);
                 this.view.setUint32(environCount, envProcessed.length, true);
                 this.view.setUint32(environBufSize, size, true);
                 return constants_1.WASI_ESUCCESS;
@@ -470,7 +470,7 @@ export class WASIDefault {
                 }
                 this.refreshMemory();
                 this.view.setUint8(bufPtr, constants_1.WASI_PREOPENTYPE_DIR);
-                this.view.setUint32(bufPtr + 4, Buffer.default.byteLength(stats.fakePath), true);
+                this.view.setUint32(bufPtr + 4, Buffer.byteLength(stats.fakePath), true);
                 return constants_1.WASI_ESUCCESS;
             }),
             fd_prestat_dir_name: wrap((fd, pathPtr, pathLen) => {
@@ -479,7 +479,7 @@ export class WASIDefault {
                     return constants_1.WASI_EINVAL;
                 }
                 this.refreshMemory();
-                Buffer.default.from(this.memory.buffer).write(stats.fakePath, pathPtr, pathLen, "utf8");
+                Buffer.from(this.memory.buffer).write(stats.fakePath, pathPtr, pathLen, "utf8");
                 return constants_1.WASI_ESUCCESS;
             }),
             fd_pwrite: wrap((fd, iovs, iovsLen, offset, nwritten) => {
@@ -572,7 +572,7 @@ export class WASIDefault {
                 const startPtr = bufPtr;
                 for (let i = Number(cookie); i < entries.length; i += 1) {
                     const entry = entries[i];
-                    let nameLength = Buffer.default.byteLength(entry.name);
+                    let nameLength = Buffer.byteLength(entry.name);
                     if (bufPtr - startPtr > bufLen) {
                         break;
                     }
@@ -626,7 +626,7 @@ export class WASIDefault {
                         // It doesn't fit in the buffer
                         break;
                     }
-                    let memory_buffer = Buffer.default.from(this.memory.buffer);
+                    let memory_buffer = Buffer.from(this.memory.buffer);
                     memory_buffer.write(entry.name, bufPtr);
                     bufPtr += nameLength;
                 }
@@ -681,7 +681,7 @@ export class WASIDefault {
                     return constants_1.WASI_EINVAL;
                 }
                 this.refreshMemory();
-                const p = Buffer.default.from(this.memory.buffer, pathPtr, pathLen).toString();
+                const p = Buffer.from(this.memory.buffer, pathPtr, pathLen).toString();
                 fs.mkdirSync(path.resolve(stats.path, p));
                 return constants_1.WASI_ESUCCESS;
             }),
@@ -691,7 +691,7 @@ export class WASIDefault {
                     return constants_1.WASI_EINVAL;
                 }
                 this.refreshMemory();
-                const p = Buffer.default.from(this.memory.buffer, pathPtr, pathLen).toString();
+                const p = Buffer.from(this.memory.buffer, pathPtr, pathLen).toString();
                 const rstats = fs.statSync(path.resolve(stats.path, p));
                 this.view.setBigUint64(bufPtr, BigIntPolyfill(rstats.dev), true);
                 bufPtr += 8;
@@ -740,7 +740,7 @@ export class WASIDefault {
                 else if ((fstflags & constants_1.WASI_FILESTAT_SET_MTIM_NOW) === constants_1.WASI_FILESTAT_SET_MTIM_NOW) {
                     mtim = n;
                 }
-                const p = Buffer.default.from(this.memory.buffer, pathPtr, pathLen).toString();
+                const p = Buffer.from(this.memory.buffer, pathPtr, pathLen).toString();
                 fs.utimesSync(path.resolve(stats.path, p), new Date(atim), new Date(mtim));
                 return constants_1.WASI_ESUCCESS;
             }),
@@ -751,8 +751,8 @@ export class WASIDefault {
                     return constants_1.WASI_EINVAL;
                 }
                 this.refreshMemory();
-                const op = Buffer.default.from(this.memory.buffer, oldPath, oldPathLen).toString();
-                const np = Buffer.default.from(this.memory.buffer, newPath, newPathLen).toString();
+                const op = Buffer.from(this.memory.buffer, oldPath, oldPathLen).toString();
+                const np = Buffer.from(this.memory.buffer, newPath, newPathLen).toString();
                 fs.linkSync(path.resolve(ostats.path, op), path.resolve(nstats.path, np));
                 return constants_1.WASI_ESUCCESS;
             }),
@@ -829,7 +829,7 @@ export class WASIDefault {
                     neededInheriting |= constants_1.WASI_RIGHT_FD_SEEK;
                 }
                 this.refreshMemory();
-                const p = Buffer.default.from(this.memory.buffer, pathPtr, pathLen).toString();
+                const p = Buffer.from(this.memory.buffer, pathPtr, pathLen).toString();
                 const fullUnresolved = path.resolve(stats.path, p);
                 if (path.relative(stats.path, fullUnresolved).startsWith("..")) {
                     return constants_1.WASI_ENOTCAPABLE;
@@ -884,10 +884,10 @@ export class WASIDefault {
                     return constants_1.WASI_EINVAL;
                 }
                 this.refreshMemory();
-                const p = Buffer.default.from(this.memory.buffer, pathPtr, pathLen).toString();
+                const p = Buffer.from(this.memory.buffer, pathPtr, pathLen).toString();
                 const full = path.resolve(stats.path, p);
                 const r = fs.readlinkSync(full);
-                const used = Buffer.default.from(this.memory.buffer).write(r, buf, bufLen);
+                const used = Buffer.from(this.memory.buffer).write(r, buf, bufLen);
                 this.view.setUint32(bufused, used, true);
                 return constants_1.WASI_ESUCCESS;
             }),
@@ -897,7 +897,7 @@ export class WASIDefault {
                     return constants_1.WASI_EINVAL;
                 }
                 this.refreshMemory();
-                const p = Buffer.default.from(this.memory.buffer, pathPtr, pathLen).toString();
+                const p = Buffer.from(this.memory.buffer, pathPtr, pathLen).toString();
                 fs.rmdirSync(path.resolve(stats.path, p));
                 return constants_1.WASI_ESUCCESS;
             }),
@@ -908,8 +908,8 @@ export class WASIDefault {
                     return constants_1.WASI_EINVAL;
                 }
                 this.refreshMemory();
-                const op = Buffer.default.from(this.memory.buffer, oldPath, oldPathLen).toString();
-                const np = Buffer.default.from(this.memory.buffer, newPath, newPathLen).toString();
+                const op = Buffer.from(this.memory.buffer, oldPath, oldPathLen).toString();
+                const np = Buffer.from(this.memory.buffer, newPath, newPathLen).toString();
                 fs.renameSync(path.resolve(ostats.path, op), path.resolve(nstats.path, np));
                 return constants_1.WASI_ESUCCESS;
             }),
@@ -919,8 +919,8 @@ export class WASIDefault {
                     return constants_1.WASI_EINVAL;
                 }
                 this.refreshMemory();
-                const op = Buffer.default.from(this.memory.buffer, oldPath, oldPathLen).toString();
-                const np = Buffer.default.from(this.memory.buffer, newPath, newPathLen).toString();
+                const op = Buffer.from(this.memory.buffer, oldPath, oldPathLen).toString();
+                const np = Buffer.from(this.memory.buffer, newPath, newPathLen).toString();
                 fs.symlinkSync(op, path.resolve(stats.path, np));
                 return constants_1.WASI_ESUCCESS;
             }),
@@ -930,7 +930,7 @@ export class WASIDefault {
                     return constants_1.WASI_EINVAL;
                 }
                 this.refreshMemory();
-                const p = Buffer.default.from(this.memory.buffer, pathPtr, pathLen).toString();
+                const p = Buffer.from(this.memory.buffer, pathPtr, pathLen).toString();
                 fs.unlinkSync(path.resolve(stats.path, p));
                 return constants_1.WASI_ESUCCESS;
             }),
@@ -1120,7 +1120,7 @@ WASIDefault.defaultBindings = defaultBindings;
 // Also export it as a field in the export object
 exports.WASI = WASIDefault;
 
-;export default exports
+;export default WASIDefault
 
 var { memory, _start, WASI } = exports;
 export {
