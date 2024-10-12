@@ -8,6 +8,15 @@ import { WasmFs } from "./wasmfs/index.ts"
 // import { WASIExitError } from "https://cdn.jsdelivr.net/npm/@wasmer/wasi@0.12.0/lib/index.js"
 import { WASIExitError } from "./wasi/index.js"
 
+// https://github.com/wasmerio/wasmer-js/issues/321
+Object.defineProperty(Object.getPrototypeOf({}), "__proto__", {
+    get() {
+        return Object.getPrototypeOf(this)
+    },
+    set(value) {
+        return Object.setPrototypeOf(this, value)
+    }
+})
 
 export class WasiWorker {
     private wasmFs = new WasmFs()
