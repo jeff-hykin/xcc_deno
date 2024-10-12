@@ -1,5 +1,7 @@
-import { WASI } from "https://esm.sh/@wasmer/wasi@1.2.2"
-import { WasmFs } from "https://esm.sh/@wasmer/wasmfs"
+// import { WASI } from "https://esm.sh/@wasmer/wasi@1.2.2"
+import { WASI } from "./wasi/index.js"
+// import { WasmFs } from "https://esm.sh/@wasmer/wasmfs"
+import { WasmFs } from "./wasmfs/index.ts"
 import path from "https://esm.sh/path-browserify@1.0.1"
 
 export class WaProc {

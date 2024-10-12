@@ -1,6 +1,13 @@
 import { WaProc } from "./wa_proc.ts"
-import { WasmFs } from "https://esm.sh/@wasmer/wasmfs@0.12.0"
-import { WASIExitError } from "https://esm.sh/@wasmer/wasi@1.2.2"
+// import { WasmFs } from "https://cdn.jsdelivr.net/npm/@wasmer/wasmfs@0.12.0/src/index.ts"
+import { WasmFs } from "./wasmfs/index.ts"
+// import { WasmerRuntimeError } from "https://esm.sh/@wasmer/wasi@1.2.2"
+// import { WasmerRuntimeError } from "https://cdn.jsdelivr.net/npm/@wasmer/wasi@1.2.2/dist/Library.esm.js"
+// import { WASIExitError } from "https://esm.sh/@wasmer/wasi@0.12.0"
+// import { WASIExitError } from "https://esm.sh/@wasmer/wasi@0.12.0/lib/index.js"
+// import { WASIExitError } from "https://cdn.jsdelivr.net/npm/@wasmer/wasi@0.12.0/lib/index.js"
+import { WASIExitError } from "./wasi/index.js"
+
 
 export class WasiWorker {
     private wasmFs = new WasmFs()
