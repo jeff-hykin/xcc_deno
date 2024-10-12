@@ -1,10 +1,9 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const crypto = require("crypto");
-const fs = require("fs");
-const { isatty: isTTY } = require("tty");
-const path = require("path");
-const hrtime_bigint_1 = require("../polyfills/hrtime.bigint");
+import crypto from "node:crypto"
+import fs from "node:fs"
+import { isatty as isTTY } from "node:tty"
+import path from "node:path"
+import hrtime_bigint_1 from "../polyfills/hrtime.bigint.js"
+
 let bigIntHrtime = hrtime_bigint_1.default(process.hrtime);
 if (process.hrtime && process.hrtime.bigint) {
     bigIntHrtime = process.hrtime.bigint;
@@ -22,4 +21,5 @@ const bindings = {
     fs: fs,
     path: path
 };
-exports.default = bindings;
+
+export default bindings
