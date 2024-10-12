@@ -44,4 +44,8 @@ if (!exportedDataView.prototype.setBigUint64) {
 }
 exports.DataViewPolyfill = exportedDataView;
 
+var { DataViewPolyfill } = exports;
+export {
+    DataViewPolyfill
+};
 ;export default exports

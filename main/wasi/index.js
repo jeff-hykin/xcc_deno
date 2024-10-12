@@ -1142,3 +1142,14 @@ WASIDefault.defaultBindings = defaultBindings;
 exports.WASI = WASIDefault;
 
 ;export default exports
+
+var { WASIError, WASIExitError, WASIKillError, memory, _start, _start, WASI } = exports;
+export {
+    WASIError,
+    WASIExitError,
+    WASIKillError,
+    memory,
+    _start,
+    _start,
+    WASI,
+}

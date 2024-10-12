@@ -11,3 +11,8 @@ const globalObj = typeof globalThis !== "undefined"
 exports.BigIntPolyfill = typeof BigInt !== "undefined" ? BigInt : globalObj.BigInt || Number;
 
 ;export default exports
+
+var { BigIntPolyfill } = exports;
+export {
+    BigIntPolyfill
+}
