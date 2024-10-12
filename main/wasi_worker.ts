@@ -1,6 +1,6 @@
-import { WaProc } from "./wa_proc"
-import { WasmFs } from "@wasmer/wasmfs"
-import { WASIExitError } from "@wasmer/wasi"
+import { WaProc } from "./wa_proc.ts"
+import { WasmFs } from "https://esm.sh/@wasmer/wasmfs@0.12.0"
+import { WASIExitError } from "https://esm.sh/@wasmer/wasi@1.2.2"
 
 export class WasiWorker {
     private wasmFs = new WasmFs()

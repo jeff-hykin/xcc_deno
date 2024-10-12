@@ -1,6 +1,6 @@
-import { WASI } from "@wasmer/wasi"
-import { WasmFs } from "@wasmer/wasmfs"
-import path from "path-browserify"
+import { WASI } from "https://esm.sh/@wasmer/wasi@1.2.2"
+import { WasmFs } from "https://esm.sh/@wasmer/wasmfs"
+import path from "https://esm.sh/path-browserify@1.0.1"
 
 export class WaProc {
     private memory: WebAssembly.Memory
