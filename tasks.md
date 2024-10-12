@@ -1,0 +1,3 @@
+- Make Deno.exit() not needed
+- Use wasi_worker.ts instead of wasi_worker.js
+- load wasm and grab wrapped C function 
