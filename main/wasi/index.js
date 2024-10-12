@@ -1,5 +1,6 @@
-
+// "https://cdn.jsdelivr.net/npm/@wasmer/wasi@0.12.0/lib/index.js"
 "use strict";
+var exports = {};
 /* eslint-disable no-unused-vars */
 Object.defineProperty(exports, "__esModule", { value: true });
 import bigint_1 from "./polyfills/bigint.js"
@@ -170,7 +171,7 @@ const translateFileAttributes = (wasi, fd, stats) => {
             };
     }
 };
-class WASIError extends Error {
+export class WASIError extends Error {
     constructor(errno) {
         super();
         this.errno = errno;
@@ -178,7 +179,7 @@ class WASIError extends Error {
     }
 }
 exports.WASIError = WASIError;
-class WASIExitError extends Error {
+export class WASIExitError extends Error {
     constructor(code) {
         super(`WASI Exit error: ${code}`);
         this.code = code;
@@ -186,7 +187,7 @@ class WASIExitError extends Error {
     }
 }
 exports.WASIExitError = WASIExitError;
-class WASIKillError extends Error {
+export class WASIKillError extends Error {
     constructor(signal) {
         super(`WASI Kill signal: ${signal}`);
         this.signal = signal;
@@ -194,7 +195,7 @@ class WASIKillError extends Error {
     }
 }
 exports.WASIKillError = WASIKillError;
-class WASIDefault {
+export class WASIDefault {
     constructor(wasiConfig) {
         // Destructure our wasiConfig
         let preopens = {};
@@ -1143,13 +1144,9 @@ exports.WASI = WASIDefault;
 
 ;export default exports
 
-var { WASIError, WASIExitError, WASIKillError, memory, _start, _start, WASI } = exports;
+var { memory, _start, WASI } = exports;
 export {
-    WASIError,
-    WASIExitError,
-    WASIKillError,
     memory,
-    _start,
     _start,
     WASI,
 }
