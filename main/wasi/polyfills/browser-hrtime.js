@@ -1,6 +1,4 @@
-"use strict";
 // hrtime polyfill for the browser
-Object.defineProperty(exports, "__esModule", { value: true });
 const baseNow = Math.floor((Date.now() - performance.now()) * 1e-3);
 function hrtime(previousTimestamp) {
     // initilaize our variables
@@ -19,4 +17,4 @@ function hrtime(previousTimestamp) {
     // Return our seconds tuple
     return [seconds, nanoseconds];
 }
-exports.default = hrtime;
+export default hrtime
