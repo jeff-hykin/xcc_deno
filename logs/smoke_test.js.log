@@ -1,0 +1,91 @@
+(module
+;; WASM version: 1
+
+;;=== 0x8: TYPE, len=12
+(type (func (param i32) (result i32)))  ;; 0
+(type (func (param i32 i32) (result i32)))  ;; 1
+
+;;=== 0x16: IMPORT, len=60
+(import "env" "__linear_memory" (memory 0 (;index=0;)))
+(import "env" "printf" (func $printf (type 1)))  ;; 0
+(import "env" "__stack_pointer" (global (mut i32)))  ;; 0
+
+;;=== 0x54: FUNC, len=3
+;; func: #2
+;;   func 1: type=#0
+;;   func 2: type=#1
+
+;;=== 0x59: CODE, len=107
+(func $fib (;1;) (type 0)
+  local.get 0
+  i32.const 2
+  i32.lt_s
+  if (result i32)
+    local.get 0
+  else
+    local.get 0
+    i32.const 1
+    i32.sub
+    call $fib
+    local.get 0
+    i32.const 2
+    i32.sub
+    call $fib
+    i32.add
+  end
+)
+(func $__main_argc_argv (;2;) (type 1)
+  (local i32 i32)
+  global.get $__stack_pointer
+  i32.const 8
+  i32.sub
+  local.set 3
+  local.get 3
+  global.set $__stack_pointer
+  i32.const 30
+  call $fib
+  local.set 2
+  i32.const 1
+  local.get 3
+  local.get 2
+  i32.store
+  local.get 3
+  call $printf
+  drop
+  i32.const 0
+  local.get 3
+  i32.const 8
+  i32.add
+  global.set $__stack_pointer
+)
+
+;;=== 0xc6: DATA, len=10
+(data (;0;) (i32.const 1) "%d\0a\00")
+
+;;=== 0xd2: CUSTOM, len=69
+;; (custom "linking"
+;;   (symtab
+;;     (function (index 0) (name "env.printf") (flags UNDEFINED))
+;;     (function (index 1) (name "fib") (flags ))
+;;     (function (index 2) (name "__main_argc_argv") (flags ))
+;;     (global (index 0) (name "env.__stack_pointer") (flags UNDEFINED))
+;;     (data (name ".L0002") (index 0) (offset 0) (size 4))
+;;     )
+;;   (segment-info
+;;     (data-seg (name .L0002) (p2align 0) (flags 1))
+;;     )
+;;   )
+
+;;=== 0x119: CUSTOM, len=38
+;; (custom "reloc.CODE" (section-index 3)
+;;   (FUNCTION_INDEX_LEB (offset 19) (index 1) (addend 0))
+;;   (FUNCTION_INDEX_LEB (offset 30) (index 1) (addend 0))
+;;   (GLOBAL_INDEX_LEB (offset 43) (index 3) (addend 0))
+;;   (GLOBAL_INDEX_LEB (offset 56) (index 3) (addend 0))
+;;   (FUNCTION_INDEX_LEB (offset 64) (index 1) (addend 0))
+;;   (MEMORY_ADDR_LEB (offset 72) (index 4) (addend 0))
+;;   (FUNCTION_INDEX_LEB (offset 87) (index 0) (addend 0))
+;;   (GLOBAL_INDEX_LEB (offset 101) (index 3) (addend 0))
+;;   )
+)
+
