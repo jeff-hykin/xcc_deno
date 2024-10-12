@@ -52,5 +52,5 @@ int main() {
 }
 `
 
-Deno.exit()
 console.log(await compileAndOrRun({args: [], sourceCode: EXAMPLE_CODE}))
+Deno.exit()
