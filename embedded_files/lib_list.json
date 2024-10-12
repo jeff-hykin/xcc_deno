@@ -1,0 +1,39 @@
+{
+  "usr": {
+    "bin": {
+      "cc": "./cc.wasm"
+    },
+    "include": {
+      "sys": {
+        "random.h": "./include/sys/random.h",
+        "stat.h": "./include/sys/stat.h",
+        "types.h": "./include/sys/types.h"
+      },
+      "alloca.h": "./include/alloca.h",
+      "assert.h": "./include/assert.h",
+      "ctype.h": "./include/ctype.h",
+      "errno.h": "./include/errno.h",
+      "fcntl.h": "./include/fcntl.h",
+      "inttypes.h": "./include/inttypes.h",
+      "libgen.h": "./include/libgen.h",
+      "limits.h": "./include/limits.h",
+      "math.h": "./include/math.h",
+      "setjmp.h": "./include/setjmp.h",
+      "stdarg.h": "./include/stdarg.h",
+      "stdbool.h": "./include/stdbool.h",
+      "stddef.h": "./include/stddef.h",
+      "stdint.h": "./include/stdint.h",
+      "stdio.h": "./include/stdio.h",
+      "stdlib.h": "./include/stdlib.h",
+      "string.h": "./include/string.h",
+      "strings.h": "./include/strings.h",
+      "time.h": "./include/time.h",
+      "unistd.h": "./include/unistd.h",
+      "wasi.h": "./libsrc/_wasm/wasi.h"
+    },
+    "lib": {
+      "wcrt0.a": "./lib/wcrt0.a",
+      "wlibc.a": "./lib/wlibc.a"
+    }
+  }
+}
