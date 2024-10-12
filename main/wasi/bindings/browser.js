@@ -3,7 +3,7 @@ import path from "https://esm.sh/path-browserify@1.0.1"
 import randomfill from "https://esm.sh/randomfill@1.0.4"
 import browser_hrtime from "../polyfills/browser-hrtime.js"
 import hrtime_bigint from "../polyfills/hrtime.bigint.js"
-import { WASIError, WASIExitError, WASIKillError } from "./errors.js" 
+import { WASIError, WASIExitError, WASIKillError } from "../errors.js" 
 
 const bindings = {
     hrtime: hrtime_bigint.default(browser_hrtime.default),

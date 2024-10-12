@@ -1,4 +1,4 @@
-import bigint_1 from "./bigint.js"
+import { BigIntPolyfill } from "./bigint.js"
 
 var exports = {}
 
@@ -39,7 +39,7 @@ if (!exportedDataView.prototype.setBigUint64) {
             lowWordAsBinaryStrPadded += "0";
         }
         lowWordAsBinaryStrPadded += lowWordAsBinaryStr;
-        return bigint_1.BigIntPolyfill("0b" + highWordAsBinaryStr + lowWordAsBinaryStrPadded);
+        return BigIntPolyfill("0b" + highWordAsBinaryStr + lowWordAsBinaryStrPadded);
     };
 }
 exports.DataViewPolyfill = exportedDataView;
