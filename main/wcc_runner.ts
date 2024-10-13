@@ -40,7 +40,11 @@ export class WccRunner {
             else console.log(text)
         }
 
-        this.worker = new Worker(webWorkerCode, { type: "module" })
+        this.worker = new Worker(
+            // "file:///Users/jeffhykin/repos/xcc_deno/main/wasi_worker.bundle.js",
+            webWorkerCode,
+            { type: "module" }
+        )
         this.worker.onmessage = (ev: MessageEvent<any>) => {
             const data = ev.data
             if (data.messageId != null && this.actionHandlerMap.has(data.messageId)) {

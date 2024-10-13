@@ -1,8 +1,9 @@
-import * as xcc from '../main/main.js'
-import { WccRunner, DisWasm } from '../main/main.js'
+// import * as xcc from '../main/main.js'
+import * as xcc from '../main/main.bundle.js'
+// import { WccRunner, DisWasm } from '../main/main.js'
 
 export async function compileAndOrRun({args, sourceCode, compileAndDump=true}) {
-    var wccRunner = new WccRunner()
+    var wccRunner = new xcc.WccRunner()
     wccRunner.setConsoleOutFunction((text, _isError) => console.log(`[wccRunner.setConsoleOutFunction] error?: ${_isError}, text: ${text}`))
     await wccRunner.setUp()
     
@@ -19,7 +20,7 @@ export async function compileAndOrRun({args, sourceCode, compileAndDump=true}) {
 
     if (compileAndDump) {
         const compiledCode = await wccRunner.readFile(objFn)
-        const disWasm = new DisWasm(compiledCode.buffer)
+        const disWasm = new xcc.DisWasm(compiledCode.buffer)
         let compiledWasm = ""
         disWasm.setLogFunc((code)=>compiledWasm+=(code+"\n"))
         // disWasm.setLogFunc((s) => Util.putTerminal(`${s}\n`))
