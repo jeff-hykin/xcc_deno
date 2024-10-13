@@ -9,7 +9,7 @@ import {
   DirectoryJSON,
   TFilePath,
   pathToFilename
-} from "../memfs-3.0.4/lib/volume";
+} from "../memfs-3.0.4/volume.ts";
 
 import { relative } from "https://esm.sh/path-browserify@1.0.1";
 import "./node_sync_emit.ts";

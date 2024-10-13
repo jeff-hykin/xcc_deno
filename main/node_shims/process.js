@@ -1,5 +1,5 @@
 const baseNow = Math.floor((Date.now() - performance.now()) * 1e-3);
-let exported = globalThis.process || {
+let exported = {
     getuid: () => 0,
     getgid: () => 0,
     cwd: () => "/",
@@ -27,8 +27,12 @@ let exported = globalThis.process || {
 }
 
 // Deno 1.x
-if (globalThis.Deno && !globalThis.process) {
+if (globalThis.process) {
+    exported = globalThis.process
+} else if (globalThis.Deno && !globalThis.process) {
      exported = await import("node:process")
+} else {
+    exported.default = exported
 }
 
 var {
@@ -62,7 +66,6 @@ var {
     stdin,
 } = exported
 
-exported.default = exported
 export {
     abort,
     cwd,

@@ -21,7 +21,6 @@ var {
     delimiter,
     win32,
     posix,
-    basename
     toNamespacedPath,
     common,
 } = exportedPath
@@ -42,7 +41,6 @@ export {
     delimiter,
     win32,
     posix,
-    basename
     toNamespacedPath,
     common,
 }
