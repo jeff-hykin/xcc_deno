@@ -1,3 +1,5 @@
+import process from "node:process"
+
 var exports = {};
 var isWin = process.platform === 'win32';
 function removeTrailingSeparator(str) {

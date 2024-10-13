@@ -1,11 +1,18 @@
+
 // The whole point behind this internal module is to allow Node.js to no
 // longer be forced to treat every error message change as a semver-major
 // change. The NodeError classes here all expose a `code` property whose
 // value statically and permanently identifies the error. While the error
 // message may change, the code should not.
 
-import * as assert from 'assert';
-import * as util from 'util';
+import * as assertModule from "node:assert";
+import * as util from "node:util";
+
+const assert = (boolValue, message) => {
+  if (!boolValue) {
+    throw new Error(message)
+  }
+}
 
 const kCode = typeof Symbol === 'undefined' ? '_kCode' : (Symbol as any)('code');
 const messages = {}; // new Map();
@@ -21,7 +28,7 @@ function makeNodeError(Base) {
   };
 }
 
-class AssertionError extends global.Error {
+class AssertionError extends globalThis.Error {
   generatedMessage: any;
   name: any;
   code: any;
@@ -31,7 +38,7 @@ class AssertionError extends global.Error {
 
   constructor(options) {
     if (typeof options !== 'object' || options === null) {
-      throw new exports.TypeError('ERR_INVALID_ARG_TYPE', 'options', 'object');
+      throw new globalThis.TypeError('ERR_INVALID_ARG_TYPE', 'options', 'object');
     }
     if (options.message) {
       super(options.message);
@@ -53,7 +60,7 @@ class AssertionError extends global.Error {
 }
 
 function message(key, args) {
-  assert.strictEqual(typeof key, 'string');
+  assertModule.strictEqual(typeof key, 'string');
   // const msg = messages.get(key);
   const msg = messages[key];
   assert(msg, `An invalid error message key was used: ${key}.`);
@@ -74,9 +81,9 @@ function E(sym, val) {
   messages[sym] = typeof val === 'function' ? val : String(val);
 }
 
-export const Error = makeNodeError(global.Error);
-export const TypeError = makeNodeError(global.TypeError);
-export const RangeError = makeNodeError(global.RangeError);
+export const Error = makeNodeError(globalThis.Error);
+export const TypeError = makeNodeError(globalThis.TypeError);
+export const RangeError = makeNodeError(globalThis.RangeError);
 
 export {
   message,
@@ -113,7 +120,7 @@ E('ERR_HTTP_TRAILER_INVALID', 'Trailers are invalid with this transfer encoding'
 E('ERR_INDEX_OUT_OF_RANGE', 'Index out of range');
 E('ERR_INVALID_ARG_TYPE', invalidArgType);
 E('ERR_INVALID_ARRAY_LENGTH', (name, len, actual) => {
-  assert.strictEqual(typeof actual, 'number');
+  assertModule.strictEqual(typeof actual, 'number');
   return `The array "${name}" (length ${actual}) must be of length ${len}.`;
 });
 E('ERR_INVALID_BUFFER_SIZE', 'Buffer size must be a multiple of %s');

@@ -1,20 +1,24 @@
-import * as pathModule from 'path';
-import { Node, Link, File } from './node';
-import Stats, { TStatNumber } from './Stats';
-import Dirent from './Dirent';
-import { Buffer, bufferAllocUnsafe, bufferFrom } from './internal/buffer';
-import setImmediate from './setImmediate';
-import process from './process';
-import setTimeoutUnref, { TSetTimeout } from './setTimeoutUnref';
-import { Readable, Writable } from 'stream';
-import { constants } from './constants';
-import { EventEmitter } from 'events';
-import { TEncoding, TEncodingExtended, TDataOut, assertEncoding, strToEncoding, ENCODING_UTF8 } from './encoding';
-import * as errors from './internal/errors';
-const { extend } = require('fast-extend');
-import util = require('util');
-import createPromisesApi from './promises';
+import { extend } from "https://esm.sh/fast-extend@1.0.2"
+import { unixify } from '../fs-monkey/lib/correctPath.js'
 
+import * as pathModule from "node:path";
+import { Readable, Writable } from "node:stream";
+import { EventEmitter } from "node:events";
+import util from 'node:util';
+
+import { Node, Link, File } from "./node.ts";
+import Stats, { TStatNumber } from "./Stats.ts";
+import Dirent from "./Dirent.ts";
+import { Buffer, bufferAllocUnsafe, bufferFrom } from "./internal/buffer.ts";
+import setImmediate from "./setImmediate.ts";
+import process from "./process.ts";
+import setTimeoutUnref, { TSetTimeout } from "./setTimeoutUnref.ts";
+import { constants } from "./constants.ts";
+import { TEncoding, TEncodingExtended, TDataOut, assertEncoding, strToEncoding, ENCODING_UTF8 } from "./encoding.ts";
+import * as errors from "./internal/errors.ts";
+import createPromisesApi from "./promises.ts";
+
+var exports = {};
 const resolveCrossPlatform = pathModule.resolve;
 const {
   O_RDONLY,
@@ -400,7 +404,7 @@ function getPathFromURLPosix(url): string {
 export function pathToFilename(path: TFilePath): string {
   if (typeof path !== 'string' && !Buffer.isBuffer(path)) {
     try {
-      if (!(path instanceof require('url').URL)) throw new TypeError(ERRSTR.PATH_STR);
+      if (!(path instanceof URL)) throw new TypeError(ERRSTR.PATH_STR);
     } catch (err) {
       throw new TypeError(ERRSTR.PATH_STR);
     }
@@ -416,9 +420,9 @@ export function pathToFilename(path: TFilePath): string {
 
 type TResolve = (filename: string, base?: string) => string;
 let resolve: TResolve = (filename, base = process.cwd()) => resolveCrossPlatform(base, filename);
+
 if (isWin) {
   const _resolve = resolve;
-  const { unixify } = require('fs-monkey/lib/correctPath');
   resolve = (filename, base) => unixify(_resolve(filename, base));
 }
 
@@ -2611,3 +2615,9 @@ export class FSWatcher extends EventEmitter {
     }
   }
 }
+
+export {
+    FsReadStream as ReadStream,
+    FsWriteStream as WriteStream,
+}
+export default exports

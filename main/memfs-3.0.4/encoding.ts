@@ -1,5 +1,5 @@
-import { Buffer } from './internal/buffer';
-import * as errors from './internal/errors';
+import { Buffer } from "./internal/buffer.ts";
+import * as errors from "./internal/errors.ts";
 
 export type TDataOut = string | Buffer; // Data formats we give back to users.
 export type TEncoding = 'ascii' | 'utf8' | 'utf16le' | 'ucs2' | 'base64' | 'latin1' | 'binary' | 'hex';

@@ -15,11 +15,11 @@ import {
   IRealpathOptions,
   IWriteFileOptions,
   IStatOptions,
-} from './volume';
-import { Buffer } from './internal/buffer';
-import Stats from './Stats';
-import Dirent from './Dirent';
-import { TDataOut } from './encoding';
+} from "./volume.ts";
+import { Buffer } from "./internal/buffer.ts";
+import Stats from "./Stats.ts";
+import Dirent from "./Dirent.ts";
+import { TDataOut } from "./encoding.ts";
 
 function promisify(
   vol: Volume,

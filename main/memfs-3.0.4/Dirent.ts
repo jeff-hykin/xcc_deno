@@ -1,6 +1,6 @@
-import { Link } from './node';
-import { constants } from './constants';
-import { TEncodingExtended, strToEncoding, TDataOut } from './encoding';
+import { Link } from "./node.ts";
+import { constants } from "./constants.ts";
+import { TEncodingExtended, strToEncoding, TDataOut } from "./encoding.ts";
 
 const { S_IFMT, S_IFDIR, S_IFREG, S_IFBLK, S_IFCHR, S_IFLNK, S_IFIFO, S_IFSOCK } = constants;
 

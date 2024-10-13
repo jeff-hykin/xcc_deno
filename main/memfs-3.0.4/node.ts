@@ -1,10 +1,10 @@
-import process from './process';
-import { bufferAllocUnsafe, bufferFrom } from './internal/buffer';
-import { constants, S } from './constants';
-import { Volume } from './volume';
-import { EventEmitter } from 'events';
-import { TEncodingExtended, strToEncoding, TDataOut } from './encoding';
-import Stats from './Stats';
+import { EventEmitter } from "node:events";
+import process from "./process.ts";
+import { bufferAllocUnsafe, bufferFrom } from "./internal/buffer.ts";
+import { constants, S } from "./constants.ts";
+import { Volume } from "./volume.ts";
+import { TEncodingExtended, strToEncoding, TDataOut } from "./encoding.ts";
+import Stats from "./Stats.ts";
 
 const { S_IFMT, S_IFDIR, S_IFREG, S_IFBLK, S_IFCHR, S_IFLNK, S_IFIFO, S_IFSOCK, O_APPEND } = constants;
 

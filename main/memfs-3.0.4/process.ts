@@ -1,4 +1,5 @@
 // Here we mock the global `process` variable in case we are not in Node's environment.
+import nextTick from './setImmediate.ts';
 
 export interface IProcess {
   getuid(): number;
@@ -24,15 +25,7 @@ export interface IProcess {
  * @return {IProcess | undefined}
  */
 const maybeReturnProcess = (): IProcess | undefined => {
-  if (typeof process !== 'undefined') {
-    return process;
-  }
-
-  try {
-    return require('process');
-  } catch {
-    return undefined;
-  }
+  return globalThis.process;
 };
 
 export function createProcess(): IProcess {
@@ -41,7 +34,9 @@ export function createProcess(): IProcess {
   if (!p.getuid) p.getuid = () => 0;
   if (!p.getgid) p.getgid = () => 0;
   if (!p.cwd) p.cwd = () => '/';
-  if (!p.nextTick) p.nextTick = require('./setImmediate').default;
+  if (!p.nextTick) {
+    p.nextTick = nextTick
+  }
   if (!p.emitWarning)
     p.emitWarning = (message, type) => {
       // tslint:disable-next-line:no-console

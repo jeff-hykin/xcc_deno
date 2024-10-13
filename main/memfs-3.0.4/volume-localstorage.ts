@@ -1,5 +1,5 @@
-import { Volume } from './volume';
-import { Link, Node } from './node';
+import { Volume } from "./volume.ts";
+import { Link, Node } from "./node.ts";
 
 export interface IStore {
   setItem(key: string, json);
