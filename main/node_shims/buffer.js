@@ -1,7 +1,8 @@
+import { config } from "./_config.js"
 import * as browser from "./helpers/buffer_es6@4_9_3.js"
 
 let exported = browser
-if (globalThis.Deno || globalThis.process) {
+if (!config.forceBrowser && (globalThis.Deno || globalThis.process)) {
      exported = await import("node:buffer")
 }
 

@@ -1,3 +1,4 @@
+import { config } from "./_config.js"
 import * as browser from "./helpers/stream-browserify.js"
 import browserDefault from "https://esm.sh/path-browserify@1.0.1"
 

@@ -1,4 +1,4 @@
-
+import { config } from "./_config.js"
 let exported = {
     AssertionError: class AssertionError extends Error {},
     doesNotMatch() {
@@ -70,7 +70,7 @@ const assert = (boolValue, message) => {
   }
 }
 let exportedDefault = Object.assign(assert, exported)
-if (globalThis.Deno || globalThis.process) {
+if (!config.forceBrowser && (globalThis.Deno || globalThis.process)) {
      exported = await import("node:assert")
      exportedDefault = exported.default
 }

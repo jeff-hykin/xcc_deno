@@ -1,3 +1,4 @@
+import { config } from "./_config.js"
 const baseNow = Math.floor((Date.now() - performance.now()) * 1e-3);
 let exported = {
     getuid: () => 0,
@@ -27,9 +28,9 @@ let exported = {
 }
 
 // Deno 1.x
-if (globalThis.process) {
+if (!config.forceBrowser && globalThis.process) {
     exported = globalThis.process
-} else if (globalThis.Deno && !globalThis.process) {
+} else if (!config.forceBrowser && globalThis.Deno && !globalThis.process) {
      exported = await import("node:process")
 } else {
     exported.default = exported

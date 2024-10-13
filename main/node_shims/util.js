@@ -1,3 +1,4 @@
+import { config } from "./_config.js"
 import browser from "./helpers/util.js"
 import { Buffer } from "./buffer.js"
 
@@ -38,7 +39,7 @@ let exported = {
     isBuffer: arg=>arg instanceof Buffer,
 }
 let exportedDefault = exported
-if (globalThis.Deno || globalThis.process) {
+if (!config.forceBrowser && (globalThis.Deno || globalThis.process)) {
      exported = await import("node:util")
      exportedDefault = exported.default
 }
