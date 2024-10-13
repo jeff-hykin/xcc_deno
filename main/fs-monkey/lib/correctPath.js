@@ -1,10 +1,4 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.correctPath = correctPath;
-exports.unixify = unixify;
+var exports = {};
 var isWin = process.platform === 'win32';
 function removeTrailingSeparator(str) {
   var i = str.length - 1;
@@ -40,4 +34,13 @@ function unixify(filepath) {
 }
 function correctPath(filepath) {
   return unixify(filepath.replace(/^\\\\\?\\.:\\/, '\\'));
+}
+
+exports.correctPath = correctPath;
+exports.unixify = unixify;
+exports.default = exports;
+export {
+    correctPath,
+    unixify,
+    exports as default
 }
