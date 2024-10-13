@@ -10,8 +10,7 @@ import { Node, Link, File } from "./node.ts";
 import Stats, { TStatNumber } from "./Stats.ts";
 import Dirent from "./Dirent.ts";
 import { Buffer, bufferAllocUnsafe, bufferFrom } from "./internal/buffer.ts";
-import setImmediate from "./setImmediate.ts";
-import process from "./process.ts";
+import process from "../node_shims/process.js";
 import setTimeoutUnref, { TSetTimeout } from "./setTimeoutUnref.ts";
 import { constants } from "./constants.ts";
 import { TEncoding, TEncodingExtended, TDataOut, assertEncoding, strToEncoding, ENCODING_UTF8 } from "./encoding.ts";
@@ -801,7 +800,7 @@ export class Volume {
 
   private wrapAsync(method: (...args) => void, args: any[], callback: TCallback<any>) {
     validateCallback(callback);
-    setImmediate(() => {
+    process.nextTick(() => {
       try {
         callback(null, method.apply(this, args));
       } catch (err) {
@@ -1057,7 +1056,7 @@ export class Volume {
       });
     }
 
-    setImmediate(() => {
+    process.nextTick(() => {
       try {
         const bytes = this.readBase(fd, buffer, offset, length, position);
         callback(null, bytes, buffer);
@@ -1220,7 +1219,7 @@ export class Volume {
 
     const cb = validateCallback(callback);
 
-    setImmediate(() => {
+    process.nextTick(() => {
       try {
         const bytes = this.writeBase(fd, buf, offset, length, position);
         if (tipa !== 'string') {
@@ -1579,7 +1578,7 @@ export class Volume {
 
     if (typeof callback !== 'function') throw Error(ERRSTR.CB);
 
-    setImmediate(() => {
+    process.nextTick(() => {
       try {
         callback(this.existsBase(filename));
       } catch (err) {

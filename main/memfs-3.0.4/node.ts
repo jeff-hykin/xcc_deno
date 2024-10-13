@@ -1,5 +1,5 @@
 import { EventEmitter } from "node:events";
-import process from "./process.ts";
+import process from "../node_shims/process.js";
 import { bufferAllocUnsafe, bufferFrom } from "./internal/buffer.ts";
 import { constants, S } from "./constants.ts";
 import { Volume } from "./volume.ts";

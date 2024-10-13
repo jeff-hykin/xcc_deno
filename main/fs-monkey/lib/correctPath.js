@@ -1,4 +1,4 @@
-import process from "node:process"
+import process from "../../node_shims/process.js";
 
 var exports = {};
 var isWin = process.platform === 'win32';
