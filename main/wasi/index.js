@@ -1,7 +1,7 @@
 // "https://cdn.jsdelivr.net/npm/@wasmer/wasi@0.12.0/lib/index.js"
 import { BigIntPolyfill} from "./polyfills/bigint.js"
 import { DataViewPolyfill } from "./polyfills/dataview.js"
-import Buffer from "./polyfills/buffer.js"
+import { Buffer } from "../node_shims/buffer.js"
 import browserBindings from "./bindings/browser.js";
 var exports = {};
 // Import our default bindings depending on the environment
