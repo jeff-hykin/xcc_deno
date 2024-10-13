@@ -2,9 +2,9 @@ import { extend } from "https://esm.sh/fast-extend@1.0.2"
 import { unixify } from '../fs-monkey/lib/correctPath.js'
 
 import * as pathModule from "../node_shims/path.js";
-import { Readable, Writable } from "node:stream";
-import { EventEmitter } from "node:events";
-import util from 'node:util';
+import { Readable, Writable } from "../node_shims/stream.js";
+import { EventEmitter } from "../node_shims/events.js";
+import util from '../node_shims/util.js';
 
 import { Node, Link, File } from "./node.ts";
 import Stats, { TStatNumber } from "./Stats.ts";

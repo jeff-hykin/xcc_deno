@@ -5,8 +5,8 @@
 // value statically and permanently identifies the error. While the error
 // message may change, the code should not.
 
-import * as assertModule from "node:assert";
-import * as util from "node:util";
+import { strictEqual } from "../../node_shims/assert.js";
+import * as util from "../../node_shims/util.js";
 
 const assert = (boolValue, message) => {
   if (!boolValue) {
@@ -60,7 +60,7 @@ class AssertionError extends globalThis.Error {
 }
 
 function message(key, args) {
-  assertModule.strictEqual(typeof key, 'string');
+  strictEqual(typeof key, 'string');
   // const msg = messages.get(key);
   const msg = messages[key];
   assert(msg, `An invalid error message key was used: ${key}.`);
@@ -120,7 +120,7 @@ E('ERR_HTTP_TRAILER_INVALID', 'Trailers are invalid with this transfer encoding'
 E('ERR_INDEX_OUT_OF_RANGE', 'Index out of range');
 E('ERR_INVALID_ARG_TYPE', invalidArgType);
 E('ERR_INVALID_ARRAY_LENGTH', (name, len, actual) => {
-  assertModule.strictEqual(typeof actual, 'number');
+  strictEqual(typeof actual, 'number');
   return `The array "${name}" (length ${actual}) must be of length ${len}.`;
 });
 E('ERR_INVALID_BUFFER_SIZE', 'Buffer size must be a multiple of %s');

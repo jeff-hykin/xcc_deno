@@ -1,48 +1,51 @@
-import browserPath from "https://esm.sh/path-browserify@1.0.1"
+import * as browser from "https://esm.sh/path-browserify@1.0.1"
+import browserDefault from "https://esm.sh/path-browserify@1.0.1"
 
-let exportedPath = browserPath
+let exported = browser
+let exportedDefault = browserDefault
 if (globalThis.Deno || globalThis.process) {
-     exportedPath = await import("node:path")
+     exported = await import("node:path")
+     exportedDefault = exported.default
 }
 
 var {
-    resolve,
-    normalize,
-    isAbsolute,
-    join,
-    relative,
     _makeLong,
-    dirname,
     basename,
+    common,
+    delimiter,
+    dirname,
     extname,
     format,
+    isAbsolute,
+    join,
+    normalize,
     parse,
-    sep,
-    delimiter,
-    win32,
     posix,
+    relative,
+    resolve,
+    sep,
     toNamespacedPath,
-    common,
-} = exportedPath
+    win32,
+} = exported
 
 export {
-    resolve,
-    normalize,
-    isAbsolute,
-    join,
-    relative,
     _makeLong,
-    dirname,
     basename,
+    common,
+    delimiter,
+    dirname,
     extname,
     format,
+    isAbsolute,
+    join,
+    normalize,
     parse,
-    sep,
-    delimiter,
-    win32,
     posix,
+    relative,
+    resolve,
+    sep,
     toNamespacedPath,
-    common,
+    win32,
 }
 
-export default exportedPath
+export default exportedDefault

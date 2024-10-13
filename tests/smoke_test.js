@@ -52,5 +52,10 @@ int main() {
 }
 `
 
-console.log(await compileAndOrRun({args: [], sourceCode: EXAMPLE_CODE}))
+try {
+    console.log(await compileAndOrRun({args: [], sourceCode: EXAMPLE_CODE}))
+} catch (error) {
+    console.error(error)
+    console.error(error.stack)
+}
 Deno.exit()

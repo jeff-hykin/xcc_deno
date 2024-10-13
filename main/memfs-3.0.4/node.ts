@@ -1,4 +1,4 @@
-import { EventEmitter } from "node:events";
+import { EventEmitter } from "../node_shims/events.js";
 import process from "../node_shims/process.js";
 import { bufferAllocUnsafe, bufferFrom } from "./internal/buffer.ts";
 import { constants, S } from "./constants.ts";
