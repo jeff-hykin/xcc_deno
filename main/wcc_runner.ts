@@ -1,4 +1,4 @@
-import path from "https://esm.sh/path-browserify@1.0.1"
+import path from "./node_shims/path.js"
 import { unzip } from "https://esm.sh/fflate@0.8.2"
 import uint8ArrayForWccfilesZip from "../embedded_files/wccfiles.zip.binaryified.js"
 

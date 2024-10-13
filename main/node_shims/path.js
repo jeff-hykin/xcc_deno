@@ -1,6 +1,6 @@
 import { config } from "./_config.js"
-import * as browser from "https://esm.sh/path-browserify@1.0.1"
-import browserDefault from "https://esm.sh/path-browserify@1.0.1"
+import * as browser from "https://esm.sh/path-browserify@1.0.1?target=es2022"
+import browserDefault from "https://esm.sh/path-browserify@1.0.1?target=es2022"
 
 let exported = browser
 let exportedDefault = browserDefault
