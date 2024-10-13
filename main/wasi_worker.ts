@@ -1,6 +1,7 @@
 import { WaProc } from "./wa_proc.ts"
 // import { WasmFs } from "https://cdn.jsdelivr.net/npm/@wasmer/wasmfs@0.12.0/src/index.ts"
 import { WasmFs } from "./wasmfs/index.ts"
+// import { WasmFs } from "./wasmfs/index.js"
 // import { WasmerRuntimeError } from "https://esm.sh/@wasmer/wasi@1.2.2"
 // import { WasmerRuntimeError } from "https://cdn.jsdelivr.net/npm/@wasmer/wasi@1.2.2/dist/Library.esm.js"
 // import { WASIExitError } from "https://esm.sh/@wasmer/wasi@0.12.0"
@@ -123,4 +124,8 @@ export class WasiWorker {
     }
 }
 
-new WasiWorker(self)
+try {
+    new WasiWorker(self)
+} catch (error) {
+    throw new Error(`error: ${error.stack}`)
+}

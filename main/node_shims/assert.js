@@ -53,9 +53,6 @@ let exported = {
                 operator: 'strictEqual',
                 stackStartFn: strictEqual
             };
-            if (obj.message instanceof Error) {
-                throw obj.message
-            };
             throw new exported.AssertionError(obj);
         }
     },

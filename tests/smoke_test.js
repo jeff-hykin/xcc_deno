@@ -57,5 +57,6 @@ try {
 } catch (error) {
     console.error(error)
     console.error(error.stack)
+    Deno.exit(1)
 }
 Deno.exit()

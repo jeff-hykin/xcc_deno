@@ -1,5 +1,5 @@
 import { config } from "./_config.js"
-import * as browser from "./helpers/buffer_es6@4_9_3.js"
+import * as browser from "./helpers/buffer.js"
 
 let exported = browser
 if (!config.forceBrowser && (globalThis.Deno || globalThis.process)) {

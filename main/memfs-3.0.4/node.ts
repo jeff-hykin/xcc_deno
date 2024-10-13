@@ -1,4 +1,6 @@
 import { EventEmitter } from "../node_shims/events.js";
+import { Buffer } from "../node_shims/buffer.js";
+import { isBuffer } from "../node_shims/util.js";
 import process from "../node_shims/process.js";
 import { bufferAllocUnsafe, bufferFrom } from "./internal/buffer.ts";
 import { constants, S } from "./constants.ts";
@@ -130,7 +132,6 @@ export class Node extends EventEmitter {
     if (actualLen + pos > this.buf.length) {
       actualLen = this.buf.length - pos;
     }
-
     this.buf.copy(buf as Buffer, off, pos, pos + actualLen);
     return actualLen;
   }
