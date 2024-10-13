@@ -1,6 +1,8 @@
 // https://cdn.jsdelivr.net/npm/@wasmer/wasmfs@0.12.0/src/index.ts
 // An alternative fs for the browser and testing
-import { createFsFromVolume, IFs } from "https://esm.sh/memfs@3.0.4";
+// import { createFsFromVolume, IFs } from "https://esm.sh/memfs@3.0.4";
+import { createFsFromVolume, type IFs } from "../memfs-3.0.4/index.ts";
+import { Link } from "../memfs-3.0.4/node.ts";
 import {
   Volume,
   filenameToSteps,
@@ -8,7 +10,6 @@ import {
   TFilePath,
   pathToFilename
 } from "https://esm.sh/memfs@3.0.4/lib/volume";
-import { Link } from "https://esm.sh/memfs@3.0.4/lib/node";
 
 import { relative } from "https://esm.sh/path-browserify@1.0.1";
 import "./node_sync_emit.ts";
