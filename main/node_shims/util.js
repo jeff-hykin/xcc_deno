@@ -13,7 +13,6 @@ let exported = {
     inspect: globalThis.inspect,
     isArray: globalThis.isArray,
     isBoolean: globalThis.isBoolean,
-    isBuffer: globalThis.isBuffer,
     isDate: globalThis.isDate,
     isDeepStrictEqual: globalThis.isDeepStrictEqual,
     isError: globalThis.isError,
@@ -36,7 +35,7 @@ let exported = {
     toUSVString: globalThis.toUSVString,
     ...browser,
     types: {},
-    isBuffer: arg=arg instanceof Buffer,
+    isBuffer: arg=>arg instanceof Buffer,
 }
 let exportedDefault = exported
 if (globalThis.Deno || globalThis.process) {

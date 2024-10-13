@@ -18,7 +18,8 @@
 // DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
 // USE OR OTHER DEALINGS IN THE SOFTWARE.
-import * as types from "./types.js"
+import * as types from "./support/types.js"
+import process from "../process.js"
 
 var exports = { types }
 var getOwnPropertyDescriptors = Object.getOwnPropertyDescriptors ||
@@ -589,7 +590,7 @@ exports.log = function() {
  */
 if (typeof Object.create === 'function') {
   // implementation from standard node.js 'util' module
-  function inherits(ctor, superCtor) {
+  exports.inherits = function(ctor, superCtor) {
     if (superCtor) {
       ctor.super_ = superCtor
       ctor.prototype = Object.create(superCtor.prototype, {
@@ -604,7 +605,7 @@ if (typeof Object.create === 'function') {
   };
 } else {
   // old school shim for old browsers
-  function inherits(ctor, superCtor) {
+  exports.inherits = function(ctor, superCtor) {
     if (superCtor) {
       ctor.super_ = superCtor
       var TempCtor = function () {}
@@ -614,8 +615,6 @@ if (typeof Object.create === 'function') {
     }
   }
 }
-exports.inherits = inherits;
-
 
 exports._extend = function(origin, add) {
   // Don't do anything if add isn't an object
