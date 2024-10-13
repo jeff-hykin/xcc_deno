@@ -5601,17 +5601,17 @@ var require_string_decoder = __commonJS6({
     function utf8CheckExtraBytes(self2, buf, p33) {
       if ((buf[0] & 192) !== 128) {
         self2.lastNeed = 0;
-        return "�";
+        return "\uFFFD";
       }
       if (self2.lastNeed > 1 && buf.length > 1) {
         if ((buf[1] & 192) !== 128) {
           self2.lastNeed = 1;
-          return "�";
+          return "\uFFFD";
         }
         if (self2.lastNeed > 2 && buf.length > 2) {
           if ((buf[2] & 192) !== 128) {
             self2.lastNeed = 2;
-            return "�";
+            return "\uFFFD";
           }
         }
       }
@@ -5640,7 +5640,7 @@ var require_string_decoder = __commonJS6({
     function utf8End(buf) {
       var r2 = buf && buf.length ? this.write(buf) : "";
       if (this.lastNeed)
-        return r2 + "�";
+        return r2 + "\uFFFD";
       return r2;
     }
     function utf16Text(buf, i18) {
