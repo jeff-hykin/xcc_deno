@@ -12,13 +12,10 @@ export const fsAsyncMethods = ['rename', 'ftruncate', 'truncate', 'chown', 'fcho
 const constants = workaround.constants;
 const { F_OK, R_OK, W_OK, X_OK } = constants;
 
-var exports = {};
 export const Volume = _Volume;
-exports.Volume = Volume;
 
 // Default volume.
 export const vol = new _Volume();
-exports.vol = vol;
 
 export interface IFs extends _Volume {
   constants: typeof constants;
@@ -49,19 +46,14 @@ export function createFsFromVolume(vol: _Volume): IFs {
 
   return fs;
 }
-exports.createFsFromVolume = createFsFromVolume;
 
 export const fs: IFs = createFsFromVolume(vol);
 
-// 
-// export stuff
-// 
-exports.fs = fs;
-Object.assign(exports, fs);
-exports.default = exports;
-var { // this is all the stuff from Object.assign(exports, fs)
+export {
     Stats, 
-    Dirent, 
+    Dirent,
+}
+export const { // this is all the stuff from Object.assign(exports, fs)
     renameSync, 
     ftruncateSync, 
     truncateSync, 
@@ -146,96 +138,3 @@ var { // this is all the stuff from Object.assign(exports, fs)
     promises, 
     _toUnixTimestamp, 
 } = fs;
-export {
-    F_OK, 
-    R_OK, 
-    W_OK, 
-    X_OK, 
-    constants, 
-    Stats, 
-    Dirent, 
-    renameSync, 
-    ftruncateSync, 
-    truncateSync, 
-    chownSync, 
-    fchownSync, 
-    lchownSync, 
-    chmodSync, 
-    fchmodSync, 
-    lchmodSync, 
-    statSync, 
-    lstatSync, 
-    fstatSync, 
-    linkSync, 
-    symlinkSync, 
-    readlinkSync, 
-    realpathSync, 
-    unlinkSync, 
-    rmdirSync, 
-    mkdirSync, 
-    mkdirpSync, 
-    readdirSync, 
-    closeSync, 
-    openSync, 
-    utimesSync, 
-    futimesSync, 
-    fsyncSync, 
-    writeSync, 
-    readSync, 
-    readFileSync, 
-    writeFileSync, 
-    appendFileSync, 
-    existsSync, 
-    accessSync, 
-    fdatasyncSync, 
-    mkdtempSync, 
-    copyFileSync, 
-    createReadStream, 
-    createWriteStream, 
-    rename, 
-    ftruncate, 
-    truncate, 
-    chown, 
-    fchown, 
-    lchown, 
-    chmod, 
-    fchmod, 
-    lchmod, 
-    stat, 
-    lstat, 
-    fstat, 
-    link, 
-    symlink, 
-    readlink, 
-    realpath, 
-    unlink, 
-    rmdir, 
-    mkdir, 
-    mkdirp, 
-    readdir, 
-    close, 
-    open, 
-    utimes, 
-    futimes, 
-    fsync, 
-    write, 
-    read, 
-    readFile, 
-    writeFile, 
-    appendFile, 
-    exists, 
-    access, 
-    fdatasync, 
-    mkdtemp, 
-    copyFile, 
-    watchFile, 
-    unwatchFile, 
-    watch, 
-    StatWatcher, 
-    FSWatcher, 
-    WriteStream, 
-    ReadStream, 
-    promises, 
-    _toUnixTimestamp,
-}
-export default exports
