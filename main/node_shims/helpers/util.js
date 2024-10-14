@@ -21,7 +21,7 @@
 import * as types from "./support/types.js"
 import process from "../process.js"
 
-var exports = { types }
+var exports = { types: {...types} }
 var getOwnPropertyDescriptors = Object.getOwnPropertyDescriptors ||
   function getOwnPropertyDescriptors(obj) {
     var keys = Object.keys(obj);

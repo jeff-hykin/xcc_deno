@@ -3,7 +3,7 @@ import * as xcc from '../main/main.js'
 // import { WccRunner, DisWasm } from '../main/main.js'
 
 import { WASI } from "../main/wasi/index.js"
-import { WasmFs } from "../main/wasmfs/index.js"
+import { WasmFs } from "../main/wasmfs/index.ts"
 import path from "../main/node_shims/path.js"
 
 // 
@@ -32,7 +32,7 @@ async function compileAndOrRun({sourceCode}) {
     const sourceName = "main.c"
     const objFn = "main.o"
     const compiledPath = "a.wasm"
-    const extraOptions = compileAndDump ? ["-efib", "-c", "-o", objFn, "--import-module-name=env", ] : undefined
+    const extraOptions =  ["-e", "fib", "-c", "-o", objFn, "--import-module-name=env", ]
     await wccRunner.writeFile(sourceName, sourceCode)
 
     const exitCode = await wccRunner.compile(sourceName, extraOptions)
