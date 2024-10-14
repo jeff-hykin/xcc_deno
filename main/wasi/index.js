@@ -1,5 +1,4 @@
 // "https://cdn.jsdelivr.net/npm/@wasmer/wasi@0.12.0/lib/index.js"
-import { BigIntPolyfill} from "./polyfills/bigint.js"
 import { DataViewPolyfill } from "./polyfills/dataview.js"
 import { Buffer } from "../node_shims/buffer.js"
 import browserBindings from "./bindings/browser.js";
@@ -62,16 +61,16 @@ const STDOUT_DEFAULT_RIGHTS = constants_1.WASI_RIGHT_FD_DATASYNC |
 const STDERR_DEFAULT_RIGHTS = STDOUT_DEFAULT_RIGHTS;
 const msToNs = (ms) => {
     const msInt = Math.trunc(ms);
-    const decimal = BigIntPolyfill(Math.round((ms - msInt) * 1000000));
-    const ns = BigIntPolyfill(msInt) * BigIntPolyfill(1000000);
+    const decimal = BigInt(Math.round((ms - msInt) * 1000000));
+    const ns = BigInt(msInt) * BigInt(1000000);
     return ns + decimal;
 };
 const nsToMs = (ns) => {
     if (typeof ns === 'number') {
         ns = Math.trunc(ns);
     }
-    const nsInt = BigIntPolyfill(ns);
-    return Number(nsInt / BigIntPolyfill(1000000));
+    const nsInt = BigInt(ns);
+    return Number(nsInt / BigInt(1000000));
 };
 const wrap = (f) => (...args) => {
     try {
@@ -158,14 +157,14 @@ const translateFileAttributes = (wasi, fd, stats) => {
         case stats.isSymbolicLink():
             return {
                 filetype: constants_1.WASI_FILETYPE_SYMBOLIC_LINK,
-                rightsBase: BigIntPolyfill(0),
-                rightsInheriting: BigIntPolyfill(0)
+                rightsBase: BigInt(0),
+                rightsInheriting: BigInt(0)
             };
         default:
             return {
                 filetype: constants_1.WASI_FILETYPE_UNKNOWN,
-                rightsBase: BigIntPolyfill(0),
-                rightsInheriting: BigIntPolyfill(0)
+                rightsBase: BigInt(0),
+                rightsInheriting: BigInt(0)
             };
     }
 };
@@ -210,7 +209,7 @@ export class WASIDefault {
                     // offset: BigInt(0),
                     rights: {
                         base: STDIN_DEFAULT_RIGHTS,
-                        inheriting: BigIntPolyfill(0)
+                        inheriting: BigInt(0)
                     },
                     path: undefined
                 }
@@ -223,7 +222,7 @@ export class WASIDefault {
                     // offset: BigInt(0),
                     rights: {
                         base: STDOUT_DEFAULT_RIGHTS,
-                        inheriting: BigIntPolyfill(0)
+                        inheriting: BigInt(0)
                     },
                     path: undefined
                 }
@@ -236,7 +235,7 @@ export class WASIDefault {
                     // offset: BigInt(0),
                     rights: {
                         base: STDERR_DEFAULT_RIGHTS,
-                        inheriting: BigIntPolyfill(0)
+                        inheriting: BigInt(0)
                     },
                     path: undefined
                 }
@@ -277,7 +276,7 @@ export class WASIDefault {
         const CHECK_FD = (fd, rights) => {
             const stats = stat(this, fd);
             // console.log(`CHECK_FD: stats.real: ${stats.real}, stats.path:`, stats.path);
-            if (rights !== BigIntPolyfill(0) && (stats.rights.base & rights) === BigIntPolyfill(0)) {
+            if (rights !== BigInt(0) && (stats.rights.base & rights) === BigInt(0)) {
                 throw new WASIError(constants_1.WASI_EPERM);
             }
             return stats;
@@ -341,11 +340,11 @@ export class WASIDefault {
                     case constants_1.WASI_CLOCK_MONOTONIC:
                     case constants_1.WASI_CLOCK_PROCESS_CPUTIME_ID:
                     case constants_1.WASI_CLOCK_THREAD_CPUTIME_ID: {
-                        res = BigIntPolyfill(1);
+                        res = BigInt(1);
                         break;
                     }
                     case constants_1.WASI_CLOCK_REALTIME: {
-                        res = BigIntPolyfill(1000);
+                        res = BigInt(1000);
                         break;
                     }
                 }
@@ -358,7 +357,7 @@ export class WASIDefault {
                 if (n === null) {
                     return constants_1.WASI_EINVAL;
                 }
-                this.view.setBigUint64(time, BigIntPolyfill(n), true);
+                this.view.setBigUint64(time, BigInt(n), true);
                 return constants_1.WASI_ESUCCESS;
             },
             fd_advise: wrap((fd, offset, len, advice) => {
@@ -370,7 +369,7 @@ export class WASIDefault {
                 return constants_1.WASI_ENOSYS;
             }),
             fd_close: wrap((fd) => {
-                const stats = CHECK_FD(fd, BigIntPolyfill(0));
+                const stats = CHECK_FD(fd, BigInt(0));
                 fs.closeSync(stats.real);
                 this.FD_MAP.delete(fd);
                 return constants_1.WASI_ESUCCESS;
@@ -381,13 +380,13 @@ export class WASIDefault {
                 return constants_1.WASI_ESUCCESS;
             }),
             fd_fdstat_get: wrap((fd, bufPtr) => {
-                const stats = CHECK_FD(fd, BigIntPolyfill(0));
+                const stats = CHECK_FD(fd, BigInt(0));
                 this.refreshMemory();
                 this.view.setUint8(bufPtr, stats.filetype); // FILETYPE u8
                 this.view.setUint16(bufPtr + 2, 0, true); // FDFLAG u16
                 this.view.setUint16(bufPtr + 4, 0, true); // FDFLAG u16
-                this.view.setBigUint64(bufPtr + 8, BigIntPolyfill(stats.rights.base), true); // u64
-                this.view.setBigUint64(bufPtr + 8 + 8, BigIntPolyfill(stats.rights.inheriting), true); // u64
+                this.view.setBigUint64(bufPtr + 8, BigInt(stats.rights.base), true); // u64
+                this.view.setBigUint64(bufPtr + 8 + 8, BigInt(stats.rights.inheriting), true); // u64
                 return constants_1.WASI_ESUCCESS;
             }),
             fd_fdstat_set_flags: wrap((fd, flags) => {
@@ -395,7 +394,7 @@ export class WASIDefault {
                 return constants_1.WASI_ENOSYS;
             }),
             fd_fdstat_set_rights: wrap((fd, fsRightsBase, fsRightsInheriting) => {
-                const stats = CHECK_FD(fd, BigIntPolyfill(0));
+                const stats = CHECK_FD(fd, BigInt(0));
                 const nrb = stats.rights.base | fsRightsBase;
                 if (nrb > stats.rights.base) {
                     return constants_1.WASI_EPERM;
@@ -412,15 +411,15 @@ export class WASIDefault {
                 const stats = CHECK_FD(fd, constants_1.WASI_RIGHT_FD_FILESTAT_GET);
                 const rstats = fs.fstatSync(stats.real);
                 this.refreshMemory();
-                this.view.setBigUint64(bufPtr, BigIntPolyfill(rstats.dev), true);
+                this.view.setBigUint64(bufPtr, BigInt(rstats.dev), true);
                 bufPtr += 8;
-                this.view.setBigUint64(bufPtr, BigIntPolyfill(rstats.ino), true);
+                this.view.setBigUint64(bufPtr, BigInt(rstats.ino), true);
                 bufPtr += 8;
                 this.view.setUint8(bufPtr, stats.filetype);
                 bufPtr += 8;
-                this.view.setBigUint64(bufPtr, BigIntPolyfill(rstats.nlink), true);
+                this.view.setBigUint64(bufPtr, BigInt(rstats.nlink), true);
                 bufPtr += 8;
-                this.view.setBigUint64(bufPtr, BigIntPolyfill(rstats.size), true);
+                this.view.setBigUint64(bufPtr, BigInt(rstats.size), true);
                 bufPtr += 8;
                 this.view.setBigUint64(bufPtr, msToNs(rstats.atimeMs), true);
                 bufPtr += 8;
@@ -464,7 +463,7 @@ export class WASIDefault {
                 return constants_1.WASI_ESUCCESS;
             }),
             fd_prestat_get: wrap((fd, bufPtr) => {
-                const stats = CHECK_FD(fd, BigIntPolyfill(0));
+                const stats = CHECK_FD(fd, BigInt(0));
                 if (!stats.path) {
                     return constants_1.WASI_EINVAL;
                 }
@@ -474,7 +473,7 @@ export class WASIDefault {
                 return constants_1.WASI_ESUCCESS;
             }),
             fd_prestat_dir_name: wrap((fd, pathPtr, pathLen) => {
-                const stats = CHECK_FD(fd, BigIntPolyfill(0));
+                const stats = CHECK_FD(fd, BigInt(0));
                 if (!stats.path) {
                     return constants_1.WASI_EINVAL;
                 }
@@ -503,7 +502,7 @@ export class WASIDefault {
                     while (w < iov.byteLength) {
                         const i = fs.writeSync(stats.real, iov, w, iov.byteLength - w, stats.offset ? Number(stats.offset) : null);
                         if (stats.offset)
-                            stats.offset += BigIntPolyfill(i);
+                            stats.offset += BigInt(i);
                         w += i;
                     }
                     written += w;
@@ -551,7 +550,7 @@ export class WASIDefault {
                         );
                         if (!IS_STDIN) {
                             stats.offset =
-                                (stats.offset ? stats.offset : BigIntPolyfill(0)) + BigIntPolyfill(rr);
+                                (stats.offset ? stats.offset : BigInt(0)) + BigInt(rr);
                         }
                         r += rr;
                         read += rr;
@@ -576,13 +575,13 @@ export class WASIDefault {
                     if (bufPtr - startPtr > bufLen) {
                         break;
                     }
-                    this.view.setBigUint64(bufPtr, BigIntPolyfill(i + 1), true);
+                    this.view.setBigUint64(bufPtr, BigInt(i + 1), true);
                     bufPtr += 8;
                     if (bufPtr - startPtr > bufLen) {
                         break;
                     }
                     const rstats = fs.statSync(path.resolve(stats.path, entry.name));
-                    this.view.setBigUint64(bufPtr, BigIntPolyfill(rstats.ino), true);
+                    this.view.setBigUint64(bufPtr, BigInt(rstats.ino), true);
                     bufPtr += 8;
                     if (bufPtr - startPtr > bufLen) {
                         break;
@@ -635,8 +634,8 @@ export class WASIDefault {
                 return constants_1.WASI_ESUCCESS;
             }),
             fd_renumber: wrap((from, to) => {
-                CHECK_FD(from, BigIntPolyfill(0));
-                CHECK_FD(to, BigIntPolyfill(0));
+                CHECK_FD(from, BigInt(0));
+                CHECK_FD(to, BigInt(0));
                 fs.closeSync(this.FD_MAP.get(from).real);
                 this.FD_MAP.set(from, this.FD_MAP.get(to));
                 this.FD_MAP.delete(to);
@@ -648,14 +647,14 @@ export class WASIDefault {
                 switch (whence) {
                     case constants_1.WASI_WHENCE_CUR:
                         stats.offset =
-                            (stats.offset ? stats.offset : BigIntPolyfill(0)) + BigIntPolyfill(offset);
+                            (stats.offset ? stats.offset : BigInt(0)) + BigInt(offset);
                         break;
                     case constants_1.WASI_WHENCE_END:
                         const { size } = fs.fstatSync(stats.real);
-                        stats.offset = BigIntPolyfill(size) + BigIntPolyfill(offset);
+                        stats.offset = BigInt(size) + BigInt(offset);
                         break;
                     case constants_1.WASI_WHENCE_SET:
-                        stats.offset = BigIntPolyfill(offset);
+                        stats.offset = BigInt(offset);
                         break;
                 }
                 this.view.setBigUint64(newOffsetPtr, stats.offset, true);
@@ -665,7 +664,7 @@ export class WASIDefault {
                 const stats = CHECK_FD(fd, constants_1.WASI_RIGHT_FD_TELL);
                 this.refreshMemory();
                 if (!stats.offset) {
-                    stats.offset = BigIntPolyfill(0);
+                    stats.offset = BigInt(0);
                 }
                 this.view.setBigUint64(offsetPtr, stats.offset, true);
                 return constants_1.WASI_ESUCCESS;
@@ -693,15 +692,15 @@ export class WASIDefault {
                 this.refreshMemory();
                 const p = Buffer.from(this.memory.buffer, pathPtr, pathLen).toString();
                 const rstats = fs.statSync(path.resolve(stats.path, p));
-                this.view.setBigUint64(bufPtr, BigIntPolyfill(rstats.dev), true);
+                this.view.setBigUint64(bufPtr, BigInt(rstats.dev), true);
                 bufPtr += 8;
-                this.view.setBigUint64(bufPtr, BigIntPolyfill(rstats.ino), true);
+                this.view.setBigUint64(bufPtr, BigInt(rstats.ino), true);
                 bufPtr += 8;
                 this.view.setUint8(bufPtr, translateFileAttributes(this, undefined, rstats).filetype);
                 bufPtr += 8;
-                this.view.setBigUint64(bufPtr, BigIntPolyfill(rstats.nlink), true);
+                this.view.setBigUint64(bufPtr, BigInt(rstats.nlink), true);
                 bufPtr += 8;
-                this.view.setBigUint64(bufPtr, BigIntPolyfill(rstats.size), true);
+                this.view.setBigUint64(bufPtr, BigInt(rstats.size), true);
                 bufPtr += 8;
                 this.view.setBigUint64(bufPtr, msToNs(rstats.atimeMs), true);
                 bufPtr += 8;
@@ -758,16 +757,16 @@ export class WASIDefault {
             }),
             path_open: wrap((dirfd, dirflags, pathPtr, pathLen, oflags, fsRightsBase, fsRightsInheriting, fsFlags, fd) => {
                 const stats = CHECK_FD(dirfd, constants_1.WASI_RIGHT_PATH_OPEN);
-                fsRightsBase = BigIntPolyfill(fsRightsBase);
-                fsRightsInheriting = BigIntPolyfill(fsRightsInheriting);
+                fsRightsBase = BigInt(fsRightsBase);
+                fsRightsInheriting = BigInt(fsRightsInheriting);
                 const read = (fsRightsBase & (constants_1.WASI_RIGHT_FD_READ | constants_1.WASI_RIGHT_FD_READDIR)) !==
-                    BigIntPolyfill(0);
+                    BigInt(0);
                 const write = (fsRightsBase &
                     (constants_1.WASI_RIGHT_FD_DATASYNC |
                         constants_1.WASI_RIGHT_FD_WRITE |
                         constants_1.WASI_RIGHT_FD_ALLOCATE |
                         constants_1.WASI_RIGHT_FD_FILESTAT_SET_SIZE)) !==
-                    BigIntPolyfill(0);
+                    BigInt(0);
                 let noflags;
                 if (write && read) {
                     noflags = fs.constants.O_RDWR;
@@ -960,7 +959,7 @@ export class WASIDefault {
                             sin += 6; // padding
                             const absolute = subclockflags === 1;
                             let e = constants_1.WASI_ESUCCESS;
-                            const n = BigIntPolyfill(now(clockid));
+                            const n = BigInt(now(clockid));
                             if (n === null) {
                                 e = constants_1.WASI_EINVAL;
                             }

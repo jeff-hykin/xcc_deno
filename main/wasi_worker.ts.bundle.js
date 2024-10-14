@@ -4,14 +4,8 @@ var __export = (target, all) => {
     __defProp(target, name, { get: all[name], enumerable: true });
 };
 
-// ../main/wasi/polyfills/bigint.js
-var exports = {};
-var globalObj = typeof globalThis !== "undefined" ? globalThis : typeof global !== "undefined" ? global : {};
-exports.BigIntPolyfill = typeof BigInt !== "undefined" ? BigInt : globalObj.BigInt || Number;
-var { BigIntPolyfill } = exports;
-
 // ../main/wasi/polyfills/dataview.js
-var exports2 = {};
+var exports = {};
 var exportedDataView = DataView;
 if (!exportedDataView.prototype.setBigUint64) {
   exportedDataView.prototype.setBigUint64 = function(byteOffset, value, littleEndian) {
@@ -43,11 +37,11 @@ if (!exportedDataView.prototype.setBigUint64) {
       lowWordAsBinaryStrPadded += "0";
     }
     lowWordAsBinaryStrPadded += lowWordAsBinaryStr;
-    return BigIntPolyfill("0b" + highWordAsBinaryStr + lowWordAsBinaryStrPadded);
+    return BigInt("0b" + highWordAsBinaryStr + lowWordAsBinaryStrPadded);
   };
 }
-exports2.DataViewPolyfill = exportedDataView;
-var { DataViewPolyfill } = exports2;
+exports.DataViewPolyfill = exportedDataView;
+var { DataViewPolyfill } = exports;
 
 // ../main/node_shims/buffer.js
 var buffer_exports2 = {};
@@ -135,11 +129,11 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
   mod
 ));
 var require_base64_js = __commonJS({
-  "../esmd/npm/base64-js@1.5.1/node_modules/.pnpm/base64-js@1.5.1/node_modules/base64-js/index.js"(exports8) {
+  "../esmd/npm/base64-js@1.5.1/node_modules/.pnpm/base64-js@1.5.1/node_modules/base64-js/index.js"(exports7) {
     "use strict";
-    exports8.byteLength = byteLength22;
-    exports8.toByteArray = toByteArray22;
-    exports8.fromByteArray = fromByteArray22;
+    exports7.byteLength = byteLength22;
+    exports7.toByteArray = toByteArray22;
+    exports7.fromByteArray = fromByteArray22;
     var lookup = [];
     var revLookup = [];
     var Arr = typeof Uint8Array !== "undefined" ? Uint8Array : Array;
@@ -283,8 +277,8 @@ var __toESM2 = (mod, isNodeMode, target) => (target = mod != null ? __create2(__
   mod
 ));
 var require_ieee754 = __commonJS2({
-  "../esmd/npm/ieee754@1.2.1/node_modules/.pnpm/ieee754@1.2.1/node_modules/ieee754/index.js"(exports8) {
-    exports8.read = function(buffer, offset, isLE, mLen, nBytes) {
+  "../esmd/npm/ieee754@1.2.1/node_modules/.pnpm/ieee754@1.2.1/node_modules/ieee754/index.js"(exports7) {
+    exports7.read = function(buffer, offset, isLE, mLen, nBytes) {
       var e3, m21;
       var eLen = nBytes * 8 - mLen - 1;
       var eMax = (1 << eLen) - 1;
@@ -314,7 +308,7 @@ var require_ieee754 = __commonJS2({
       }
       return (s26 ? -1 : 1) * m21 * Math.pow(2, e3 - mLen);
     };
-    exports8.write = function(buffer, value, offset, isLE, mLen, nBytes) {
+    exports7.write = function(buffer, value, offset, isLE, mLen, nBytes) {
       var e3, m21, c23;
       var eLen = nBytes * 8 - mLen - 1;
       var eMax = (1 << eLen) - 1;
@@ -423,16 +417,16 @@ var __toESM3 = (mod, isNodeMode, target) => (target = mod != null ? __create3(__
   mod
 ));
 var require_buffer = __commonJS3({
-  "../esmd/npm/buffer@6.0.3/node_modules/.pnpm/buffer@6.0.3/node_modules/buffer/index.js"(exports8) {
+  "../esmd/npm/buffer@6.0.3/node_modules/.pnpm/buffer@6.0.3/node_modules/buffer/index.js"(exports7) {
     "use strict";
     var base64 = __require("base64-js");
     var ieee754 = __require("ieee754");
     var customInspectSymbol = typeof Symbol === "function" && typeof Symbol["for"] === "function" ? Symbol["for"]("nodejs.util.inspect.custom") : null;
-    exports8.Buffer = Buffer32;
-    exports8.SlowBuffer = SlowBuffer23;
-    exports8.INSPECT_MAX_BYTES = 50;
+    exports7.Buffer = Buffer32;
+    exports7.SlowBuffer = SlowBuffer23;
+    exports7.INSPECT_MAX_BYTES = 50;
     var K_MAX_LENGTH = 2147483647;
-    exports8.kMaxLength = K_MAX_LENGTH;
+    exports7.kMaxLength = K_MAX_LENGTH;
     Buffer32.TYPED_ARRAY_SUPPORT = typedArraySupport();
     if (!Buffer32.TYPED_ARRAY_SUPPORT && typeof console !== "undefined" && typeof console.error === "function") {
       console.error(
@@ -878,7 +872,7 @@ var require_buffer = __commonJS3({
     };
     Buffer32.prototype.inspect = function inspect3() {
       let str = "";
-      const max = exports8.INSPECT_MAX_BYTES;
+      const max = exports7.INSPECT_MAX_BYTES;
       str = this.toString("hex", 0, max).replace(/(.{2})/g, "$1 ").trim();
       if (this.length > max)
         str += " ... ";
@@ -2637,300 +2631,300 @@ var bindings = {
 var browser_default = bindings;
 
 // ../main/wasi/constants.js
-var exports3 = {};
-exports3.WASI_ESUCCESS = 0;
-exports3.WASI_E2BIG = 1;
-exports3.WASI_EACCES = 2;
-exports3.WASI_EADDRINUSE = 3;
-exports3.WASI_EADDRNOTAVAIL = 4;
-exports3.WASI_EAFNOSUPPORT = 5;
-exports3.WASI_EAGAIN = 6;
-exports3.WASI_EALREADY = 7;
-exports3.WASI_EBADF = 8;
-exports3.WASI_EBADMSG = 9;
-exports3.WASI_EBUSY = 10;
-exports3.WASI_ECANCELED = 11;
-exports3.WASI_ECHILD = 12;
-exports3.WASI_ECONNABORTED = 13;
-exports3.WASI_ECONNREFUSED = 14;
-exports3.WASI_ECONNRESET = 15;
-exports3.WASI_EDEADLK = 16;
-exports3.WASI_EDESTADDRREQ = 17;
-exports3.WASI_EDOM = 18;
-exports3.WASI_EDQUOT = 19;
-exports3.WASI_EEXIST = 20;
-exports3.WASI_EFAULT = 21;
-exports3.WASI_EFBIG = 22;
-exports3.WASI_EHOSTUNREACH = 23;
-exports3.WASI_EIDRM = 24;
-exports3.WASI_EILSEQ = 25;
-exports3.WASI_EINPROGRESS = 26;
-exports3.WASI_EINTR = 27;
-exports3.WASI_EINVAL = 28;
-exports3.WASI_EIO = 29;
-exports3.WASI_EISCONN = 30;
-exports3.WASI_EISDIR = 31;
-exports3.WASI_ELOOP = 32;
-exports3.WASI_EMFILE = 33;
-exports3.WASI_EMLINK = 34;
-exports3.WASI_EMSGSIZE = 35;
-exports3.WASI_EMULTIHOP = 36;
-exports3.WASI_ENAMETOOLONG = 37;
-exports3.WASI_ENETDOWN = 38;
-exports3.WASI_ENETRESET = 39;
-exports3.WASI_ENETUNREACH = 40;
-exports3.WASI_ENFILE = 41;
-exports3.WASI_ENOBUFS = 42;
-exports3.WASI_ENODEV = 43;
-exports3.WASI_ENOENT = 44;
-exports3.WASI_ENOEXEC = 45;
-exports3.WASI_ENOLCK = 46;
-exports3.WASI_ENOLINK = 47;
-exports3.WASI_ENOMEM = 48;
-exports3.WASI_ENOMSG = 49;
-exports3.WASI_ENOPROTOOPT = 50;
-exports3.WASI_ENOSPC = 51;
-exports3.WASI_ENOSYS = 52;
-exports3.WASI_ENOTCONN = 53;
-exports3.WASI_ENOTDIR = 54;
-exports3.WASI_ENOTEMPTY = 55;
-exports3.WASI_ENOTRECOVERABLE = 56;
-exports3.WASI_ENOTSOCK = 57;
-exports3.WASI_ENOTSUP = 58;
-exports3.WASI_ENOTTY = 59;
-exports3.WASI_ENXIO = 60;
-exports3.WASI_EOVERFLOW = 61;
-exports3.WASI_EOWNERDEAD = 62;
-exports3.WASI_EPERM = 63;
-exports3.WASI_EPIPE = 64;
-exports3.WASI_EPROTO = 65;
-exports3.WASI_EPROTONOSUPPORT = 66;
-exports3.WASI_EPROTOTYPE = 67;
-exports3.WASI_ERANGE = 68;
-exports3.WASI_EROFS = 69;
-exports3.WASI_ESPIPE = 70;
-exports3.WASI_ESRCH = 71;
-exports3.WASI_ESTALE = 72;
-exports3.WASI_ETIMEDOUT = 73;
-exports3.WASI_ETXTBSY = 74;
-exports3.WASI_EXDEV = 75;
-exports3.WASI_ENOTCAPABLE = 76;
-exports3.WASI_SIGABRT = 0;
-exports3.WASI_SIGALRM = 1;
-exports3.WASI_SIGBUS = 2;
-exports3.WASI_SIGCHLD = 3;
-exports3.WASI_SIGCONT = 4;
-exports3.WASI_SIGFPE = 5;
-exports3.WASI_SIGHUP = 6;
-exports3.WASI_SIGILL = 7;
-exports3.WASI_SIGINT = 8;
-exports3.WASI_SIGKILL = 9;
-exports3.WASI_SIGPIPE = 10;
-exports3.WASI_SIGQUIT = 11;
-exports3.WASI_SIGSEGV = 12;
-exports3.WASI_SIGSTOP = 13;
-exports3.WASI_SIGTERM = 14;
-exports3.WASI_SIGTRAP = 15;
-exports3.WASI_SIGTSTP = 16;
-exports3.WASI_SIGTTIN = 17;
-exports3.WASI_SIGTTOU = 18;
-exports3.WASI_SIGURG = 19;
-exports3.WASI_SIGUSR1 = 20;
-exports3.WASI_SIGUSR2 = 21;
-exports3.WASI_SIGVTALRM = 22;
-exports3.WASI_SIGXCPU = 23;
-exports3.WASI_SIGXFSZ = 24;
-exports3.WASI_FILETYPE_UNKNOWN = 0;
-exports3.WASI_FILETYPE_BLOCK_DEVICE = 1;
-exports3.WASI_FILETYPE_CHARACTER_DEVICE = 2;
-exports3.WASI_FILETYPE_DIRECTORY = 3;
-exports3.WASI_FILETYPE_REGULAR_FILE = 4;
-exports3.WASI_FILETYPE_SOCKET_DGRAM = 5;
-exports3.WASI_FILETYPE_SOCKET_STREAM = 6;
-exports3.WASI_FILETYPE_SYMBOLIC_LINK = 7;
-exports3.WASI_FDFLAG_APPEND = 1;
-exports3.WASI_FDFLAG_DSYNC = 2;
-exports3.WASI_FDFLAG_NONBLOCK = 4;
-exports3.WASI_FDFLAG_RSYNC = 8;
-exports3.WASI_FDFLAG_SYNC = 16;
-exports3.WASI_RIGHT_FD_DATASYNC = BigIntPolyfill(1);
-exports3.WASI_RIGHT_FD_READ = BigIntPolyfill(2);
-exports3.WASI_RIGHT_FD_SEEK = BigIntPolyfill(4);
-exports3.WASI_RIGHT_FD_FDSTAT_SET_FLAGS = BigIntPolyfill(8);
-exports3.WASI_RIGHT_FD_SYNC = BigIntPolyfill(16);
-exports3.WASI_RIGHT_FD_TELL = BigIntPolyfill(32);
-exports3.WASI_RIGHT_FD_WRITE = BigIntPolyfill(64);
-exports3.WASI_RIGHT_FD_ADVISE = BigIntPolyfill(128);
-exports3.WASI_RIGHT_FD_ALLOCATE = BigIntPolyfill(256);
-exports3.WASI_RIGHT_PATH_CREATE_DIRECTORY = BigIntPolyfill(512);
-exports3.WASI_RIGHT_PATH_CREATE_FILE = BigIntPolyfill(1024);
-exports3.WASI_RIGHT_PATH_LINK_SOURCE = BigIntPolyfill(2048);
-exports3.WASI_RIGHT_PATH_LINK_TARGET = BigIntPolyfill(4096);
-exports3.WASI_RIGHT_PATH_OPEN = BigIntPolyfill(8192);
-exports3.WASI_RIGHT_FD_READDIR = BigIntPolyfill(16384);
-exports3.WASI_RIGHT_PATH_READLINK = BigIntPolyfill(32768);
-exports3.WASI_RIGHT_PATH_RENAME_SOURCE = BigIntPolyfill(65536);
-exports3.WASI_RIGHT_PATH_RENAME_TARGET = BigIntPolyfill(131072);
-exports3.WASI_RIGHT_PATH_FILESTAT_GET = BigIntPolyfill(262144);
-exports3.WASI_RIGHT_PATH_FILESTAT_SET_SIZE = BigIntPolyfill(524288);
-exports3.WASI_RIGHT_PATH_FILESTAT_SET_TIMES = BigIntPolyfill(1048576);
-exports3.WASI_RIGHT_FD_FILESTAT_GET = BigIntPolyfill(2097152);
-exports3.WASI_RIGHT_FD_FILESTAT_SET_SIZE = BigIntPolyfill(4194304);
-exports3.WASI_RIGHT_FD_FILESTAT_SET_TIMES = BigIntPolyfill(8388608);
-exports3.WASI_RIGHT_PATH_SYMLINK = BigIntPolyfill(16777216);
-exports3.WASI_RIGHT_PATH_REMOVE_DIRECTORY = BigIntPolyfill(33554432);
-exports3.WASI_RIGHT_PATH_UNLINK_FILE = BigIntPolyfill(67108864);
-exports3.WASI_RIGHT_POLL_FD_READWRITE = BigIntPolyfill(134217728);
-exports3.WASI_RIGHT_SOCK_SHUTDOWN = BigIntPolyfill(268435456);
-exports3.RIGHTS_ALL = exports3.WASI_RIGHT_FD_DATASYNC | exports3.WASI_RIGHT_FD_READ | exports3.WASI_RIGHT_FD_SEEK | exports3.WASI_RIGHT_FD_FDSTAT_SET_FLAGS | exports3.WASI_RIGHT_FD_SYNC | exports3.WASI_RIGHT_FD_TELL | exports3.WASI_RIGHT_FD_WRITE | exports3.WASI_RIGHT_FD_ADVISE | exports3.WASI_RIGHT_FD_ALLOCATE | exports3.WASI_RIGHT_PATH_CREATE_DIRECTORY | exports3.WASI_RIGHT_PATH_CREATE_FILE | exports3.WASI_RIGHT_PATH_LINK_SOURCE | exports3.WASI_RIGHT_PATH_LINK_TARGET | exports3.WASI_RIGHT_PATH_OPEN | exports3.WASI_RIGHT_FD_READDIR | exports3.WASI_RIGHT_PATH_READLINK | exports3.WASI_RIGHT_PATH_RENAME_SOURCE | exports3.WASI_RIGHT_PATH_RENAME_TARGET | exports3.WASI_RIGHT_PATH_FILESTAT_GET | exports3.WASI_RIGHT_PATH_FILESTAT_SET_SIZE | exports3.WASI_RIGHT_PATH_FILESTAT_SET_TIMES | exports3.WASI_RIGHT_FD_FILESTAT_GET | exports3.WASI_RIGHT_FD_FILESTAT_SET_TIMES | exports3.WASI_RIGHT_FD_FILESTAT_SET_SIZE | exports3.WASI_RIGHT_PATH_SYMLINK | exports3.WASI_RIGHT_PATH_UNLINK_FILE | exports3.WASI_RIGHT_PATH_REMOVE_DIRECTORY | exports3.WASI_RIGHT_POLL_FD_READWRITE | exports3.WASI_RIGHT_SOCK_SHUTDOWN;
-exports3.RIGHTS_BLOCK_DEVICE_BASE = exports3.RIGHTS_ALL;
-exports3.RIGHTS_BLOCK_DEVICE_INHERITING = exports3.RIGHTS_ALL;
-exports3.RIGHTS_CHARACTER_DEVICE_BASE = exports3.RIGHTS_ALL;
-exports3.RIGHTS_CHARACTER_DEVICE_INHERITING = exports3.RIGHTS_ALL;
-exports3.RIGHTS_REGULAR_FILE_BASE = exports3.WASI_RIGHT_FD_DATASYNC | exports3.WASI_RIGHT_FD_READ | exports3.WASI_RIGHT_FD_SEEK | exports3.WASI_RIGHT_FD_FDSTAT_SET_FLAGS | exports3.WASI_RIGHT_FD_SYNC | exports3.WASI_RIGHT_FD_TELL | exports3.WASI_RIGHT_FD_WRITE | exports3.WASI_RIGHT_FD_ADVISE | exports3.WASI_RIGHT_FD_ALLOCATE | exports3.WASI_RIGHT_FD_FILESTAT_GET | exports3.WASI_RIGHT_FD_FILESTAT_SET_SIZE | exports3.WASI_RIGHT_FD_FILESTAT_SET_TIMES | exports3.WASI_RIGHT_POLL_FD_READWRITE;
-exports3.RIGHTS_REGULAR_FILE_INHERITING = BigIntPolyfill(0);
-exports3.RIGHTS_DIRECTORY_BASE = exports3.WASI_RIGHT_FD_FDSTAT_SET_FLAGS | exports3.WASI_RIGHT_FD_SYNC | exports3.WASI_RIGHT_FD_ADVISE | exports3.WASI_RIGHT_PATH_CREATE_DIRECTORY | exports3.WASI_RIGHT_PATH_CREATE_FILE | exports3.WASI_RIGHT_PATH_LINK_SOURCE | exports3.WASI_RIGHT_PATH_LINK_TARGET | exports3.WASI_RIGHT_PATH_OPEN | exports3.WASI_RIGHT_FD_READDIR | exports3.WASI_RIGHT_PATH_READLINK | exports3.WASI_RIGHT_PATH_RENAME_SOURCE | exports3.WASI_RIGHT_PATH_RENAME_TARGET | exports3.WASI_RIGHT_PATH_FILESTAT_GET | exports3.WASI_RIGHT_PATH_FILESTAT_SET_SIZE | exports3.WASI_RIGHT_PATH_FILESTAT_SET_TIMES | exports3.WASI_RIGHT_FD_FILESTAT_GET | exports3.WASI_RIGHT_FD_FILESTAT_SET_TIMES | exports3.WASI_RIGHT_PATH_SYMLINK | exports3.WASI_RIGHT_PATH_UNLINK_FILE | exports3.WASI_RIGHT_PATH_REMOVE_DIRECTORY | exports3.WASI_RIGHT_POLL_FD_READWRITE;
-exports3.RIGHTS_DIRECTORY_INHERITING = exports3.RIGHTS_DIRECTORY_BASE | exports3.RIGHTS_REGULAR_FILE_BASE;
-exports3.RIGHTS_SOCKET_BASE = exports3.WASI_RIGHT_FD_READ | exports3.WASI_RIGHT_FD_FDSTAT_SET_FLAGS | exports3.WASI_RIGHT_FD_WRITE | exports3.WASI_RIGHT_FD_FILESTAT_GET | exports3.WASI_RIGHT_POLL_FD_READWRITE | exports3.WASI_RIGHT_SOCK_SHUTDOWN;
-exports3.RIGHTS_SOCKET_INHERITING = exports3.RIGHTS_ALL;
-exports3.RIGHTS_TTY_BASE = exports3.WASI_RIGHT_FD_READ | exports3.WASI_RIGHT_FD_FDSTAT_SET_FLAGS | exports3.WASI_RIGHT_FD_WRITE | exports3.WASI_RIGHT_FD_FILESTAT_GET | exports3.WASI_RIGHT_POLL_FD_READWRITE;
-exports3.RIGHTS_TTY_INHERITING = BigIntPolyfill(0);
-exports3.WASI_CLOCK_REALTIME = 0;
-exports3.WASI_CLOCK_MONOTONIC = 1;
-exports3.WASI_CLOCK_PROCESS_CPUTIME_ID = 2;
-exports3.WASI_CLOCK_THREAD_CPUTIME_ID = 3;
-exports3.WASI_EVENTTYPE_CLOCK = 0;
-exports3.WASI_EVENTTYPE_FD_READ = 1;
-exports3.WASI_EVENTTYPE_FD_WRITE = 2;
-exports3.WASI_FILESTAT_SET_ATIM = 1 << 0;
-exports3.WASI_FILESTAT_SET_ATIM_NOW = 1 << 1;
-exports3.WASI_FILESTAT_SET_MTIM = 1 << 2;
-exports3.WASI_FILESTAT_SET_MTIM_NOW = 1 << 3;
-exports3.WASI_O_CREAT = 1 << 0;
-exports3.WASI_O_DIRECTORY = 1 << 1;
-exports3.WASI_O_EXCL = 1 << 2;
-exports3.WASI_O_TRUNC = 1 << 3;
-exports3.WASI_PREOPENTYPE_DIR = 0;
-exports3.WASI_DIRCOOKIE_START = 0;
-exports3.WASI_STDIN_FILENO = 0;
-exports3.WASI_STDOUT_FILENO = 1;
-exports3.WASI_STDERR_FILENO = 2;
-exports3.WASI_WHENCE_SET = 0;
-exports3.WASI_WHENCE_CUR = 1;
-exports3.WASI_WHENCE_END = 2;
-exports3.ERROR_MAP = {
-  E2BIG: exports3.WASI_E2BIG,
-  EACCES: exports3.WASI_EACCES,
-  EADDRINUSE: exports3.WASI_EADDRINUSE,
-  EADDRNOTAVAIL: exports3.WASI_EADDRNOTAVAIL,
-  EAFNOSUPPORT: exports3.WASI_EAFNOSUPPORT,
-  EALREADY: exports3.WASI_EALREADY,
-  EAGAIN: exports3.WASI_EAGAIN,
+var exports2 = {};
+exports2.WASI_ESUCCESS = 0;
+exports2.WASI_E2BIG = 1;
+exports2.WASI_EACCES = 2;
+exports2.WASI_EADDRINUSE = 3;
+exports2.WASI_EADDRNOTAVAIL = 4;
+exports2.WASI_EAFNOSUPPORT = 5;
+exports2.WASI_EAGAIN = 6;
+exports2.WASI_EALREADY = 7;
+exports2.WASI_EBADF = 8;
+exports2.WASI_EBADMSG = 9;
+exports2.WASI_EBUSY = 10;
+exports2.WASI_ECANCELED = 11;
+exports2.WASI_ECHILD = 12;
+exports2.WASI_ECONNABORTED = 13;
+exports2.WASI_ECONNREFUSED = 14;
+exports2.WASI_ECONNRESET = 15;
+exports2.WASI_EDEADLK = 16;
+exports2.WASI_EDESTADDRREQ = 17;
+exports2.WASI_EDOM = 18;
+exports2.WASI_EDQUOT = 19;
+exports2.WASI_EEXIST = 20;
+exports2.WASI_EFAULT = 21;
+exports2.WASI_EFBIG = 22;
+exports2.WASI_EHOSTUNREACH = 23;
+exports2.WASI_EIDRM = 24;
+exports2.WASI_EILSEQ = 25;
+exports2.WASI_EINPROGRESS = 26;
+exports2.WASI_EINTR = 27;
+exports2.WASI_EINVAL = 28;
+exports2.WASI_EIO = 29;
+exports2.WASI_EISCONN = 30;
+exports2.WASI_EISDIR = 31;
+exports2.WASI_ELOOP = 32;
+exports2.WASI_EMFILE = 33;
+exports2.WASI_EMLINK = 34;
+exports2.WASI_EMSGSIZE = 35;
+exports2.WASI_EMULTIHOP = 36;
+exports2.WASI_ENAMETOOLONG = 37;
+exports2.WASI_ENETDOWN = 38;
+exports2.WASI_ENETRESET = 39;
+exports2.WASI_ENETUNREACH = 40;
+exports2.WASI_ENFILE = 41;
+exports2.WASI_ENOBUFS = 42;
+exports2.WASI_ENODEV = 43;
+exports2.WASI_ENOENT = 44;
+exports2.WASI_ENOEXEC = 45;
+exports2.WASI_ENOLCK = 46;
+exports2.WASI_ENOLINK = 47;
+exports2.WASI_ENOMEM = 48;
+exports2.WASI_ENOMSG = 49;
+exports2.WASI_ENOPROTOOPT = 50;
+exports2.WASI_ENOSPC = 51;
+exports2.WASI_ENOSYS = 52;
+exports2.WASI_ENOTCONN = 53;
+exports2.WASI_ENOTDIR = 54;
+exports2.WASI_ENOTEMPTY = 55;
+exports2.WASI_ENOTRECOVERABLE = 56;
+exports2.WASI_ENOTSOCK = 57;
+exports2.WASI_ENOTSUP = 58;
+exports2.WASI_ENOTTY = 59;
+exports2.WASI_ENXIO = 60;
+exports2.WASI_EOVERFLOW = 61;
+exports2.WASI_EOWNERDEAD = 62;
+exports2.WASI_EPERM = 63;
+exports2.WASI_EPIPE = 64;
+exports2.WASI_EPROTO = 65;
+exports2.WASI_EPROTONOSUPPORT = 66;
+exports2.WASI_EPROTOTYPE = 67;
+exports2.WASI_ERANGE = 68;
+exports2.WASI_EROFS = 69;
+exports2.WASI_ESPIPE = 70;
+exports2.WASI_ESRCH = 71;
+exports2.WASI_ESTALE = 72;
+exports2.WASI_ETIMEDOUT = 73;
+exports2.WASI_ETXTBSY = 74;
+exports2.WASI_EXDEV = 75;
+exports2.WASI_ENOTCAPABLE = 76;
+exports2.WASI_SIGABRT = 0;
+exports2.WASI_SIGALRM = 1;
+exports2.WASI_SIGBUS = 2;
+exports2.WASI_SIGCHLD = 3;
+exports2.WASI_SIGCONT = 4;
+exports2.WASI_SIGFPE = 5;
+exports2.WASI_SIGHUP = 6;
+exports2.WASI_SIGILL = 7;
+exports2.WASI_SIGINT = 8;
+exports2.WASI_SIGKILL = 9;
+exports2.WASI_SIGPIPE = 10;
+exports2.WASI_SIGQUIT = 11;
+exports2.WASI_SIGSEGV = 12;
+exports2.WASI_SIGSTOP = 13;
+exports2.WASI_SIGTERM = 14;
+exports2.WASI_SIGTRAP = 15;
+exports2.WASI_SIGTSTP = 16;
+exports2.WASI_SIGTTIN = 17;
+exports2.WASI_SIGTTOU = 18;
+exports2.WASI_SIGURG = 19;
+exports2.WASI_SIGUSR1 = 20;
+exports2.WASI_SIGUSR2 = 21;
+exports2.WASI_SIGVTALRM = 22;
+exports2.WASI_SIGXCPU = 23;
+exports2.WASI_SIGXFSZ = 24;
+exports2.WASI_FILETYPE_UNKNOWN = 0;
+exports2.WASI_FILETYPE_BLOCK_DEVICE = 1;
+exports2.WASI_FILETYPE_CHARACTER_DEVICE = 2;
+exports2.WASI_FILETYPE_DIRECTORY = 3;
+exports2.WASI_FILETYPE_REGULAR_FILE = 4;
+exports2.WASI_FILETYPE_SOCKET_DGRAM = 5;
+exports2.WASI_FILETYPE_SOCKET_STREAM = 6;
+exports2.WASI_FILETYPE_SYMBOLIC_LINK = 7;
+exports2.WASI_FDFLAG_APPEND = 1;
+exports2.WASI_FDFLAG_DSYNC = 2;
+exports2.WASI_FDFLAG_NONBLOCK = 4;
+exports2.WASI_FDFLAG_RSYNC = 8;
+exports2.WASI_FDFLAG_SYNC = 16;
+exports2.WASI_RIGHT_FD_DATASYNC = BigInt(1);
+exports2.WASI_RIGHT_FD_READ = BigInt(2);
+exports2.WASI_RIGHT_FD_SEEK = BigInt(4);
+exports2.WASI_RIGHT_FD_FDSTAT_SET_FLAGS = BigInt(8);
+exports2.WASI_RIGHT_FD_SYNC = BigInt(16);
+exports2.WASI_RIGHT_FD_TELL = BigInt(32);
+exports2.WASI_RIGHT_FD_WRITE = BigInt(64);
+exports2.WASI_RIGHT_FD_ADVISE = BigInt(128);
+exports2.WASI_RIGHT_FD_ALLOCATE = BigInt(256);
+exports2.WASI_RIGHT_PATH_CREATE_DIRECTORY = BigInt(512);
+exports2.WASI_RIGHT_PATH_CREATE_FILE = BigInt(1024);
+exports2.WASI_RIGHT_PATH_LINK_SOURCE = BigInt(2048);
+exports2.WASI_RIGHT_PATH_LINK_TARGET = BigInt(4096);
+exports2.WASI_RIGHT_PATH_OPEN = BigInt(8192);
+exports2.WASI_RIGHT_FD_READDIR = BigInt(16384);
+exports2.WASI_RIGHT_PATH_READLINK = BigInt(32768);
+exports2.WASI_RIGHT_PATH_RENAME_SOURCE = BigInt(65536);
+exports2.WASI_RIGHT_PATH_RENAME_TARGET = BigInt(131072);
+exports2.WASI_RIGHT_PATH_FILESTAT_GET = BigInt(262144);
+exports2.WASI_RIGHT_PATH_FILESTAT_SET_SIZE = BigInt(524288);
+exports2.WASI_RIGHT_PATH_FILESTAT_SET_TIMES = BigInt(1048576);
+exports2.WASI_RIGHT_FD_FILESTAT_GET = BigInt(2097152);
+exports2.WASI_RIGHT_FD_FILESTAT_SET_SIZE = BigInt(4194304);
+exports2.WASI_RIGHT_FD_FILESTAT_SET_TIMES = BigInt(8388608);
+exports2.WASI_RIGHT_PATH_SYMLINK = BigInt(16777216);
+exports2.WASI_RIGHT_PATH_REMOVE_DIRECTORY = BigInt(33554432);
+exports2.WASI_RIGHT_PATH_UNLINK_FILE = BigInt(67108864);
+exports2.WASI_RIGHT_POLL_FD_READWRITE = BigInt(134217728);
+exports2.WASI_RIGHT_SOCK_SHUTDOWN = BigInt(268435456);
+exports2.RIGHTS_ALL = exports2.WASI_RIGHT_FD_DATASYNC | exports2.WASI_RIGHT_FD_READ | exports2.WASI_RIGHT_FD_SEEK | exports2.WASI_RIGHT_FD_FDSTAT_SET_FLAGS | exports2.WASI_RIGHT_FD_SYNC | exports2.WASI_RIGHT_FD_TELL | exports2.WASI_RIGHT_FD_WRITE | exports2.WASI_RIGHT_FD_ADVISE | exports2.WASI_RIGHT_FD_ALLOCATE | exports2.WASI_RIGHT_PATH_CREATE_DIRECTORY | exports2.WASI_RIGHT_PATH_CREATE_FILE | exports2.WASI_RIGHT_PATH_LINK_SOURCE | exports2.WASI_RIGHT_PATH_LINK_TARGET | exports2.WASI_RIGHT_PATH_OPEN | exports2.WASI_RIGHT_FD_READDIR | exports2.WASI_RIGHT_PATH_READLINK | exports2.WASI_RIGHT_PATH_RENAME_SOURCE | exports2.WASI_RIGHT_PATH_RENAME_TARGET | exports2.WASI_RIGHT_PATH_FILESTAT_GET | exports2.WASI_RIGHT_PATH_FILESTAT_SET_SIZE | exports2.WASI_RIGHT_PATH_FILESTAT_SET_TIMES | exports2.WASI_RIGHT_FD_FILESTAT_GET | exports2.WASI_RIGHT_FD_FILESTAT_SET_TIMES | exports2.WASI_RIGHT_FD_FILESTAT_SET_SIZE | exports2.WASI_RIGHT_PATH_SYMLINK | exports2.WASI_RIGHT_PATH_UNLINK_FILE | exports2.WASI_RIGHT_PATH_REMOVE_DIRECTORY | exports2.WASI_RIGHT_POLL_FD_READWRITE | exports2.WASI_RIGHT_SOCK_SHUTDOWN;
+exports2.RIGHTS_BLOCK_DEVICE_BASE = exports2.RIGHTS_ALL;
+exports2.RIGHTS_BLOCK_DEVICE_INHERITING = exports2.RIGHTS_ALL;
+exports2.RIGHTS_CHARACTER_DEVICE_BASE = exports2.RIGHTS_ALL;
+exports2.RIGHTS_CHARACTER_DEVICE_INHERITING = exports2.RIGHTS_ALL;
+exports2.RIGHTS_REGULAR_FILE_BASE = exports2.WASI_RIGHT_FD_DATASYNC | exports2.WASI_RIGHT_FD_READ | exports2.WASI_RIGHT_FD_SEEK | exports2.WASI_RIGHT_FD_FDSTAT_SET_FLAGS | exports2.WASI_RIGHT_FD_SYNC | exports2.WASI_RIGHT_FD_TELL | exports2.WASI_RIGHT_FD_WRITE | exports2.WASI_RIGHT_FD_ADVISE | exports2.WASI_RIGHT_FD_ALLOCATE | exports2.WASI_RIGHT_FD_FILESTAT_GET | exports2.WASI_RIGHT_FD_FILESTAT_SET_SIZE | exports2.WASI_RIGHT_FD_FILESTAT_SET_TIMES | exports2.WASI_RIGHT_POLL_FD_READWRITE;
+exports2.RIGHTS_REGULAR_FILE_INHERITING = BigInt(0);
+exports2.RIGHTS_DIRECTORY_BASE = exports2.WASI_RIGHT_FD_FDSTAT_SET_FLAGS | exports2.WASI_RIGHT_FD_SYNC | exports2.WASI_RIGHT_FD_ADVISE | exports2.WASI_RIGHT_PATH_CREATE_DIRECTORY | exports2.WASI_RIGHT_PATH_CREATE_FILE | exports2.WASI_RIGHT_PATH_LINK_SOURCE | exports2.WASI_RIGHT_PATH_LINK_TARGET | exports2.WASI_RIGHT_PATH_OPEN | exports2.WASI_RIGHT_FD_READDIR | exports2.WASI_RIGHT_PATH_READLINK | exports2.WASI_RIGHT_PATH_RENAME_SOURCE | exports2.WASI_RIGHT_PATH_RENAME_TARGET | exports2.WASI_RIGHT_PATH_FILESTAT_GET | exports2.WASI_RIGHT_PATH_FILESTAT_SET_SIZE | exports2.WASI_RIGHT_PATH_FILESTAT_SET_TIMES | exports2.WASI_RIGHT_FD_FILESTAT_GET | exports2.WASI_RIGHT_FD_FILESTAT_SET_TIMES | exports2.WASI_RIGHT_PATH_SYMLINK | exports2.WASI_RIGHT_PATH_UNLINK_FILE | exports2.WASI_RIGHT_PATH_REMOVE_DIRECTORY | exports2.WASI_RIGHT_POLL_FD_READWRITE;
+exports2.RIGHTS_DIRECTORY_INHERITING = exports2.RIGHTS_DIRECTORY_BASE | exports2.RIGHTS_REGULAR_FILE_BASE;
+exports2.RIGHTS_SOCKET_BASE = exports2.WASI_RIGHT_FD_READ | exports2.WASI_RIGHT_FD_FDSTAT_SET_FLAGS | exports2.WASI_RIGHT_FD_WRITE | exports2.WASI_RIGHT_FD_FILESTAT_GET | exports2.WASI_RIGHT_POLL_FD_READWRITE | exports2.WASI_RIGHT_SOCK_SHUTDOWN;
+exports2.RIGHTS_SOCKET_INHERITING = exports2.RIGHTS_ALL;
+exports2.RIGHTS_TTY_BASE = exports2.WASI_RIGHT_FD_READ | exports2.WASI_RIGHT_FD_FDSTAT_SET_FLAGS | exports2.WASI_RIGHT_FD_WRITE | exports2.WASI_RIGHT_FD_FILESTAT_GET | exports2.WASI_RIGHT_POLL_FD_READWRITE;
+exports2.RIGHTS_TTY_INHERITING = BigInt(0);
+exports2.WASI_CLOCK_REALTIME = 0;
+exports2.WASI_CLOCK_MONOTONIC = 1;
+exports2.WASI_CLOCK_PROCESS_CPUTIME_ID = 2;
+exports2.WASI_CLOCK_THREAD_CPUTIME_ID = 3;
+exports2.WASI_EVENTTYPE_CLOCK = 0;
+exports2.WASI_EVENTTYPE_FD_READ = 1;
+exports2.WASI_EVENTTYPE_FD_WRITE = 2;
+exports2.WASI_FILESTAT_SET_ATIM = 1 << 0;
+exports2.WASI_FILESTAT_SET_ATIM_NOW = 1 << 1;
+exports2.WASI_FILESTAT_SET_MTIM = 1 << 2;
+exports2.WASI_FILESTAT_SET_MTIM_NOW = 1 << 3;
+exports2.WASI_O_CREAT = 1 << 0;
+exports2.WASI_O_DIRECTORY = 1 << 1;
+exports2.WASI_O_EXCL = 1 << 2;
+exports2.WASI_O_TRUNC = 1 << 3;
+exports2.WASI_PREOPENTYPE_DIR = 0;
+exports2.WASI_DIRCOOKIE_START = 0;
+exports2.WASI_STDIN_FILENO = 0;
+exports2.WASI_STDOUT_FILENO = 1;
+exports2.WASI_STDERR_FILENO = 2;
+exports2.WASI_WHENCE_SET = 0;
+exports2.WASI_WHENCE_CUR = 1;
+exports2.WASI_WHENCE_END = 2;
+exports2.ERROR_MAP = {
+  E2BIG: exports2.WASI_E2BIG,
+  EACCES: exports2.WASI_EACCES,
+  EADDRINUSE: exports2.WASI_EADDRINUSE,
+  EADDRNOTAVAIL: exports2.WASI_EADDRNOTAVAIL,
+  EAFNOSUPPORT: exports2.WASI_EAFNOSUPPORT,
+  EALREADY: exports2.WASI_EALREADY,
+  EAGAIN: exports2.WASI_EAGAIN,
   // EBADE: WASI_EBADE,
-  EBADF: exports3.WASI_EBADF,
+  EBADF: exports2.WASI_EBADF,
   // EBADFD: WASI_EBADFD,
-  EBADMSG: exports3.WASI_EBADMSG,
+  EBADMSG: exports2.WASI_EBADMSG,
   // EBADR: WASI_EBADR,
   // EBADRQC: WASI_EBADRQC,
   // EBADSLT: WASI_EBADSLT,
-  EBUSY: exports3.WASI_EBUSY,
-  ECANCELED: exports3.WASI_ECANCELED,
-  ECHILD: exports3.WASI_ECHILD,
+  EBUSY: exports2.WASI_EBUSY,
+  ECANCELED: exports2.WASI_ECANCELED,
+  ECHILD: exports2.WASI_ECHILD,
   // ECHRNG: WASI_ECHRNG,
   // ECOMM: WASI_ECOMM,
-  ECONNABORTED: exports3.WASI_ECONNABORTED,
-  ECONNREFUSED: exports3.WASI_ECONNREFUSED,
-  ECONNRESET: exports3.WASI_ECONNRESET,
-  EDEADLOCK: exports3.WASI_EDEADLK,
-  EDESTADDRREQ: exports3.WASI_EDESTADDRREQ,
-  EDOM: exports3.WASI_EDOM,
-  EDQUOT: exports3.WASI_EDQUOT,
-  EEXIST: exports3.WASI_EEXIST,
-  EFAULT: exports3.WASI_EFAULT,
-  EFBIG: exports3.WASI_EFBIG,
-  EHOSTDOWN: exports3.WASI_EHOSTUNREACH,
-  EHOSTUNREACH: exports3.WASI_EHOSTUNREACH,
+  ECONNABORTED: exports2.WASI_ECONNABORTED,
+  ECONNREFUSED: exports2.WASI_ECONNREFUSED,
+  ECONNRESET: exports2.WASI_ECONNRESET,
+  EDEADLOCK: exports2.WASI_EDEADLK,
+  EDESTADDRREQ: exports2.WASI_EDESTADDRREQ,
+  EDOM: exports2.WASI_EDOM,
+  EDQUOT: exports2.WASI_EDQUOT,
+  EEXIST: exports2.WASI_EEXIST,
+  EFAULT: exports2.WASI_EFAULT,
+  EFBIG: exports2.WASI_EFBIG,
+  EHOSTDOWN: exports2.WASI_EHOSTUNREACH,
+  EHOSTUNREACH: exports2.WASI_EHOSTUNREACH,
   // EHWPOISON: WASI_EHWPOISON,
-  EIDRM: exports3.WASI_EIDRM,
-  EILSEQ: exports3.WASI_EILSEQ,
-  EINPROGRESS: exports3.WASI_EINPROGRESS,
-  EINTR: exports3.WASI_EINTR,
-  EINVAL: exports3.WASI_EINVAL,
-  EIO: exports3.WASI_EIO,
-  EISCONN: exports3.WASI_EISCONN,
-  EISDIR: exports3.WASI_EISDIR,
-  ELOOP: exports3.WASI_ELOOP,
-  EMFILE: exports3.WASI_EMFILE,
-  EMLINK: exports3.WASI_EMLINK,
-  EMSGSIZE: exports3.WASI_EMSGSIZE,
-  EMULTIHOP: exports3.WASI_EMULTIHOP,
-  ENAMETOOLONG: exports3.WASI_ENAMETOOLONG,
-  ENETDOWN: exports3.WASI_ENETDOWN,
-  ENETRESET: exports3.WASI_ENETRESET,
-  ENETUNREACH: exports3.WASI_ENETUNREACH,
-  ENFILE: exports3.WASI_ENFILE,
-  ENOBUFS: exports3.WASI_ENOBUFS,
-  ENODEV: exports3.WASI_ENODEV,
-  ENOENT: exports3.WASI_ENOENT,
-  ENOEXEC: exports3.WASI_ENOEXEC,
-  ENOLCK: exports3.WASI_ENOLCK,
-  ENOLINK: exports3.WASI_ENOLINK,
-  ENOMEM: exports3.WASI_ENOMEM,
-  ENOMSG: exports3.WASI_ENOMSG,
-  ENOPROTOOPT: exports3.WASI_ENOPROTOOPT,
-  ENOSPC: exports3.WASI_ENOSPC,
-  ENOSYS: exports3.WASI_ENOSYS,
-  ENOTCONN: exports3.WASI_ENOTCONN,
-  ENOTDIR: exports3.WASI_ENOTDIR,
-  ENOTEMPTY: exports3.WASI_ENOTEMPTY,
-  ENOTRECOVERABLE: exports3.WASI_ENOTRECOVERABLE,
-  ENOTSOCK: exports3.WASI_ENOTSOCK,
-  ENOTTY: exports3.WASI_ENOTTY,
-  ENXIO: exports3.WASI_ENXIO,
-  EOVERFLOW: exports3.WASI_EOVERFLOW,
-  EOWNERDEAD: exports3.WASI_EOWNERDEAD,
-  EPERM: exports3.WASI_EPERM,
-  EPIPE: exports3.WASI_EPIPE,
-  EPROTO: exports3.WASI_EPROTO,
-  EPROTONOSUPPORT: exports3.WASI_EPROTONOSUPPORT,
-  EPROTOTYPE: exports3.WASI_EPROTOTYPE,
-  ERANGE: exports3.WASI_ERANGE,
-  EROFS: exports3.WASI_EROFS,
-  ESPIPE: exports3.WASI_ESPIPE,
-  ESRCH: exports3.WASI_ESRCH,
-  ESTALE: exports3.WASI_ESTALE,
-  ETIMEDOUT: exports3.WASI_ETIMEDOUT,
-  ETXTBSY: exports3.WASI_ETXTBSY,
-  EXDEV: exports3.WASI_EXDEV
+  EIDRM: exports2.WASI_EIDRM,
+  EILSEQ: exports2.WASI_EILSEQ,
+  EINPROGRESS: exports2.WASI_EINPROGRESS,
+  EINTR: exports2.WASI_EINTR,
+  EINVAL: exports2.WASI_EINVAL,
+  EIO: exports2.WASI_EIO,
+  EISCONN: exports2.WASI_EISCONN,
+  EISDIR: exports2.WASI_EISDIR,
+  ELOOP: exports2.WASI_ELOOP,
+  EMFILE: exports2.WASI_EMFILE,
+  EMLINK: exports2.WASI_EMLINK,
+  EMSGSIZE: exports2.WASI_EMSGSIZE,
+  EMULTIHOP: exports2.WASI_EMULTIHOP,
+  ENAMETOOLONG: exports2.WASI_ENAMETOOLONG,
+  ENETDOWN: exports2.WASI_ENETDOWN,
+  ENETRESET: exports2.WASI_ENETRESET,
+  ENETUNREACH: exports2.WASI_ENETUNREACH,
+  ENFILE: exports2.WASI_ENFILE,
+  ENOBUFS: exports2.WASI_ENOBUFS,
+  ENODEV: exports2.WASI_ENODEV,
+  ENOENT: exports2.WASI_ENOENT,
+  ENOEXEC: exports2.WASI_ENOEXEC,
+  ENOLCK: exports2.WASI_ENOLCK,
+  ENOLINK: exports2.WASI_ENOLINK,
+  ENOMEM: exports2.WASI_ENOMEM,
+  ENOMSG: exports2.WASI_ENOMSG,
+  ENOPROTOOPT: exports2.WASI_ENOPROTOOPT,
+  ENOSPC: exports2.WASI_ENOSPC,
+  ENOSYS: exports2.WASI_ENOSYS,
+  ENOTCONN: exports2.WASI_ENOTCONN,
+  ENOTDIR: exports2.WASI_ENOTDIR,
+  ENOTEMPTY: exports2.WASI_ENOTEMPTY,
+  ENOTRECOVERABLE: exports2.WASI_ENOTRECOVERABLE,
+  ENOTSOCK: exports2.WASI_ENOTSOCK,
+  ENOTTY: exports2.WASI_ENOTTY,
+  ENXIO: exports2.WASI_ENXIO,
+  EOVERFLOW: exports2.WASI_EOVERFLOW,
+  EOWNERDEAD: exports2.WASI_EOWNERDEAD,
+  EPERM: exports2.WASI_EPERM,
+  EPIPE: exports2.WASI_EPIPE,
+  EPROTO: exports2.WASI_EPROTO,
+  EPROTONOSUPPORT: exports2.WASI_EPROTONOSUPPORT,
+  EPROTOTYPE: exports2.WASI_EPROTOTYPE,
+  ERANGE: exports2.WASI_ERANGE,
+  EROFS: exports2.WASI_EROFS,
+  ESPIPE: exports2.WASI_ESPIPE,
+  ESRCH: exports2.WASI_ESRCH,
+  ESTALE: exports2.WASI_ESTALE,
+  ETIMEDOUT: exports2.WASI_ETIMEDOUT,
+  ETXTBSY: exports2.WASI_ETXTBSY,
+  EXDEV: exports2.WASI_EXDEV
 };
-exports3.SIGNAL_MAP = {
-  [exports3.WASI_SIGHUP]: "SIGHUP",
-  [exports3.WASI_SIGINT]: "SIGINT",
-  [exports3.WASI_SIGQUIT]: "SIGQUIT",
-  [exports3.WASI_SIGILL]: "SIGILL",
-  [exports3.WASI_SIGTRAP]: "SIGTRAP",
-  [exports3.WASI_SIGABRT]: "SIGABRT",
-  [exports3.WASI_SIGBUS]: "SIGBUS",
-  [exports3.WASI_SIGFPE]: "SIGFPE",
-  [exports3.WASI_SIGKILL]: "SIGKILL",
-  [exports3.WASI_SIGUSR1]: "SIGUSR1",
-  [exports3.WASI_SIGSEGV]: "SIGSEGV",
-  [exports3.WASI_SIGUSR2]: "SIGUSR2",
-  [exports3.WASI_SIGPIPE]: "SIGPIPE",
-  [exports3.WASI_SIGALRM]: "SIGALRM",
-  [exports3.WASI_SIGTERM]: "SIGTERM",
-  [exports3.WASI_SIGCHLD]: "SIGCHLD",
-  [exports3.WASI_SIGCONT]: "SIGCONT",
-  [exports3.WASI_SIGSTOP]: "SIGSTOP",
-  [exports3.WASI_SIGTSTP]: "SIGTSTP",
-  [exports3.WASI_SIGTTIN]: "SIGTTIN",
-  [exports3.WASI_SIGTTOU]: "SIGTTOU",
-  [exports3.WASI_SIGURG]: "SIGURG",
-  [exports3.WASI_SIGXCPU]: "SIGXCPU",
-  [exports3.WASI_SIGXFSZ]: "SIGXFSZ",
-  [exports3.WASI_SIGVTALRM]: "SIGVTALRM"
+exports2.SIGNAL_MAP = {
+  [exports2.WASI_SIGHUP]: "SIGHUP",
+  [exports2.WASI_SIGINT]: "SIGINT",
+  [exports2.WASI_SIGQUIT]: "SIGQUIT",
+  [exports2.WASI_SIGILL]: "SIGILL",
+  [exports2.WASI_SIGTRAP]: "SIGTRAP",
+  [exports2.WASI_SIGABRT]: "SIGABRT",
+  [exports2.WASI_SIGBUS]: "SIGBUS",
+  [exports2.WASI_SIGFPE]: "SIGFPE",
+  [exports2.WASI_SIGKILL]: "SIGKILL",
+  [exports2.WASI_SIGUSR1]: "SIGUSR1",
+  [exports2.WASI_SIGSEGV]: "SIGSEGV",
+  [exports2.WASI_SIGUSR2]: "SIGUSR2",
+  [exports2.WASI_SIGPIPE]: "SIGPIPE",
+  [exports2.WASI_SIGALRM]: "SIGALRM",
+  [exports2.WASI_SIGTERM]: "SIGTERM",
+  [exports2.WASI_SIGCHLD]: "SIGCHLD",
+  [exports2.WASI_SIGCONT]: "SIGCONT",
+  [exports2.WASI_SIGSTOP]: "SIGSTOP",
+  [exports2.WASI_SIGTSTP]: "SIGTSTP",
+  [exports2.WASI_SIGTTIN]: "SIGTTIN",
+  [exports2.WASI_SIGTTOU]: "SIGTTOU",
+  [exports2.WASI_SIGURG]: "SIGURG",
+  [exports2.WASI_SIGXCPU]: "SIGXCPU",
+  [exports2.WASI_SIGXFSZ]: "SIGXFSZ",
+  [exports2.WASI_SIGVTALRM]: "SIGVTALRM"
 };
-var constants_default = exports3;
+var constants_default = exports2;
 var {
   WASI_ESUCCESS,
   WASI_E2BIG,
@@ -3295,26 +3289,26 @@ var {
   WASI_SIGXCPU,
   WASI_SIGXFSZ,
   WASI_SIGVTALRM
-} = exports3;
+} = exports2;
 
 // ../main/wasi/index.js
-var exports4 = {};
+var exports3 = {};
 var defaultBindings = browser_default;
 var STDIN_DEFAULT_RIGHTS = constants_default.WASI_RIGHT_FD_DATASYNC | constants_default.WASI_RIGHT_FD_READ | constants_default.WASI_RIGHT_FD_SYNC | constants_default.WASI_RIGHT_FD_ADVISE | constants_default.WASI_RIGHT_FD_FILESTAT_GET | constants_default.WASI_RIGHT_POLL_FD_READWRITE;
 var STDOUT_DEFAULT_RIGHTS = constants_default.WASI_RIGHT_FD_DATASYNC | constants_default.WASI_RIGHT_FD_WRITE | constants_default.WASI_RIGHT_FD_SYNC | constants_default.WASI_RIGHT_FD_ADVISE | constants_default.WASI_RIGHT_FD_FILESTAT_GET | constants_default.WASI_RIGHT_POLL_FD_READWRITE;
 var STDERR_DEFAULT_RIGHTS = STDOUT_DEFAULT_RIGHTS;
 var msToNs = (ms) => {
   const msInt = Math.trunc(ms);
-  const decimal = BigIntPolyfill(Math.round((ms - msInt) * 1e6));
-  const ns = BigIntPolyfill(msInt) * BigIntPolyfill(1e6);
+  const decimal = BigInt(Math.round((ms - msInt) * 1e6));
+  const ns = BigInt(msInt) * BigInt(1e6);
   return ns + decimal;
 };
 var nsToMs = (ns) => {
   if (typeof ns === "number") {
     ns = Math.trunc(ns);
   }
-  const nsInt = BigIntPolyfill(ns);
-  return Number(nsInt / BigIntPolyfill(1e6));
+  const nsInt = BigInt(ns);
+  return Number(nsInt / BigInt(1e6));
 };
 var wrap = (f18) => (...args) => {
   try {
@@ -3397,20 +3391,20 @@ var translateFileAttributes = (wasi, fd, stats) => {
     case stats.isSymbolicLink():
       return {
         filetype: constants_default.WASI_FILETYPE_SYMBOLIC_LINK,
-        rightsBase: BigIntPolyfill(0),
-        rightsInheriting: BigIntPolyfill(0)
+        rightsBase: BigInt(0),
+        rightsInheriting: BigInt(0)
       };
     default:
       return {
         filetype: constants_default.WASI_FILETYPE_UNKNOWN,
-        rightsBase: BigIntPolyfill(0),
-        rightsInheriting: BigIntPolyfill(0)
+        rightsBase: BigInt(0),
+        rightsInheriting: BigInt(0)
       };
   }
 };
-exports4.WASIError = WASIError;
-exports4.WASIExitError = WASIExitError;
-exports4.WASIKillError = WASIKillError;
+exports3.WASIError = WASIError;
+exports3.WASIExitError = WASIExitError;
+exports3.WASIKillError = WASIKillError;
 var WASIDefault = class {
   constructor(wasiConfig) {
     let preopens = {};
@@ -3443,7 +3437,7 @@ var WASIDefault = class {
           // offset: BigInt(0),
           rights: {
             base: STDIN_DEFAULT_RIGHTS,
-            inheriting: BigIntPolyfill(0)
+            inheriting: BigInt(0)
           },
           path: void 0
         }
@@ -3456,7 +3450,7 @@ var WASIDefault = class {
           // offset: BigInt(0),
           rights: {
             base: STDOUT_DEFAULT_RIGHTS,
-            inheriting: BigIntPolyfill(0)
+            inheriting: BigInt(0)
           },
           path: void 0
         }
@@ -3469,7 +3463,7 @@ var WASIDefault = class {
           // offset: BigInt(0),
           rights: {
             base: STDERR_DEFAULT_RIGHTS,
-            inheriting: BigIntPolyfill(0)
+            inheriting: BigInt(0)
           },
           path: void 0
         }
@@ -3504,7 +3498,7 @@ var WASIDefault = class {
     };
     const CHECK_FD = (fd, rights) => {
       const stats = stat(this, fd);
-      if (rights !== BigIntPolyfill(0) && (stats.rights.base & rights) === BigIntPolyfill(0)) {
+      if (rights !== BigInt(0) && (stats.rights.base & rights) === BigInt(0)) {
         throw new WASIError(constants_default.WASI_EPERM);
       }
       return stats;
@@ -3567,11 +3561,11 @@ var WASIDefault = class {
           case constants_default.WASI_CLOCK_MONOTONIC:
           case constants_default.WASI_CLOCK_PROCESS_CPUTIME_ID:
           case constants_default.WASI_CLOCK_THREAD_CPUTIME_ID: {
-            res = BigIntPolyfill(1);
+            res = BigInt(1);
             break;
           }
           case constants_default.WASI_CLOCK_REALTIME: {
-            res = BigIntPolyfill(1e3);
+            res = BigInt(1e3);
             break;
           }
         }
@@ -3584,7 +3578,7 @@ var WASIDefault = class {
         if (n30 === null) {
           return constants_default.WASI_EINVAL;
         }
-        this.view.setBigUint64(time, BigIntPolyfill(n30), true);
+        this.view.setBigUint64(time, BigInt(n30), true);
         return constants_default.WASI_ESUCCESS;
       },
       fd_advise: wrap((fd, offset, len, advice) => {
@@ -3596,7 +3590,7 @@ var WASIDefault = class {
         return constants_default.WASI_ENOSYS;
       }),
       fd_close: wrap((fd) => {
-        const stats = CHECK_FD(fd, BigIntPolyfill(0));
+        const stats = CHECK_FD(fd, BigInt(0));
         fs2.closeSync(stats.real);
         this.FD_MAP.delete(fd);
         return constants_default.WASI_ESUCCESS;
@@ -3607,13 +3601,13 @@ var WASIDefault = class {
         return constants_default.WASI_ESUCCESS;
       }),
       fd_fdstat_get: wrap((fd, bufPtr) => {
-        const stats = CHECK_FD(fd, BigIntPolyfill(0));
+        const stats = CHECK_FD(fd, BigInt(0));
         this.refreshMemory();
         this.view.setUint8(bufPtr, stats.filetype);
         this.view.setUint16(bufPtr + 2, 0, true);
         this.view.setUint16(bufPtr + 4, 0, true);
-        this.view.setBigUint64(bufPtr + 8, BigIntPolyfill(stats.rights.base), true);
-        this.view.setBigUint64(bufPtr + 8 + 8, BigIntPolyfill(stats.rights.inheriting), true);
+        this.view.setBigUint64(bufPtr + 8, BigInt(stats.rights.base), true);
+        this.view.setBigUint64(bufPtr + 8 + 8, BigInt(stats.rights.inheriting), true);
         return constants_default.WASI_ESUCCESS;
       }),
       fd_fdstat_set_flags: wrap((fd, flags) => {
@@ -3621,7 +3615,7 @@ var WASIDefault = class {
         return constants_default.WASI_ENOSYS;
       }),
       fd_fdstat_set_rights: wrap((fd, fsRightsBase, fsRightsInheriting) => {
-        const stats = CHECK_FD(fd, BigIntPolyfill(0));
+        const stats = CHECK_FD(fd, BigInt(0));
         const nrb = stats.rights.base | fsRightsBase;
         if (nrb > stats.rights.base) {
           return constants_default.WASI_EPERM;
@@ -3638,15 +3632,15 @@ var WASIDefault = class {
         const stats = CHECK_FD(fd, constants_default.WASI_RIGHT_FD_FILESTAT_GET);
         const rstats = fs2.fstatSync(stats.real);
         this.refreshMemory();
-        this.view.setBigUint64(bufPtr, BigIntPolyfill(rstats.dev), true);
+        this.view.setBigUint64(bufPtr, BigInt(rstats.dev), true);
         bufPtr += 8;
-        this.view.setBigUint64(bufPtr, BigIntPolyfill(rstats.ino), true);
+        this.view.setBigUint64(bufPtr, BigInt(rstats.ino), true);
         bufPtr += 8;
         this.view.setUint8(bufPtr, stats.filetype);
         bufPtr += 8;
-        this.view.setBigUint64(bufPtr, BigIntPolyfill(rstats.nlink), true);
+        this.view.setBigUint64(bufPtr, BigInt(rstats.nlink), true);
         bufPtr += 8;
-        this.view.setBigUint64(bufPtr, BigIntPolyfill(rstats.size), true);
+        this.view.setBigUint64(bufPtr, BigInt(rstats.size), true);
         bufPtr += 8;
         this.view.setBigUint64(bufPtr, msToNs(rstats.atimeMs), true);
         bufPtr += 8;
@@ -3688,7 +3682,7 @@ var WASIDefault = class {
         return constants_default.WASI_ESUCCESS;
       }),
       fd_prestat_get: wrap((fd, bufPtr) => {
-        const stats = CHECK_FD(fd, BigIntPolyfill(0));
+        const stats = CHECK_FD(fd, BigInt(0));
         if (!stats.path) {
           return constants_default.WASI_EINVAL;
         }
@@ -3698,7 +3692,7 @@ var WASIDefault = class {
         return constants_default.WASI_ESUCCESS;
       }),
       fd_prestat_dir_name: wrap((fd, pathPtr, pathLen) => {
-        const stats = CHECK_FD(fd, BigIntPolyfill(0));
+        const stats = CHECK_FD(fd, BigInt(0));
         if (!stats.path) {
           return constants_default.WASI_EINVAL;
         }
@@ -3727,7 +3721,7 @@ var WASIDefault = class {
           while (w12 < iov.byteLength) {
             const i18 = fs2.writeSync(stats.real, iov, w12, iov.byteLength - w12, stats.offset ? Number(stats.offset) : null);
             if (stats.offset)
-              stats.offset += BigIntPolyfill(i18);
+              stats.offset += BigInt(i18);
             w12 += i18;
           }
           written += w12;
@@ -3777,7 +3771,7 @@ var WASIDefault = class {
               // position
             );
             if (!IS_STDIN) {
-              stats.offset = (stats.offset ? stats.offset : BigIntPolyfill(0)) + BigIntPolyfill(rr);
+              stats.offset = (stats.offset ? stats.offset : BigInt(0)) + BigInt(rr);
             }
             r2 += rr;
             read4 += rr;
@@ -3800,13 +3794,13 @@ var WASIDefault = class {
           if (bufPtr - startPtr > bufLen) {
             break;
           }
-          this.view.setBigUint64(bufPtr, BigIntPolyfill(i18 + 1), true);
+          this.view.setBigUint64(bufPtr, BigInt(i18 + 1), true);
           bufPtr += 8;
           if (bufPtr - startPtr > bufLen) {
             break;
           }
           const rstats = fs2.statSync(path.resolve(stats.path, entry.name));
-          this.view.setBigUint64(bufPtr, BigIntPolyfill(rstats.ino), true);
+          this.view.setBigUint64(bufPtr, BigInt(rstats.ino), true);
           bufPtr += 8;
           if (bufPtr - startPtr > bufLen) {
             break;
@@ -3858,8 +3852,8 @@ var WASIDefault = class {
         return constants_default.WASI_ESUCCESS;
       }),
       fd_renumber: wrap((from, to) => {
-        CHECK_FD(from, BigIntPolyfill(0));
-        CHECK_FD(to, BigIntPolyfill(0));
+        CHECK_FD(from, BigInt(0));
+        CHECK_FD(to, BigInt(0));
         fs2.closeSync(this.FD_MAP.get(from).real);
         this.FD_MAP.set(from, this.FD_MAP.get(to));
         this.FD_MAP.delete(to);
@@ -3870,14 +3864,14 @@ var WASIDefault = class {
         this.refreshMemory();
         switch (whence) {
           case constants_default.WASI_WHENCE_CUR:
-            stats.offset = (stats.offset ? stats.offset : BigIntPolyfill(0)) + BigIntPolyfill(offset);
+            stats.offset = (stats.offset ? stats.offset : BigInt(0)) + BigInt(offset);
             break;
           case constants_default.WASI_WHENCE_END:
             const { size } = fs2.fstatSync(stats.real);
-            stats.offset = BigIntPolyfill(size) + BigIntPolyfill(offset);
+            stats.offset = BigInt(size) + BigInt(offset);
             break;
           case constants_default.WASI_WHENCE_SET:
-            stats.offset = BigIntPolyfill(offset);
+            stats.offset = BigInt(offset);
             break;
         }
         this.view.setBigUint64(newOffsetPtr, stats.offset, true);
@@ -3887,7 +3881,7 @@ var WASIDefault = class {
         const stats = CHECK_FD(fd, constants_default.WASI_RIGHT_FD_TELL);
         this.refreshMemory();
         if (!stats.offset) {
-          stats.offset = BigIntPolyfill(0);
+          stats.offset = BigInt(0);
         }
         this.view.setBigUint64(offsetPtr, stats.offset, true);
         return constants_default.WASI_ESUCCESS;
@@ -3915,15 +3909,15 @@ var WASIDefault = class {
         this.refreshMemory();
         const p26 = Buffer3.from(this.memory.buffer, pathPtr, pathLen).toString();
         const rstats = fs2.statSync(path.resolve(stats.path, p26));
-        this.view.setBigUint64(bufPtr, BigIntPolyfill(rstats.dev), true);
+        this.view.setBigUint64(bufPtr, BigInt(rstats.dev), true);
         bufPtr += 8;
-        this.view.setBigUint64(bufPtr, BigIntPolyfill(rstats.ino), true);
+        this.view.setBigUint64(bufPtr, BigInt(rstats.ino), true);
         bufPtr += 8;
         this.view.setUint8(bufPtr, translateFileAttributes(this, void 0, rstats).filetype);
         bufPtr += 8;
-        this.view.setBigUint64(bufPtr, BigIntPolyfill(rstats.nlink), true);
+        this.view.setBigUint64(bufPtr, BigInt(rstats.nlink), true);
         bufPtr += 8;
-        this.view.setBigUint64(bufPtr, BigIntPolyfill(rstats.size), true);
+        this.view.setBigUint64(bufPtr, BigInt(rstats.size), true);
         bufPtr += 8;
         this.view.setBigUint64(bufPtr, msToNs(rstats.atimeMs), true);
         bufPtr += 8;
@@ -3978,10 +3972,10 @@ var WASIDefault = class {
       }),
       path_open: wrap((dirfd, dirflags, pathPtr, pathLen, oflags, fsRightsBase, fsRightsInheriting, fsFlags, fd) => {
         const stats = CHECK_FD(dirfd, constants_default.WASI_RIGHT_PATH_OPEN);
-        fsRightsBase = BigIntPolyfill(fsRightsBase);
-        fsRightsInheriting = BigIntPolyfill(fsRightsInheriting);
-        const read4 = (fsRightsBase & (constants_default.WASI_RIGHT_FD_READ | constants_default.WASI_RIGHT_FD_READDIR)) !== BigIntPolyfill(0);
-        const write4 = (fsRightsBase & (constants_default.WASI_RIGHT_FD_DATASYNC | constants_default.WASI_RIGHT_FD_WRITE | constants_default.WASI_RIGHT_FD_ALLOCATE | constants_default.WASI_RIGHT_FD_FILESTAT_SET_SIZE)) !== BigIntPolyfill(0);
+        fsRightsBase = BigInt(fsRightsBase);
+        fsRightsInheriting = BigInt(fsRightsInheriting);
+        const read4 = (fsRightsBase & (constants_default.WASI_RIGHT_FD_READ | constants_default.WASI_RIGHT_FD_READDIR)) !== BigInt(0);
+        const write4 = (fsRightsBase & (constants_default.WASI_RIGHT_FD_DATASYNC | constants_default.WASI_RIGHT_FD_WRITE | constants_default.WASI_RIGHT_FD_ALLOCATE | constants_default.WASI_RIGHT_FD_FILESTAT_SET_SIZE)) !== BigInt(0);
         let noflags;
         if (write4 && read4) {
           noflags = fs2.constants.O_RDWR;
@@ -4162,7 +4156,7 @@ var WASIDefault = class {
               sin += 6;
               const absolute = subclockflags === 1;
               let e3 = constants_default.WASI_ESUCCESS;
-              const n30 = BigIntPolyfill(now(clockid));
+              const n30 = BigInt(now(clockid));
               if (n30 === null) {
                 e3 = constants_default.WASI_EINVAL;
               } else {
@@ -4258,17 +4252,17 @@ var WASIDefault = class {
     this.memory = memory2;
   }
   start(instance) {
-    const exports8 = instance.exports;
-    if (exports8 === null || typeof exports8 !== "object") {
-      throw new Error(`instance.exports must be an Object. Received ${exports8}.`);
+    const exports7 = instance.exports;
+    if (exports7 === null || typeof exports7 !== "object") {
+      throw new Error(`instance.exports must be an Object. Received ${exports7}.`);
     }
-    const { memory: memory2 } = exports8;
+    const { memory: memory2 } = exports7;
     if (!(memory2 instanceof WebAssembly.Memory)) {
       throw new Error(`instance.exports.memory must be a WebAssembly.Memory. Recceived ${memory2}.`);
     }
     this.setMemory(memory2);
-    if (exports8._start) {
-      exports8._start();
+    if (exports7._start) {
+      exports7._start();
     }
   }
   getImportNamespace(module) {
@@ -4306,10 +4300,10 @@ var WASIDefault = class {
     }
   }
 };
-exports4.default = WASIDefault;
+exports3.default = WASIDefault;
 WASIDefault.defaultBindings = defaultBindings;
-exports4.WASI = WASIDefault;
-var { memory, _start, WASI } = exports4;
+exports3.WASI = WASIDefault;
+var { memory, _start, WASI } = exports3;
 
 // ../main/node_shims/path.js
 var path_exports = {};
@@ -5208,7 +5202,7 @@ var __toESM4 = (mod, isNodeMode, target) => (target = mod != null ? __create4(__
   mod
 ));
 var require_inherits_browser = __commonJS4({
-  "../esmd/npm/inherits@2.0.4/node_modules/.pnpm/inherits@2.0.4/node_modules/inherits/inherits_browser.js"(exports8, module) {
+  "../esmd/npm/inherits@2.0.4/node_modules/.pnpm/inherits@2.0.4/node_modules/inherits/inherits_browser.js"(exports7, module) {
     if (typeof Object.create === "function") {
       module.exports = function inherits2(ctor, superCtor) {
         if (superCtor) {
@@ -5355,11 +5349,11 @@ var __toESM22 = (mod, isNodeMode, target) => (target = mod != null ? __create22(
   mod
 ));
 var require_base64_js2 = __commonJS22({
-  "../esmd/npm/base64-js@1.5.1/node_modules/.pnpm/base64-js@1.5.1/node_modules/base64-js/index.js"(exports8) {
+  "../esmd/npm/base64-js@1.5.1/node_modules/.pnpm/base64-js@1.5.1/node_modules/base64-js/index.js"(exports7) {
     "use strict";
-    exports8.byteLength = byteLength22;
-    exports8.toByteArray = toByteArray22;
-    exports8.fromByteArray = fromByteArray22;
+    exports7.byteLength = byteLength22;
+    exports7.toByteArray = toByteArray22;
+    exports7.fromByteArray = fromByteArray22;
     var lookup = [];
     var revLookup = [];
     var Arr = typeof Uint8Array !== "undefined" ? Uint8Array : Array;
@@ -5503,8 +5497,8 @@ var __toESM32 = (mod, isNodeMode, target) => (target = mod != null ? __create32(
   mod
 ));
 var require_ieee7542 = __commonJS32({
-  "../esmd/npm/ieee754@1.2.1/node_modules/.pnpm/ieee754@1.2.1/node_modules/ieee754/index.js"(exports8) {
-    exports8.read = function(buffer, offset, isLE, mLen, nBytes) {
+  "../esmd/npm/ieee754@1.2.1/node_modules/.pnpm/ieee754@1.2.1/node_modules/ieee754/index.js"(exports7) {
+    exports7.read = function(buffer, offset, isLE, mLen, nBytes) {
       var e3, m23;
       var eLen = nBytes * 8 - mLen - 1;
       var eMax = (1 << eLen) - 1;
@@ -5534,7 +5528,7 @@ var require_ieee7542 = __commonJS32({
       }
       return (s26 ? -1 : 1) * m23 * Math.pow(2, e3 - mLen);
     };
-    exports8.write = function(buffer, value, offset, isLE, mLen, nBytes) {
+    exports7.write = function(buffer, value, offset, isLE, mLen, nBytes) {
       var e3, m23, c23;
       var eLen = nBytes * 8 - mLen - 1;
       var eMax = (1 << eLen) - 1;
@@ -5625,8 +5619,8 @@ var __toESM42 = (mod, isNodeMode, target) => (target = mod != null ? __create42(
   mod
 ));
 var require_buffer2 = __commonJS42({
-  "../esmd/npm/buffer@6.0.3/node_modules/.pnpm/buffer@6.0.3/node_modules/buffer/index.js"(exports8) {
-    Object.assign(exports8, buffer_exports2);
+  "../esmd/npm/buffer@6.0.3/node_modules/.pnpm/buffer@6.0.3/node_modules/buffer/index.js"(exports7) {
+    Object.assign(exports7, buffer_exports2);
   }
 });
 var build_exports42 = {};
@@ -5712,7 +5706,7 @@ var __toESM5 = (mod, isNodeMode, target) => (target = mod != null ? __create5(__
   mod
 ));
 var require_safe_buffer = __commonJS5({
-  "../esmd/npm/safe-buffer@5.2.1/node_modules/.pnpm/safe-buffer@5.2.1/node_modules/safe-buffer/index.js"(exports8, module) {
+  "../esmd/npm/safe-buffer@5.2.1/node_modules/.pnpm/safe-buffer@5.2.1/node_modules/safe-buffer/index.js"(exports7, module) {
     var buffer = __require2("buffer");
     var Buffer32 = buffer.Buffer;
     function copyProps(src, dst) {
@@ -5723,8 +5717,8 @@ var require_safe_buffer = __commonJS5({
     if (Buffer32.from && Buffer32.alloc && Buffer32.allocUnsafe && Buffer32.allocUnsafeSlow) {
       module.exports = buffer;
     } else {
-      copyProps(buffer, exports8);
-      exports8.Buffer = SafeBuffer;
+      copyProps(buffer, exports7);
+      exports7.Buffer = SafeBuffer;
     }
     function SafeBuffer(arg, encodingOrOffset, length) {
       return Buffer32(arg, encodingOrOffset, length);
@@ -5837,7 +5831,7 @@ var __toESM6 = (mod, isNodeMode, target) => (target = mod != null ? __create6(__
   mod
 ));
 var require_string_decoder = __commonJS6({
-  "../esmd/npm/string_decoder@1.3.0/node_modules/.pnpm/string_decoder@1.3.0/node_modules/string_decoder/lib/string_decoder.js"(exports8) {
+  "../esmd/npm/string_decoder@1.3.0/node_modules/.pnpm/string_decoder@1.3.0/node_modules/string_decoder/lib/string_decoder.js"(exports7) {
     "use strict";
     var Buffer23 = __require3("safe-buffer").Buffer;
     var isEncoding = Buffer23.isEncoding || function(encoding) {
@@ -5894,7 +5888,7 @@ var require_string_decoder = __commonJS6({
         throw new Error("Unknown encoding: " + enc);
       return nenc || enc;
     }
-    exports8.StringDecoder = StringDecoder2;
+    exports7.StringDecoder = StringDecoder2;
     function StringDecoder2(encoding) {
       this.encoding = normalizeEncoding(encoding);
       var nb;
@@ -6140,7 +6134,7 @@ var __toESM7 = (mod, isNodeMode, target) => (target = mod != null ? __create7(__
   mod
 ));
 var require_browser = __commonJS7({
-  "../esmd/npm/util-deprecate@1.0.2/node_modules/.pnpm/util-deprecate@1.0.2/node_modules/util-deprecate/browser.js"(exports8, module) {
+  "../esmd/npm/util-deprecate@1.0.2/node_modules/.pnpm/util-deprecate@1.0.2/node_modules/util-deprecate/browser.js"(exports7, module) {
     module.exports = deprecate2;
     function deprecate2(fn, msg) {
       if (config2("noDeprecation")) {
@@ -6244,7 +6238,7 @@ var __toESM8 = (mod, isNodeMode, target) => (target = mod != null ? __create8(__
 ));
 var __toCommonJS = (mod) => __copyProps8(__defProp9({}, "__esModule", { value: true }), mod);
 var require_stream_browser = __commonJS8({
-  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/stream-browser.js"(exports8, module) {
+  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/stream-browser.js"(exports7, module) {
     module.exports = __require4("events").EventEmitter;
   }
 });
@@ -6259,7 +6253,7 @@ var init_util = __esm({
   }
 });
 var require_buffer_list = __commonJS8({
-  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/buffer_list.js"(exports8, module) {
+  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/buffer_list.js"(exports7, module) {
     "use strict";
     function ownKeys(object, enumerableOnly) {
       var keys = Object.keys(object);
@@ -6519,7 +6513,7 @@ var require_buffer_list = __commonJS8({
   }
 });
 var require_destroy = __commonJS8({
-  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/destroy.js"(exports8, module) {
+  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/destroy.js"(exports7, module) {
     "use strict";
     function destroy(err, cb) {
       var _this = this;
@@ -6610,7 +6604,7 @@ var require_destroy = __commonJS8({
   }
 });
 var require_errors_browser = __commonJS8({
-  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/errors-browser.js"(exports8, module) {
+  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/errors-browser.js"(exports7, module) {
     "use strict";
     function _inheritsLoose(subClass, superClass) {
       subClass.prototype = Object.create(superClass.prototype);
@@ -6717,7 +6711,7 @@ var require_errors_browser = __commonJS8({
   }
 });
 var require_state = __commonJS8({
-  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/state.js"(exports8, module) {
+  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/state.js"(exports7, module) {
     "use strict";
     var ERR_INVALID_OPT_VALUE = require_errors_browser().codes.ERR_INVALID_OPT_VALUE;
     function highWaterMarkFrom(options, isDuplex, duplexKey) {
@@ -6740,7 +6734,7 @@ var require_state = __commonJS8({
   }
 });
 var require_stream_writable = __commonJS8({
-  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/_stream_writable.js"(exports8, module) {
+  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/_stream_writable.js"(exports7, module) {
     "use strict";
     module.exports = Writable22;
     function CorkedRequest(state) {
@@ -7238,7 +7232,7 @@ var require_stream_writable = __commonJS8({
   }
 });
 var require_stream_duplex = __commonJS8({
-  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/_stream_duplex.js"(exports8, module) {
+  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/_stream_duplex.js"(exports7, module) {
     "use strict";
     var objectKeys = Object.keys || function(obj) {
       var keys2 = [];
@@ -7335,7 +7329,7 @@ var require_stream_duplex = __commonJS8({
   }
 });
 var require_end_of_stream = __commonJS8({
-  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/end-of-stream.js"(exports8, module) {
+  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/end-of-stream.js"(exports7, module) {
     "use strict";
     var ERR_STREAM_PREMATURE_CLOSE = require_errors_browser().codes.ERR_STREAM_PREMATURE_CLOSE;
     function once4(callback) {
@@ -7434,7 +7428,7 @@ var require_end_of_stream = __commonJS8({
   }
 });
 var require_async_iterator = __commonJS8({
-  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/async_iterator.js"(exports8, module) {
+  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/async_iterator.js"(exports7, module) {
     "use strict";
     var _Object$setPrototypeO;
     function _defineProperty(obj, key, value) {
@@ -7617,14 +7611,14 @@ var require_async_iterator = __commonJS8({
   }
 });
 var require_from_browser = __commonJS8({
-  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/from-browser.js"(exports8, module) {
+  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/from-browser.js"(exports7, module) {
     module.exports = function() {
       throw new Error("Readable.from is not available in the browser");
     };
   }
 });
 var require_stream_readable = __commonJS8({
-  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/_stream_readable.js"(exports8, module) {
+  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/_stream_readable.js"(exports7, module) {
     "use strict";
     module.exports = Readable22;
     var Duplex22;
@@ -8491,12 +8485,12 @@ var __toESM9 = (mod, isNodeMode, target) => (target = mod != null ? __create9(__
 ));
 var __toCommonJS2 = (mod) => __copyProps9(__defProp10({}, "__esModule", { value: true }), mod);
 var require_stream_browser2 = __commonJS9({
-  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/stream-browser.js"(exports8, module) {
+  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/stream-browser.js"(exports7, module) {
     module.exports = __require5("events").EventEmitter;
   }
 });
 var require_destroy2 = __commonJS9({
-  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/destroy.js"(exports8, module) {
+  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/destroy.js"(exports7, module) {
     "use strict";
     function destroy(err, cb) {
       var _this = this;
@@ -8587,7 +8581,7 @@ var require_destroy2 = __commonJS9({
   }
 });
 var require_errors_browser2 = __commonJS9({
-  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/errors-browser.js"(exports8, module) {
+  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/errors-browser.js"(exports7, module) {
     "use strict";
     function _inheritsLoose(subClass, superClass) {
       subClass.prototype = Object.create(superClass.prototype);
@@ -8694,7 +8688,7 @@ var require_errors_browser2 = __commonJS9({
   }
 });
 var require_state2 = __commonJS9({
-  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/state.js"(exports8, module) {
+  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/state.js"(exports7, module) {
     "use strict";
     var ERR_INVALID_OPT_VALUE = require_errors_browser2().codes.ERR_INVALID_OPT_VALUE;
     function highWaterMarkFrom(options, isDuplex, duplexKey) {
@@ -8727,7 +8721,7 @@ var init_util2 = __esm2({
   }
 });
 var require_buffer_list2 = __commonJS9({
-  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/buffer_list.js"(exports8, module) {
+  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/buffer_list.js"(exports7, module) {
     "use strict";
     function ownKeys(object, enumerableOnly) {
       var keys = Object.keys(object);
@@ -8987,7 +8981,7 @@ var require_buffer_list2 = __commonJS9({
   }
 });
 var require_end_of_stream2 = __commonJS9({
-  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/end-of-stream.js"(exports8, module) {
+  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/end-of-stream.js"(exports7, module) {
     "use strict";
     var ERR_STREAM_PREMATURE_CLOSE = require_errors_browser2().codes.ERR_STREAM_PREMATURE_CLOSE;
     function once4(callback) {
@@ -9086,7 +9080,7 @@ var require_end_of_stream2 = __commonJS9({
   }
 });
 var require_async_iterator2 = __commonJS9({
-  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/async_iterator.js"(exports8, module) {
+  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/async_iterator.js"(exports7, module) {
     "use strict";
     var _Object$setPrototypeO;
     function _defineProperty(obj, key, value) {
@@ -9269,14 +9263,14 @@ var require_async_iterator2 = __commonJS9({
   }
 });
 var require_from_browser2 = __commonJS9({
-  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/from-browser.js"(exports8, module) {
+  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/from-browser.js"(exports7, module) {
     module.exports = function() {
       throw new Error("Readable.from is not available in the browser");
     };
   }
 });
 var require_stream_readable2 = __commonJS9({
-  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/_stream_readable.js"(exports8, module) {
+  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/_stream_readable.js"(exports7, module) {
     "use strict";
     module.exports = Readable22;
     var Duplex22;
@@ -10070,7 +10064,7 @@ var require_stream_readable2 = __commonJS9({
   }
 });
 var require_stream_duplex2 = __commonJS9({
-  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/_stream_duplex.js"(exports8, module) {
+  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/_stream_duplex.js"(exports7, module) {
     "use strict";
     var objectKeys = Object.keys || function(obj) {
       var keys2 = [];
@@ -10167,7 +10161,7 @@ var require_stream_duplex2 = __commonJS9({
   }
 });
 var require_stream_writable2 = __commonJS9({
-  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/_stream_writable.js"(exports8, module) {
+  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/_stream_writable.js"(exports7, module) {
     "use strict";
     module.exports = Writable22;
     function CorkedRequest(state) {
@@ -10736,7 +10730,7 @@ var __toESM10 = (mod, isNodeMode, target) => (target = mod != null ? __create10(
 ));
 var __toCommonJS3 = (mod) => __copyProps10(__defProp11({}, "__esModule", { value: true }), mod);
 var require_stream_browser3 = __commonJS10({
-  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/stream-browser.js"(exports8, module) {
+  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/stream-browser.js"(exports7, module) {
     module.exports = __require6("events").EventEmitter;
   }
 });
@@ -10751,7 +10745,7 @@ var init_util3 = __esm3({
   }
 });
 var require_buffer_list3 = __commonJS10({
-  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/buffer_list.js"(exports8, module) {
+  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/buffer_list.js"(exports7, module) {
     "use strict";
     function ownKeys(object, enumerableOnly) {
       var keys = Object.keys(object);
@@ -11011,7 +11005,7 @@ var require_buffer_list3 = __commonJS10({
   }
 });
 var require_destroy3 = __commonJS10({
-  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/destroy.js"(exports8, module) {
+  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/destroy.js"(exports7, module) {
     "use strict";
     function destroy(err, cb) {
       var _this = this;
@@ -11102,7 +11096,7 @@ var require_destroy3 = __commonJS10({
   }
 });
 var require_errors_browser3 = __commonJS10({
-  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/errors-browser.js"(exports8, module) {
+  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/errors-browser.js"(exports7, module) {
     "use strict";
     function _inheritsLoose(subClass, superClass) {
       subClass.prototype = Object.create(superClass.prototype);
@@ -11209,7 +11203,7 @@ var require_errors_browser3 = __commonJS10({
   }
 });
 var require_state3 = __commonJS10({
-  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/state.js"(exports8, module) {
+  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/state.js"(exports7, module) {
     "use strict";
     var ERR_INVALID_OPT_VALUE = require_errors_browser3().codes.ERR_INVALID_OPT_VALUE;
     function highWaterMarkFrom(options, isDuplex, duplexKey) {
@@ -11232,7 +11226,7 @@ var require_state3 = __commonJS10({
   }
 });
 var require_end_of_stream3 = __commonJS10({
-  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/end-of-stream.js"(exports8, module) {
+  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/end-of-stream.js"(exports7, module) {
     "use strict";
     var ERR_STREAM_PREMATURE_CLOSE = require_errors_browser3().codes.ERR_STREAM_PREMATURE_CLOSE;
     function once4(callback) {
@@ -11331,7 +11325,7 @@ var require_end_of_stream3 = __commonJS10({
   }
 });
 var require_async_iterator3 = __commonJS10({
-  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/async_iterator.js"(exports8, module) {
+  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/async_iterator.js"(exports7, module) {
     "use strict";
     var _Object$setPrototypeO;
     function _defineProperty(obj, key, value) {
@@ -11514,14 +11508,14 @@ var require_async_iterator3 = __commonJS10({
   }
 });
 var require_from_browser3 = __commonJS10({
-  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/from-browser.js"(exports8, module) {
+  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/from-browser.js"(exports7, module) {
     module.exports = function() {
       throw new Error("Readable.from is not available in the browser");
     };
   }
 });
 var require_stream_readable3 = __commonJS10({
-  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/_stream_readable.js"(exports8, module) {
+  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/_stream_readable.js"(exports7, module) {
     "use strict";
     module.exports = Readable22;
     var Duplex22;
@@ -12315,7 +12309,7 @@ var require_stream_readable3 = __commonJS10({
   }
 });
 var require_stream_writable3 = __commonJS10({
-  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/_stream_writable.js"(exports8, module) {
+  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/_stream_writable.js"(exports7, module) {
     "use strict";
     module.exports = Writable22;
     function CorkedRequest(state) {
@@ -12813,7 +12807,7 @@ var require_stream_writable3 = __commonJS10({
   }
 });
 var require_stream_duplex3 = __commonJS10({
-  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/_stream_duplex.js"(exports8, module) {
+  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/_stream_duplex.js"(exports7, module) {
     "use strict";
     var objectKeys = Object.keys || function(obj) {
       var keys2 = [];
@@ -12981,7 +12975,7 @@ var __toESM11 = (mod, isNodeMode, target) => (target = mod != null ? __create11(
 ));
 var __toCommonJS4 = (mod) => __copyProps11(__defProp12({}, "__esModule", { value: true }), mod);
 var require_errors_browser4 = __commonJS11({
-  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/errors-browser.js"(exports8, module) {
+  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/errors-browser.js"(exports7, module) {
     "use strict";
     function _inheritsLoose(subClass, superClass) {
       subClass.prototype = Object.create(superClass.prototype);
@@ -13088,7 +13082,7 @@ var require_errors_browser4 = __commonJS11({
   }
 });
 var require_stream_browser4 = __commonJS11({
-  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/stream-browser.js"(exports8, module) {
+  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/stream-browser.js"(exports7, module) {
     module.exports = __require7("events").EventEmitter;
   }
 });
@@ -13103,7 +13097,7 @@ var init_util4 = __esm4({
   }
 });
 var require_buffer_list4 = __commonJS11({
-  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/buffer_list.js"(exports8, module) {
+  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/buffer_list.js"(exports7, module) {
     "use strict";
     function ownKeys(object, enumerableOnly) {
       var keys = Object.keys(object);
@@ -13363,7 +13357,7 @@ var require_buffer_list4 = __commonJS11({
   }
 });
 var require_destroy4 = __commonJS11({
-  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/destroy.js"(exports8, module) {
+  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/destroy.js"(exports7, module) {
     "use strict";
     function destroy(err, cb) {
       var _this = this;
@@ -13454,7 +13448,7 @@ var require_destroy4 = __commonJS11({
   }
 });
 var require_state4 = __commonJS11({
-  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/state.js"(exports8, module) {
+  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/state.js"(exports7, module) {
     "use strict";
     var ERR_INVALID_OPT_VALUE = require_errors_browser4().codes.ERR_INVALID_OPT_VALUE;
     function highWaterMarkFrom(options, isDuplex, duplexKey) {
@@ -13477,7 +13471,7 @@ var require_state4 = __commonJS11({
   }
 });
 var require_end_of_stream4 = __commonJS11({
-  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/end-of-stream.js"(exports8, module) {
+  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/end-of-stream.js"(exports7, module) {
     "use strict";
     var ERR_STREAM_PREMATURE_CLOSE = require_errors_browser4().codes.ERR_STREAM_PREMATURE_CLOSE;
     function once4(callback) {
@@ -13576,7 +13570,7 @@ var require_end_of_stream4 = __commonJS11({
   }
 });
 var require_async_iterator4 = __commonJS11({
-  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/async_iterator.js"(exports8, module) {
+  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/async_iterator.js"(exports7, module) {
     "use strict";
     var _Object$setPrototypeO;
     function _defineProperty(obj, key, value) {
@@ -13759,14 +13753,14 @@ var require_async_iterator4 = __commonJS11({
   }
 });
 var require_from_browser4 = __commonJS11({
-  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/from-browser.js"(exports8, module) {
+  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/from-browser.js"(exports7, module) {
     module.exports = function() {
       throw new Error("Readable.from is not available in the browser");
     };
   }
 });
 var require_stream_readable4 = __commonJS11({
-  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/_stream_readable.js"(exports8, module) {
+  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/_stream_readable.js"(exports7, module) {
     "use strict";
     module.exports = Readable22;
     var Duplex22;
@@ -14560,7 +14554,7 @@ var require_stream_readable4 = __commonJS11({
   }
 });
 var require_stream_writable4 = __commonJS11({
-  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/_stream_writable.js"(exports8, module) {
+  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/_stream_writable.js"(exports7, module) {
     "use strict";
     module.exports = Writable22;
     function CorkedRequest(state) {
@@ -15058,7 +15052,7 @@ var require_stream_writable4 = __commonJS11({
   }
 });
 var require_stream_duplex4 = __commonJS11({
-  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/_stream_duplex.js"(exports8, module) {
+  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/_stream_duplex.js"(exports7, module) {
     "use strict";
     var objectKeys = Object.keys || function(obj) {
       var keys2 = [];
@@ -15155,7 +15149,7 @@ var require_stream_duplex4 = __commonJS11({
   }
 });
 var require_stream_transform = __commonJS11({
-  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/_stream_transform.js"(exports8, module) {
+  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/_stream_transform.js"(exports7, module) {
     "use strict";
     module.exports = Transform22;
     var _require$codes = require_errors_browser4().codes;
@@ -15332,7 +15326,7 @@ var __toESM12 = (mod, isNodeMode, target) => (target = mod != null ? __create12(
 ));
 var __toCommonJS5 = (mod) => __copyProps12(__defProp13({}, "__esModule", { value: true }), mod);
 var require_errors_browser5 = __commonJS12({
-  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/errors-browser.js"(exports8, module) {
+  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/errors-browser.js"(exports7, module) {
     "use strict";
     function _inheritsLoose(subClass, superClass) {
       subClass.prototype = Object.create(superClass.prototype);
@@ -15439,7 +15433,7 @@ var require_errors_browser5 = __commonJS12({
   }
 });
 var require_stream_browser5 = __commonJS12({
-  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/stream-browser.js"(exports8, module) {
+  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/stream-browser.js"(exports7, module) {
     module.exports = __require8("events").EventEmitter;
   }
 });
@@ -15454,7 +15448,7 @@ var init_util5 = __esm5({
   }
 });
 var require_buffer_list5 = __commonJS12({
-  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/buffer_list.js"(exports8, module) {
+  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/buffer_list.js"(exports7, module) {
     "use strict";
     function ownKeys(object, enumerableOnly) {
       var keys = Object.keys(object);
@@ -15714,7 +15708,7 @@ var require_buffer_list5 = __commonJS12({
   }
 });
 var require_destroy5 = __commonJS12({
-  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/destroy.js"(exports8, module) {
+  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/destroy.js"(exports7, module) {
     "use strict";
     function destroy(err, cb) {
       var _this = this;
@@ -15805,7 +15799,7 @@ var require_destroy5 = __commonJS12({
   }
 });
 var require_state5 = __commonJS12({
-  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/state.js"(exports8, module) {
+  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/state.js"(exports7, module) {
     "use strict";
     var ERR_INVALID_OPT_VALUE = require_errors_browser5().codes.ERR_INVALID_OPT_VALUE;
     function highWaterMarkFrom(options, isDuplex, duplexKey) {
@@ -15828,7 +15822,7 @@ var require_state5 = __commonJS12({
   }
 });
 var require_end_of_stream5 = __commonJS12({
-  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/end-of-stream.js"(exports8, module) {
+  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/end-of-stream.js"(exports7, module) {
     "use strict";
     var ERR_STREAM_PREMATURE_CLOSE = require_errors_browser5().codes.ERR_STREAM_PREMATURE_CLOSE;
     function once4(callback) {
@@ -15927,7 +15921,7 @@ var require_end_of_stream5 = __commonJS12({
   }
 });
 var require_async_iterator5 = __commonJS12({
-  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/async_iterator.js"(exports8, module) {
+  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/async_iterator.js"(exports7, module) {
     "use strict";
     var _Object$setPrototypeO;
     function _defineProperty(obj, key, value) {
@@ -16110,14 +16104,14 @@ var require_async_iterator5 = __commonJS12({
   }
 });
 var require_from_browser5 = __commonJS12({
-  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/from-browser.js"(exports8, module) {
+  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/from-browser.js"(exports7, module) {
     module.exports = function() {
       throw new Error("Readable.from is not available in the browser");
     };
   }
 });
 var require_stream_readable5 = __commonJS12({
-  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/_stream_readable.js"(exports8, module) {
+  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/_stream_readable.js"(exports7, module) {
     "use strict";
     module.exports = Readable22;
     var Duplex22;
@@ -16911,7 +16905,7 @@ var require_stream_readable5 = __commonJS12({
   }
 });
 var require_stream_writable5 = __commonJS12({
-  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/_stream_writable.js"(exports8, module) {
+  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/_stream_writable.js"(exports7, module) {
     "use strict";
     module.exports = Writable22;
     function CorkedRequest(state) {
@@ -17409,7 +17403,7 @@ var require_stream_writable5 = __commonJS12({
   }
 });
 var require_stream_duplex5 = __commonJS12({
-  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/_stream_duplex.js"(exports8, module) {
+  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/_stream_duplex.js"(exports7, module) {
     "use strict";
     var objectKeys = Object.keys || function(obj) {
       var keys2 = [];
@@ -17506,7 +17500,7 @@ var require_stream_duplex5 = __commonJS12({
   }
 });
 var require_stream_transform2 = __commonJS12({
-  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/_stream_transform.js"(exports8, module) {
+  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/_stream_transform.js"(exports7, module) {
     "use strict";
     module.exports = Transform22;
     var _require$codes = require_errors_browser5().codes;
@@ -17612,7 +17606,7 @@ var require_stream_transform2 = __commonJS12({
   }
 });
 var require_stream_passthrough = __commonJS12({
-  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/_stream_passthrough.js"(exports8, module) {
+  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/_stream_passthrough.js"(exports7, module) {
     "use strict";
     module.exports = PassThrough22;
     var Transform22 = require_stream_transform2();
@@ -17670,7 +17664,7 @@ var __toESM13 = (mod, isNodeMode, target) => (target = mod != null ? __create13(
   mod
 ));
 var require_errors_browser6 = __commonJS13({
-  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/errors-browser.js"(exports8, module) {
+  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/errors-browser.js"(exports7, module) {
     "use strict";
     function _inheritsLoose(subClass, superClass) {
       subClass.prototype = Object.create(superClass.prototype);
@@ -17777,7 +17771,7 @@ var require_errors_browser6 = __commonJS13({
   }
 });
 var require_end_of_stream6 = __commonJS13({
-  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/end-of-stream.js"(exports8, module) {
+  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/end-of-stream.js"(exports7, module) {
     "use strict";
     var ERR_STREAM_PREMATURE_CLOSE = require_errors_browser6().codes.ERR_STREAM_PREMATURE_CLOSE;
     function once4(callback) {
@@ -17918,7 +17912,7 @@ var __toESM14 = (mod, isNodeMode, target) => (target = mod != null ? __create14(
   mod
 ));
 var require_errors_browser7 = __commonJS14({
-  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/errors-browser.js"(exports8, module) {
+  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/errors-browser.js"(exports7, module) {
     "use strict";
     function _inheritsLoose(subClass, superClass) {
       subClass.prototype = Object.create(superClass.prototype);
@@ -18025,7 +18019,7 @@ var require_errors_browser7 = __commonJS14({
   }
 });
 var require_end_of_stream7 = __commonJS14({
-  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/end-of-stream.js"(exports8, module) {
+  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/end-of-stream.js"(exports7, module) {
     "use strict";
     var ERR_STREAM_PREMATURE_CLOSE = require_errors_browser7().codes.ERR_STREAM_PREMATURE_CLOSE;
     function once4(callback) {
@@ -18124,7 +18118,7 @@ var require_end_of_stream7 = __commonJS14({
   }
 });
 var require_pipeline = __commonJS14({
-  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/pipeline.js"(exports8, module) {
+  "../esmd/npm/readable-stream@3.6.2/node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream/lib/internal/streams/pipeline.js"(exports7, module) {
     "use strict";
     var eos;
     function once4(callback) {
@@ -18291,7 +18285,7 @@ var __toESM15 = (mod, isNodeMode, target) => (target = mod != null ? __create15(
   mod
 ));
 var require_stream_browserify = __commonJS15({
-  "../esmd/npm/stream-browserify@3.0.0/node_modules/.pnpm/stream-browserify@3.0.0/node_modules/stream-browserify/index.js"(exports8, module) {
+  "../esmd/npm/stream-browserify@3.0.0/node_modules/.pnpm/stream-browserify@3.0.0/node_modules/stream-browserify/index.js"(exports7, module) {
     module.exports = Stream22;
     var EE = __require9("events").EventEmitter;
     var inherits2 = __require9("inherits");
@@ -21080,7 +21074,7 @@ var { default: G11, ...ne } = _30;
 var ie = G11 !== void 0 ? G11 : ne;
 
 // ../main/node_shims/helpers/util.js
-var exports5 = { types: { ...types_exports } };
+var exports4 = { types: { ...types_exports } };
 var getOwnPropertyDescriptors = Object.getOwnPropertyDescriptors || function getOwnPropertyDescriptors2(obj) {
   var keys = Object.keys(obj);
   var descriptors = {};
@@ -21090,7 +21084,7 @@ var getOwnPropertyDescriptors = Object.getOwnPropertyDescriptors || function get
   return descriptors;
 };
 var formatRegExp = /%[sdj%]/g;
-exports5.format = function(f18) {
+exports4.format = function(f18) {
   if (!isString(f18)) {
     var objects = [];
     for (var i18 = 0; i18 < arguments.length; i18++) {
@@ -21128,13 +21122,13 @@ exports5.format = function(f18) {
   }
   return str;
 };
-exports5.deprecate = function(fn, msg) {
+exports4.deprecate = function(fn, msg) {
   if (typeof process_default !== "undefined" && process_default.noDeprecation === true) {
     return fn;
   }
   if (typeof process_default === "undefined") {
     return function() {
-      return exports5.deprecate(fn, msg).apply(this, arguments);
+      return exports4.deprecate(fn, msg).apply(this, arguments);
     };
   }
   var warned = false;
@@ -21161,13 +21155,13 @@ if (process_default.env.NODE_DEBUG) {
   debugEnvRegex = new RegExp("^" + debugEnv + "$", "i");
 }
 var debugEnv;
-exports5.debuglog = function(set) {
+exports4.debuglog = function(set) {
   set = set.toUpperCase();
   if (!debugs[set]) {
     if (debugEnvRegex.test(set)) {
       var pid2 = process_default.pid;
       debugs[set] = function() {
-        var msg = exports5.format.apply(exports5, arguments);
+        var msg = exports4.format.apply(exports4, arguments);
         console.error("%s %d: %s", set, pid2, msg);
       };
     } else {
@@ -21187,7 +21181,7 @@ function inspect(obj, opts) {
   if (isBoolean(opts)) {
     ctx.showHidden = opts;
   } else if (opts) {
-    exports5._extend(ctx, opts);
+    exports4._extend(ctx, opts);
   }
   if (isUndefined(ctx.showHidden)) ctx.showHidden = false;
   if (isUndefined(ctx.depth)) ctx.depth = 2;
@@ -21196,7 +21190,7 @@ function inspect(obj, opts) {
   if (ctx.colors) ctx.stylize = stylizeWithColor;
   return formatValue(ctx, obj, ctx.depth);
 }
-exports5.inspect = inspect;
+exports4.inspect = inspect;
 inspect.colors = {
   "bold": [1, 22],
   "italic": [3, 23],
@@ -21243,7 +21237,7 @@ function arrayToHash(array) {
 }
 function formatValue(ctx, value, recurseTimes) {
   if (ctx.customInspect && value && isFunction(value.inspect) && // Filter out the util module, it's inspect function is special
-  value.inspect !== exports5.inspect && // Also filter out any prototype objects using the circular check.
+  value.inspect !== exports4.inspect && // Also filter out any prototype objects using the circular check.
   !(value.constructor && value.constructor.prototype === value)) {
     var ret = value.inspect(recurseTimes, ctx);
     if (!isString(ret)) {
@@ -21434,63 +21428,63 @@ function reduceToSingleString(output, base, braces) {
 function isArray(ar) {
   return Array.isArray(ar);
 }
-exports5.isArray = isArray;
+exports4.isArray = isArray;
 function isBoolean(arg) {
   return typeof arg === "boolean";
 }
-exports5.isBoolean = isBoolean;
+exports4.isBoolean = isBoolean;
 function isNull(arg) {
   return arg === null;
 }
-exports5.isNull = isNull;
+exports4.isNull = isNull;
 function isNullOrUndefined(arg) {
   return arg == null;
 }
-exports5.isNullOrUndefined = isNullOrUndefined;
+exports4.isNullOrUndefined = isNullOrUndefined;
 function isNumber(arg) {
   return typeof arg === "number";
 }
-exports5.isNumber = isNumber;
+exports4.isNumber = isNumber;
 function isString(arg) {
   return typeof arg === "string";
 }
-exports5.isString = isString;
+exports4.isString = isString;
 function isSymbol(arg) {
   return typeof arg === "symbol";
 }
-exports5.isSymbol = isSymbol;
+exports4.isSymbol = isSymbol;
 function isUndefined(arg) {
   return arg === void 0;
 }
-exports5.isUndefined = isUndefined;
+exports4.isUndefined = isUndefined;
 function isRegExp(re2) {
   return isObject(re2) && objectToString(re2) === "[object RegExp]";
 }
-exports5.isRegExp = isRegExp;
-exports5.types.isRegExp = isRegExp;
+exports4.isRegExp = isRegExp;
+exports4.types.isRegExp = isRegExp;
 function isObject(arg) {
   return typeof arg === "object" && arg !== null;
 }
-exports5.isObject = isObject;
+exports4.isObject = isObject;
 function isDate(d23) {
   return isObject(d23) && objectToString(d23) === "[object Date]";
 }
-exports5.isDate = isDate;
-exports5.types.isDate = isDate;
+exports4.isDate = isDate;
+exports4.types.isDate = isDate;
 function isError(e3) {
   return isObject(e3) && (objectToString(e3) === "[object Error]" || e3 instanceof Error);
 }
-exports5.isError = isError;
-exports5.types.isNativeError = isError;
+exports4.isError = isError;
+exports4.types.isNativeError = isError;
 function isFunction(arg) {
   return typeof arg === "function";
 }
-exports5.isFunction = isFunction;
+exports4.isFunction = isFunction;
 function isPrimitive(arg) {
   return arg === null || typeof arg === "boolean" || typeof arg === "number" || typeof arg === "string" || typeof arg === "symbol" || // ES6 symbol
   typeof arg === "undefined";
 }
-exports5.isPrimitive = isPrimitive;
+exports4.isPrimitive = isPrimitive;
 function objectToString(o26) {
   return Object.prototype.toString.call(o26);
 }
@@ -21520,11 +21514,11 @@ function timestamp() {
   ].join(":");
   return [d23.getDate(), months[d23.getMonth()], time].join(" ");
 }
-exports5.log = function() {
-  console.log("%s - %s", timestamp(), exports5.format.apply(exports5, arguments));
+exports4.log = function() {
+  console.log("%s - %s", timestamp(), exports4.format.apply(exports4, arguments));
 };
 if (typeof Object.create === "function") {
-  exports5.inherits = function(ctor, superCtor) {
+  exports4.inherits = function(ctor, superCtor) {
     if (superCtor) {
       ctor.super_ = superCtor;
       ctor.prototype = Object.create(superCtor.prototype, {
@@ -21538,7 +21532,7 @@ if (typeof Object.create === "function") {
     }
   };
 } else {
-  exports5.inherits = function(ctor, superCtor) {
+  exports4.inherits = function(ctor, superCtor) {
     if (superCtor) {
       ctor.super_ = superCtor;
       var TempCtor = function() {
@@ -21549,7 +21543,7 @@ if (typeof Object.create === "function") {
     }
   };
 }
-exports5._extend = function(origin, add) {
+exports4._extend = function(origin, add) {
   if (!add || !isObject(add)) return origin;
   var keys = Object.keys(add);
   var i18 = keys.length;
@@ -21562,7 +21556,7 @@ function hasOwnProperty(obj, prop) {
   return Object.prototype.hasOwnProperty.call(obj, prop);
 }
 var kCustomPromisifiedSymbol = typeof Symbol !== "undefined" ? Symbol("util.promisify.custom") : void 0;
-exports5.promisify = function promisify(original) {
+exports4.promisify = function promisify(original) {
   if (typeof original !== "function")
     throw new TypeError('The "original" argument must be of type Function');
   if (kCustomPromisifiedSymbol && original[kCustomPromisifiedSymbol]) {
@@ -21614,7 +21608,7 @@ exports5.promisify = function promisify(original) {
     getOwnPropertyDescriptors(original)
   );
 };
-exports5.promisify.custom = kCustomPromisifiedSymbol;
+exports4.promisify.custom = kCustomPromisifiedSymbol;
 function callbackifyOnRejected(reason, cb) {
   if (!reason) {
     var newReason = new Error("Promise was rejected with a falsy value");
@@ -21656,8 +21650,8 @@ function callbackify(original) {
   );
   return callbackified;
 }
-exports5.callbackify = callbackify;
-var util_default6 = exports5;
+exports4.callbackify = callbackify;
+var util_default6 = exports4;
 
 // ../main/node_shims/util.js
 var exported6 = {
@@ -22697,7 +22691,7 @@ function createPromisesApi(vol2) {
 }
 
 // ../main/memfs-3.0.4/volume.ts
-var exports6 = {};
+var exports5 = {};
 var resolveCrossPlatform = resolve;
 var {
   O_RDONLY,
@@ -24223,7 +24217,7 @@ function allocNewPool(poolSize) {
   pool.used = 0;
 }
 util_default7.inherits(FsReadStream, Readable2);
-exports6.ReadStream = FsReadStream;
+exports5.ReadStream = FsReadStream;
 function FsReadStream(vol2, path, options) {
   if (!(this instanceof FsReadStream)) return new FsReadStream(vol2, path, options);
   this._vol = vol2;
@@ -24335,7 +24329,7 @@ function closeOnOpen(fd) {
   this.close();
 }
 util_default7.inherits(FsWriteStream, Writable2);
-exports6.WriteStream = FsWriteStream;
+exports5.WriteStream = FsWriteStream;
 function FsWriteStream(vol2, path, options) {
   if (!(this instanceof FsWriteStream)) return new FsWriteStream(vol2, path, options);
   this._vol = vol2;
@@ -24504,11 +24498,11 @@ var fsSyncMethods = ["renameSync", "ftruncateSync", "truncateSync", "chownSync",
 var fsAsyncMethods = ["rename", "ftruncate", "truncate", "chown", "fchown", "lchown", "chmod", "fchmod", "lchmod", "stat", "lstat", "fstat", "link", "symlink", "readlink", "realpath", "unlink", "rmdir", "mkdir", "mkdirp", "readdir", "close", "open", "utimes", "futimes", "fsync", "write", "read", "readFile", "writeFile", "appendFile", "exists", "access", "fdatasync", "mkdtemp", "copyFile", "rm", "watchFile", "unwatchFile", "watch"];
 var constants4 = constants3;
 var { F_OK: F_OK2, R_OK, W_OK, X_OK } = constants4;
-var exports7 = {};
+var exports6 = {};
 var Volume2 = Volume;
-exports7.Volume = Volume2;
+exports6.Volume = Volume2;
 var vol = new Volume();
-exports7.vol = vol;
+exports6.vol = vol;
 function createFsFromVolume(vol2) {
   const fs2 = { F_OK: F_OK2, R_OK, W_OK, X_OK, constants: constants4, Stats: Stats2, Dirent: Dirent2 };
   for (const method of fsSyncMethods) if (typeof vol2[method] === "function") fs2[method] = vol2[method].bind(vol2);
@@ -24521,11 +24515,11 @@ function createFsFromVolume(vol2) {
   fs2._toUnixTimestamp = toUnixTimestamp;
   return fs2;
 }
-exports7.createFsFromVolume = createFsFromVolume;
+exports6.createFsFromVolume = createFsFromVolume;
 var fs = createFsFromVolume(vol);
-exports7.fs = fs;
-Object.assign(exports7, fs);
-exports7.default = exports7;
+exports6.fs = fs;
+Object.assign(exports6, fs);
+exports6.default = exports6;
 var {
   // this is all the stuff from Object.assign(exports, fs)
   Stats: Stats2,

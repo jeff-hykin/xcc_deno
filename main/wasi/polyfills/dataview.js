@@ -1,5 +1,3 @@
-import { BigIntPolyfill } from "./bigint.js"
-
 var exports = {}
 
 // A very simple workaround for Big int. Works in conjunction with our custom
@@ -39,7 +37,7 @@ if (!exportedDataView.prototype.setBigUint64) {
             lowWordAsBinaryStrPadded += "0";
         }
         lowWordAsBinaryStrPadded += lowWordAsBinaryStr;
-        return BigIntPolyfill("0b" + highWordAsBinaryStr + lowWordAsBinaryStrPadded);
+        return BigInt("0b" + highWordAsBinaryStr + lowWordAsBinaryStrPadded);
     };
 }
 exports.DataViewPolyfill = exportedDataView;
