@@ -1,54 +1,45 @@
 import path from "./node_shims/path.js"
 import { unzip } from "https://esm.sh/fflate@0.8.2"
 import uint8ArrayForWccfilesZip from "../embedded_files/wccfiles.zip.binaryified.js"
+import DateTime from "https://deno.land/x/good@1.9.1.1/date.js"
+import { capitalize, indent, toCamelCase, digitsToEnglishArray, toPascalCase, toKebabCase, toSnakeCase, toScreamingtoKebabCase, toScreamingtoSnakeCase, toRepresentation, toString, regex, findAll, iterativelyFindAll, escapeRegexMatch, escapeRegexReplace, extractFirst, isValidIdentifier, removeCommonPrefix } from "https://deno.land/x/good@1.9.1.1/string.js"
 
 // import { WasiWorker } from './wasi_worker.ts'
 import uint8ArrayForWasiWorkerJs from "./wasi_worker.js.binaryified.js"
 const webWorkerCode = URL.createObjectURL(new Blob([uint8ArrayForWasiWorkerJs], { type: "text/javascript" }))
 
-const PACKED_ZIP_PATH = "wccfiles.zip"
-
-const CC_PATH = "/usr/bin/cc"
 const USER = "wasm"
+const CC_PATH = "/usr/bin/cc"
 const TMP_PATH = "/tmp"
 
-type ResolveFunc = (value?: any | PromiseLike<any>) => void
-type RejectFunc = (value?: any | PromiseLike<any>) => void
-type ActionHandler = {
-    resolve: ResolveFunc
-    reject: RejectFunc
-}
-
-async function loadFromServer(path: string, opt: any = null): Promise<string | ArrayBuffer> {
-    const response = await fetch(path, { method: "GET" })
-    if (!response.ok) throw new Error(`${response.status} ${response.statusText}\n${response.url}`)
-    if (opt != null && opt.binary) return await response.arrayBuffer()
-    return await response.text()
-}
-
 export class WccRunner {
-    private worker: Worker
-    private messageId = 0
-    private actionHandlerMap = new Map<number, ActionHandler>()
-    private consoleOut: (text: string, isError: boolean) => void
-    private curDir = `/home/${USER}`
+    _worker = null
+    _messageId = 0
+    _actionHandlerMap = new Map() // <number, ActionHandler>
+    pwd = `/home/${USER}`
+    
+    /**
+     * callback for compiler output
+     *
+     * @param {string} arg.text - 
+     * @param {boolean} arg.isError -
+     */
+    onCompilerOutput = ({text, isError}) => {
+        if (isError) console.error(text)
+        else console.log(text)
+    }
 
-    public constructor() {
-        this.consoleOut = (text: string, isError: boolean) => {
-            if (isError) console.error(text)
-            else console.log(text)
-        }
-
-        this.worker = new Worker(
+    constructor() {
+        this._worker = new Worker(
             // "file:///Users/jeffhykin/repos/xcc_deno/main/wasi_worker.bundle.js",
             webWorkerCode,
             { type: "module" }
         )
-        this.worker.onmessage = (ev: MessageEvent<any>) => {
-            const data = ev.data
-            if (data.messageId != null && this.actionHandlerMap.has(data.messageId)) {
-                const handler = this.actionHandlerMap.get(data.messageId)!
-                this.actionHandlerMap.delete(data.messageId)
+        this._worker.onmessage = (event) => {
+            const data = event.data
+            if (data.messageId != null && this._actionHandlerMap.has(data.messageId)) {
+                const handler = this._actionHandlerMap.get(data.messageId)!
+                this._actionHandlerMap.delete(data.messageId)
                 if (data.error != null) {
                     handler.reject(data.error)
                 } else {
@@ -57,23 +48,22 @@ export class WccRunner {
             } else {
                 switch (data.action) {
                     case "consoleOut":
-                        this.consoleOut(data.text, data.isError)
+                        this.onCompilerOutput(data)
+                        break
+                    default:
+                        console.error(`[Inside of WccRunner, worker.onmessage] Received an unknown action ${data.action}`, toRepresentation(data))
                         break
                 }
             }
         }
     }
 
-    public setConsoleOutFunction(consoleOut: (text: string, isError: boolean) => void) {
-        this.consoleOut = consoleOut
-    }
-
-    public async setUp(): Promise<void> {
+    async setUp() {
         const recursiveTrue = { recursive: true }
 
         await Promise.all([
             this.mkdir(TMP_PATH, recursiveTrue),
-            this.mkdir(this.curDir, recursiveTrue),
+            this.mkdir(this.pwd, recursiveTrue),
             new Promise((resolve, reject) => {
                 return unzip(uint8ArrayForWccfilesZip, (err, unzipped) => {
                     if (err) {
@@ -101,55 +91,112 @@ export class WccRunner {
             }),
         ])
 
-        await this.chdir(this.curDir)
+        await this.chdir(this.pwd)
     }
 
-    public async writeFile(filePath: string, content: string | Uint8Array): Promise<void> {
-        await this.postMessage("writeFile", { filePath: this.abspath(filePath), content })
+    /**
+     * Writes content to a file at the specified path.
+     *
+     * @param {string} filePath - The path of the file to write to.
+     * @param {string | Uint8Array} content - The content to write to the file.
+     * @returns {Promise<void>} A promise that resolves when the file has been written.
+     */
+    async writeFile(filePath, content) {
+        await this._postMessage("writeFile", { filePath: this.abspath(filePath), content });
     }
 
-    public async readFile(filePath: string): Promise<Uint8Array> {
-        return await this.postMessage("readFile", { filePath: this.abspath(filePath) })
+    /**
+     * Reads the content of a file at the specified path.
+     *
+     * @param {string} filePath - The path of the file to read from.
+     * @returns {Promise<Uint8Array>} A promise that resolves with the content of the file.
+     */
+    async readFile(filePath) {
+        return await this._postMessage("readFile", { filePath: this.abspath(filePath) });
     }
 
-    public chdir(filePath: string): Promise<boolean> {
-        return this.postMessage("chdir", { filePath: this.abspath(filePath) })
+    /**
+     * Changes the current working directory to the specified path.
+     *
+     * @param {string} filePath - The path of the directory to change to.
+     * @returns {Promise<boolean>} A promise that resolves to true if the directory was successfully changed, false otherwise.
+     */
+    chdir(filePath) {
+        return this._postMessage("chdir", { filePath: this.abspath(filePath) });
     }
 
-    public mkdir(filePath: string, option?: any): Promise<void> {
-        return this.postMessage("mkdir", { filePath: this.abspath(filePath), option })
+    /**
+     * Creates a new directory at the specified path.
+     *
+     * @param {string} filePath - The path of the directory to create.
+     * @param {any} [option] - Optional settings for the directory creation (e.g., recursive).
+     * @returns {Promise<void>} A promise that resolves when the directory has been created.
+     */
+    mkdir(filePath, option) {
+        return this._postMessage("mkdir", { filePath: this.abspath(filePath), option });
+    }
+    
+    /**
+     * Compiles a source file using the specified options.
+     *
+     * @param {string} sourceName - The name of the source file to compile.
+     * @param {string[]} [extraOptions] - Optional additional options for the compiler.
+     * @returns {Promise<number>} A promise that resolves to the exit code of the compilation process.
+     */
+    function compile(sourceName, extraOptions) {
+        let args = [CC_PATH];
+        if (extraOptions != null) {
+            args = args.concat(extraOptions);
+        }
+        args.push(sourceName);
+
+        return this.runWasi(args[0], args);
     }
 
-    public compile(sourceName: string, extraOptions?: string[]): Promise<number> {
-        let args = [CC_PATH]
-        if (extraOptions != null) args = args.concat(extraOptions)
-        args.push(sourceName)
-
-        return this.runWasi(args[0], args)
+    /**
+     * Runs a WASI (WebAssembly System Interface) command with the specified arguments.
+     *
+     * @param {string} filePath - The path to the WASI executable.
+     * @param {string[]} args - The arguments to pass to the executable.
+     * @returns {Promise<number>} A promise that resolves to the exit code of the command.
+     */
+    async function runWasi(filePath, args) {
+        return await this._postMessage("runWasi", { filePath, args });
     }
 
-    public async runWasi(filePath: string, args: string[]): Promise<number> {
-        return await this.postMessage("runWasi", { filePath, args })
+    /**
+     * Clears temporary files from the temporary directory.
+     *
+     * @returns {Promise<void>} A promise that resolves when all temporary files have been deleted.
+     */
+    async function clearTemporaries() {
+        const files = await this._postMessage("readdir", { filePath: TMP_PATH });
+        await Promise.all(files.map((file) => this._postMessage("unlink", { filePath: `${TMP_PATH}/${file}` })));
     }
 
-    public async clearTemporaries(): Promise<void> {
-        const files = await this.postMessage("readdir", { filePath: TMP_PATH })
-        await Promise.all(files.map((file: string) => this.postMessage("unlink", { filePath: `${TMP_PATH}/${file}` })))
+    /**
+     * Sends a message to the worker with the specified action and data.
+     *
+     * @param {string} action - The action to perform.
+     * @param {any} [data={}] - The data to send along with the action.
+     * @returns {Promise<any>} A promise that resolves with the response or rejects on error.
+     */
+    function _postMessage(action, data = {}) {
+        return new Promise((resolve, reject) => {
+            const messageId = ++this._messageId;
+            this._actionHandlerMap.set(messageId, { resolve, reject });
+
+            data.action = action;
+            data.messageId = messageId;
+            this._worker.postMessage(data);
+        });
     }
 
-    private postMessage(action: string, data: any = {}): Promise<any> {
-        return new Promise<any>((resolve: ResolveFunc, reject: RejectFunc) => {
-            const messageId = ++this.messageId
-            this.actionHandlerMap.set(messageId, { resolve, reject })
 
-            data.action = action
-            data.messageId = messageId
-            this.worker.postMessage(data)
-        })
-    }
-
-    private abspath(path2: string): string {
-        if (path2[0] === "/") return path2
-        return path.join(this.curDir, path2)
+    abspath(path2) {
+        if (path2[0] === "/") {
+            return path2
+        }
+        return path.join(this.pwd, path2)
     }
 }
