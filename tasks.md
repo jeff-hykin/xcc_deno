@@ -1,5 +1,12 @@
 - DONE: Use wasi_worker.ts instead of wasi_worker.js
     - DONE: download memfs
     - DONE: patch fs-monkey/lib/util/lists 
-- Make Deno.exit() not needed
-- load wasm and grab wrapped C function 
+- Make Deno.exit() not needed (use worker.terminate())
+- load wasm and grab wrapped C function
+- get args for:
+    - header files
+    - shared object files
+    - shared object outputs
+    - target system selection
+    - system path lookup
+    - ENV vars
