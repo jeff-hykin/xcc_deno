@@ -2,8 +2,12 @@ import Stats from "./Stats.ts";
 import Dirent from "./Dirent.ts";
 import { Volume as _Volume, StatWatcher, FSWatcher, toUnixTimestamp, IReadStream, IWriteStream } from "./volume.ts";
 import { IPromisesAPI } from "./promises.ts";
-import { fsSyncMethods, fsAsyncMethods } from "../fs-monkey/lib/util/lists.js";
 import * as workaround from "./constants.ts";
+
+// from "../fs-monkey/lib/util/lists.js";
+export const fsSyncMethods = ['renameSync', 'ftruncateSync', 'truncateSync', 'chownSync', 'fchownSync', 'lchownSync', 'chmodSync', 'fchmodSync', 'lchmodSync', 'statSync', 'lstatSync', 'fstatSync', 'linkSync', 'symlinkSync', 'readlinkSync', 'realpathSync', 'unlinkSync', 'rmdirSync', 'mkdirSync', 'mkdirpSync', 'readdirSync', 'closeSync', 'openSync', 'utimesSync', 'futimesSync', 'fsyncSync', 'writeSync', 'readSync', 'readFileSync', 'writeFileSync', 'appendFileSync', 'existsSync', 'accessSync', 'fdatasyncSync', 'mkdtempSync', 'copyFileSync', 'rmSync', 'createReadStream', 'createWriteStream']
+export const fsAsyncMethods = ['rename', 'ftruncate', 'truncate', 'chown', 'fchown', 'lchown', 'chmod', 'fchmod', 'lchmod', 'stat', 'lstat', 'fstat', 'link', 'symlink', 'readlink', 'realpath', 'unlink', 'rmdir', 'mkdir', 'mkdirp', 'readdir', 'close', 'open', 'utimes', 'futimes', 'fsync', 'write', 'read', 'readFile', 'writeFile', 'appendFile', 'exists', 'access', 'fdatasync', 'mkdtemp', 'copyFile', 'rm', 'watchFile', 'unwatchFile', 'watch']
+
 // import { constants } from "./constants.ts";
 const constants = workaround.constants;
 const { F_OK, R_OK, W_OK, X_OK } = constants;
