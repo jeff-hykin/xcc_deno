@@ -3,6 +3,7 @@ import { unzip } from "https://esm.sh/fflate@0.8.2"
 import uint8ArrayForWccfilesZip from "../embedded_files/wccfiles.zip.binaryified.js"
 import DateTime from "https://deno.land/x/good@1.9.1.1/date.js"
 import { capitalize, indent, toCamelCase, toPascalCase, toKebabCase, toSnakeCase, toRepresentation, toString, regex, findAll, iterativelyFindAll, escapeRegexMatch, escapeRegexReplace, extractFirst, isValidIdentifier, removeCommonPrefix } from "https://deno.land/x/good@1.9.1.1/string.js"
+import { dirname } from "https://deno.land/std@0.128.0/path/posix.ts"
 
 // import { WasiWorker } from './wasi_worker.ts'
 import uint8ArrayForWasiWorkerJs from "./wasi_worker.js.binaryified.js"
@@ -13,7 +14,8 @@ const CC_PATH = "/usr/bin/cc"
 const TMP_PATH = "/tmp"
 
 const getCompilerObject = Symbol("getCompilerObject")
-export function Compiler(options) {
+export function Compiler(options={ pwd:null, extraFileSystem:{}, totalFileSystem:null, }) {
+    const { pwd, extraFileSystem, totalFileSystem } = options
     // NOTE: this boilerplate is just a workaround to get (effectively) an async constructor for the Compiler class
     let compiler
     return (options == getCompilerObject) ? this : (async function() {
@@ -23,7 +25,7 @@ export function Compiler(options) {
             this._worker = null
             this._messageId = 0
             this._actionHandlerMap = new Map() // <number, ActionHandler>
-            this.pwd = `/home/${USER}`
+            this.pwd = pwd || `/home/${USER}`
             
             /**
              * callback for compiler output
@@ -71,11 +73,16 @@ export function Compiler(options) {
         // file system setup
         // 
             const recursiveTrue = { recursive: true }
-            await Promise.all([
+            const fileSystemSetupPromises = [
                 this.mkdir(TMP_PATH, recursiveTrue),
-                this.mkdir(this.pwd, recursiveTrue),
-                new Promise((resolve, reject) => {
-                    return unzip(uint8ArrayForWccfilesZip, (err, unzipped) => {
+                this.mkdir(this.pwd, recursiveTrue).then(
+                    ()=>this.chdir(this.pwd)
+                ),
+            ]
+            // if totalFileSystem skip the default files
+            if (!totalFileSystem) {
+                fileSystemSetupPromises.push(
+                    new Promise((resolve, reject) => unzip(uint8ArrayForWccfilesZip, (err, unzipped) => {
                         if (err) {
                             reject(err)
                             return
@@ -92,17 +99,45 @@ export function Compiler(options) {
                             await this.writeFile(filepath, data)
                             ccExists ||= filepath === CC_PATH
                         })
-                        Promise.all(promises)
-                            .then((result) => {
-                                if (!ccExists) throw "C-this not found in the zip file"
+                        Promise.all(promises).then((result) => {
+                                if (!ccExists) {
+                                    reject(Error("C-this not found in the zip file"))
+                                }
                                 resolve(result)
-                            })
-                            .catch(reject)
-                    })
-                }),
-            ])
-            
-            await this.chdir(this.pwd)
+                            }).catch(reject)
+                    }))
+                )
+            }
+            for (const [path, contents] of Object.entries(extraFileSystem||{})) {
+                const isFolder = path.endsWith("/") && contents === ""
+                if (path.endsWith("/")) {
+                    if (contents === "") {
+                        fileSystemSetupPromises.push(
+                            this.mkdir(this.abspath(path), recursiveTrue)
+                        )
+                    } else {
+                        console.warn(`When creating a Compiler object with an with extraFileSystem, e.g. Compiler({ extraFileSystem: {...} }), each key is a path, and paths that end with slash are expected to be a folder (${JSON.stringify(path)}). As a sanity-check the value (as in key-value) of a folder is also expected to be an empty string. Instead the value was ${toRepresentation(contents)}\nPlease change the value to be an empty string, or remove the trailing slash if this was supposed to be a file`)
+                    }
+                } else {
+                    let actualContents = contents
+                    if (actualContents == null) {
+                        actualContents = ""
+                    } else if (ArrayBuffer.isView(actualContents)) {
+                        // FIXME: this is not round-trip safe, but we need to modify the worker to support sending Uint8Array's directly
+                        actualContents = new TextDecoder().decode(actualContents)
+                    } else if (typeof actualContents === "string") {
+                        // noop
+                    } else {
+                        throw new Error(`[Compiler.constructor] Unexpected type for contents of extraFileSystem[${JSON.stringify(path)}]\nThe value needs to be a string, typed array (ex: Uint8Array), or null\nInstead it was: ${toRepresentation(actualContents)}`)
+                    }
+                    fileSystemSetupPromises.push(
+                        this.mkdir(dirname(path), recursiveTrue).then(
+                            ()=>this.writeFile(path, actualContents),
+                        ),
+                    )
+                }
+            }
+            await Promise.all(fileSystemSetupPromises)
         // 
     }).bind(compiler = new Compiler(getCompilerObject))().then(()=>compiler)
 }
