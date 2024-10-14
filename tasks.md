@@ -1,9 +1,12 @@
 - DONE: Use wasi_worker.ts instead of wasi_worker.js
     - DONE: download memfs
     - DONE: patch fs-monkey/lib/util/lists 
+- try to get fib exported
+    - DONE: manually create necessary imports
+    - DONE: post issue about -e not working
+- compile ./wcc from scratch using a nixpkgs setup
 - Make Deno.exit() not needed (use worker.terminate())
 - Create a way to write binary files to the worker
-- load wasm and grab wrapped C function
 - get args for:
     - header files
     - shared object files
