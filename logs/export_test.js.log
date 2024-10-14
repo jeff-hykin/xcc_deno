@@ -1,0 +1,120 @@
+d is: z(0) [Uint8Array] []
+d is: z(0) [Uint8Array] []
+d is: z(0) [Uint8Array] []
+compiledCode.buffer is: ArrayBuffer {
+  [Uint8Contents]: <00 61 73 6d 01 00 00 00 01 06 01 60 01 7f 01 7f 02 2f 02 03 65 6e 76 0f 5f 5f 6c 69 6e 65 61 72 5f 6d 65 6d 6f 72 79 02 00 00 03 65 6e 76 0f 5f 5f 73 74 61 63 6b 5f 70 6f 69 6e 74 65 72 03 7f 01 03 02 01 00 0a 26 01 24 00 20 00 41 02 48 04 7f 20 00 05 20 00 41 01 6b 10 80 80 80 80 00 20 00 41 02 6b ... 54 more bytes>,
+  byteLength: 154
+}
+compiledWasm is: (module
+;; WASM version: 1
+
+;;=== 0x8: TYPE, len=6
+(type (func (param i32) (result i32)))  ;; 0
+
+;;=== 0x10: IMPORT, len=47
+(import "env" "__linear_memory" (memory 0 (;index=0;)))
+(import "env" "__stack_pointer" (global (mut i32)))  ;; 0
+
+;;=== 0x41: FUNC, len=2
+;; func: #1
+;;   func 0: type=#0
+
+;;=== 0x45: CODE, len=38
+(func $fib (;0;) (type 0)
+  local.get 0
+  i32.const 2
+  i32.lt_s
+  if (result i32)
+    local.get 0
+  else
+    local.get 0
+    i32.const 1
+    i32.sub
+    call $fib
+    local.get 0
+    i32.const 2
+    i32.sub
+    call $fib
+    i32.add
+  end
+)
+
+;;=== 0x6d: CUSTOM, len=22
+;; (custom "linking"
+;;   (symtab
+;;     (function (index 0) (name "fib") (flags ))
+;;     (global (index 0) (name "env.__stack_pointer") (flags UNDEFINED))
+;;     )
+;;   )
+
+;;=== 0x85: CUSTOM, len=19
+;; (custom "reloc.CODE" (section-index 3)
+;;   (FUNCTION_INDEX_LEB (offset 19) (index 0) (addend 0))
+;;   (FUNCTION_INDEX_LEB (offset 30) (index 0) (addend 0))
+;;   )
+)
+
+localImports is: {
+  wasi_snapshot_preview1: {
+    args_get: [Function: args_get],
+    args_sizes_get: [Function: args_sizes_get],
+    environ_get: [Function: environ_get],
+    environ_sizes_get: [Function: environ_sizes_get],
+    clock_res_get: [Function: clock_res_get],
+    clock_time_get: [Function: clock_time_get],
+    fd_advise: [Function (anonymous)],
+    fd_allocate: [Function (anonymous)],
+    fd_close: [Function (anonymous)],
+    fd_datasync: [Function (anonymous)],
+    fd_fdstat_get: [Function (anonymous)],
+    fd_fdstat_set_flags: [Function (anonymous)],
+    fd_fdstat_set_rights: [Function (anonymous)],
+    fd_filestat_get: [Function (anonymous)],
+    fd_filestat_set_size: [Function (anonymous)],
+    fd_filestat_set_times: [Function (anonymous)],
+    fd_prestat_get: [Function (anonymous)],
+    fd_prestat_dir_name: [Function (anonymous)],
+    fd_pwrite: [Function (anonymous)],
+    fd_write: [Function (anonymous)],
+    fd_pread: [Function (anonymous)],
+    fd_read: [Function (anonymous)],
+    fd_readdir: [Function (anonymous)],
+    fd_renumber: [Function (anonymous)],
+    fd_seek: [Function (anonymous)],
+    fd_tell: [Function (anonymous)],
+    fd_sync: [Function (anonymous)],
+    path_create_directory: [Function (anonymous)],
+    path_filestat_get: [Function (anonymous)],
+    path_filestat_set_times: [Function (anonymous)],
+    path_link: [Function (anonymous)],
+    path_open: [Function (anonymous)],
+    path_readlink: [Function (anonymous)],
+    path_remove_directory: [Function (anonymous)],
+    path_rename: [Function (anonymous)],
+    path_symlink: [Function (anonymous)],
+    path_unlink_file: [Function (anonymous)],
+    poll_oneoff: [Function: poll_oneoff],
+    proc_exit: [Function: proc_exit],
+    proc_raise: [Function: proc_raise],
+    random_get: [Function: random_get],
+    sched_yield: [Function: sched_yield],
+    sock_recv: [Function: sock_recv],
+    sock_send: [Function: sock_send],
+    sock_shutdown: [Function: sock_shutdown]
+  },
+  env: {
+    __linear_memory: Memory [WebAssembly.Memory] {},
+    __stack_pointer: Global [WebAssembly.Global] {}
+  }
+}
+wasmModule is: {
+  module: Module [WebAssembly.Module] {},
+  instance: Instance [WebAssembly.Instance] {}
+}
+wasmModule.module is: Module [WebAssembly.Module] {}
+wasmModule.instance is: Instance [WebAssembly.Instance] {}
+wasmModule.instance.exports is: [Object: null prototype] {}
+{
+  module: Module [WebAssembly.Module] {},
+  instance: Instance [WebAssembly.Instance] {}
+}
