@@ -1682,3 +1682,11 @@ export class DisWasm {
         return this.opts["dumpAddr"] ? `(;${adr.toString(16).padStart(5, "0")};) ` : ""
     }
 }
+
+export const wasmToWast = (buffer)=>{
+    const chunks = []
+    const disWasm = new DisWasm(buffer)
+    disWasm.setLogFunc((code)=>chunks.push(code))
+    disWasm.dump()
+    return chunks.join("\n")
+}
