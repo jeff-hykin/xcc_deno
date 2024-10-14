@@ -1,8 +1,12 @@
+s is: fib2
+
 s is: fib
 
 got here 2
 
 ### Exports
+
+fib2
 
 fib
 
@@ -12,7 +16,7 @@ _start
 
 ### Globals(import)
 
- 0: __stack_pointer (2)
+ 0: __stack_pointer (3)
 
 ### Globals(data)
 
@@ -20,9 +24,11 @@ _start
 
 ### Functions
 
- 0: fib
+ 0: fib2
 
- 1: __main_argc_argv
+ 1: fib
+
+ 2: __main_argc_argv
 
 
 
@@ -52,11 +58,13 @@ got here
 
  6: _start
 
- 7: fib
+ 7: fib2
 
- 8: __main_argc_argv
+ 8: fib
 
- 9: exit
+ 9: __main_argc_argv
+
+10: exit
 
 ### Globals
 
@@ -74,10 +82,6 @@ should_link is: 1
 
 should_emit_wasm is: 1
 
-compiledCode.buffer is: ArrayBuffer {
-  [Uint8Contents]: <00 61 73 6d 01 00 00 00 01 17 05 60 00 00 60 01 7f 01 7f 60 02 7f 7f 01 7f 60 00 01 7f 60 01 7f 00 02 96 01 04 16 77 61 73 69 5f 73 6e 61 70 73 68 6f 74 5f 70 72 65 76 69 65 77 31 0e 66 64 5f 70 72 65 73 74 61 74 5f 67 65 74 00 02 16 77 61 73 69 5f 73 6e 61 70 73 68 6f 74 5f 70 72 65 76 69 65 77 31 ... 658 more bytes>,
-  byteLength: 758
-}
 compiledWasm is: (module
 ;; WASM version: 1
 
@@ -94,33 +98,35 @@ compiledWasm is: (module
 (import "wasi_snapshot_preview1" "args_sizes_get" (func $args_sizes_get (type 2)))  ;; 2
 (import "wasi_snapshot_preview1" "args_get" (func $args_get (type 2)))  ;; 3
 
-;;=== 0xba: FUNC, len=7
-;; func: #6
+;;=== 0xba: FUNC, len=8
+;; func: #7
 ;;   func 4: type=#0
 ;;   func 5: type=#3
 ;;   func 6: type=#0
 ;;   func 7: type=#1
-;;   func 8: type=#2
-;;   func 9: type=#4
+;;   func 8: type=#1
+;;   func 9: type=#2
+;;   func 10: type=#4
 
-;;=== 0xc3: TABLE, len=4
+;;=== 0xc4: TABLE, len=4
 (table 2 funcref)  ;; 0
 
-;;=== 0xc9: MEMORY, len=3
+;;=== 0xca: MEMORY, len=3
 (memory 1)
 
-;;=== 0xce: GLOBAL, len=8
+;;=== 0xcf: GLOBAL, len=8
 (global (;0;) (mut i32) (i32.const 8192))
 
-;;=== 0xd8: EXPORT, len=25
-(export "fib" (func 7))
+;;=== 0xd9: EXPORT, len=32
+(export "fib2" (func 7))
+(export "fib" (func 8))
 (export "_start" (func 6))
 (export "memory" (memory 0))
 
-;;=== 0xf3: ELEM, len=7
-(elem (i32.const 1) func 9)  ;; 0
+;;=== 0xfb: ELEM, len=7
+(elem (i32.const 1) func 10)  ;; 0
 
-;;=== 0xfc: CODE, len=484
+;;=== 0x104: CODE, len=521
 (func (;4;) (type 0)
 )
 (func (;5;) (type 3)
@@ -270,15 +276,33 @@ compiledWasm is: (module
     i32.add
     i32.load
     local.get 0
-    call 8
+    call 9
     local.set 2
     local.get 2
-    call 9
+    call 10
   end
   local.get 3
   global.set 0
 )
-(func $fib (;7;) (type 1)
+(func $fib2 (;7;) (type 1)
+  local.get 0
+  i32.const 1
+  i32.le_s
+  if (result i32)
+    local.get 0
+  else
+    local.get 0
+    i32.const 1
+    i32.sub
+    call $fib
+    local.get 0
+    i32.const 2
+    i32.sub
+    call $fib
+    i32.add
+  end
+)
+(func $fib (;8;) (type 1)
   local.get 0
   i32.const 2
   i32.lt_s
@@ -296,10 +320,10 @@ compiledWasm is: (module
     i32.add
   end
 )
-(func (;8;) (type 2)
+(func (;9;) (type 2)
   i32.const 0
 )
-(func (;9;) (type 4)
+(func (;10;) (type 4)
   (local i32)
   i32.const 8212
   i32.load
@@ -332,78 +356,17 @@ compiledWasm is: (module
   call $proc_exit
 )
 
-;;=== 0x2e3: DATA, len=17
+;;=== 0x310: DATA, len=17
 (data (;0;) (i32.const 8193) "*")
 (data (;1;) (i32.const 8196) "\03")
 )
-
-localImports is: {
-  wasi_snapshot_preview1: {
-    args_get: [Function: args_get],
-    args_sizes_get: [Function: args_sizes_get],
-    environ_get: [Function: environ_get],
-    environ_sizes_get: [Function: environ_sizes_get],
-    clock_res_get: [Function: clock_res_get],
-    clock_time_get: [Function: clock_time_get],
-    fd_advise: [Function (anonymous)],
-    fd_allocate: [Function (anonymous)],
-    fd_close: [Function (anonymous)],
-    fd_datasync: [Function (anonymous)],
-    fd_fdstat_get: [Function (anonymous)],
-    fd_fdstat_set_flags: [Function (anonymous)],
-    fd_fdstat_set_rights: [Function (anonymous)],
-    fd_filestat_get: [Function (anonymous)],
-    fd_filestat_set_size: [Function (anonymous)],
-    fd_filestat_set_times: [Function (anonymous)],
-    fd_prestat_get: [Function (anonymous)],
-    fd_prestat_dir_name: [Function (anonymous)],
-    fd_pwrite: [Function (anonymous)],
-    fd_write: [Function (anonymous)],
-    fd_pread: [Function (anonymous)],
-    fd_read: [Function (anonymous)],
-    fd_readdir: [Function (anonymous)],
-    fd_renumber: [Function (anonymous)],
-    fd_seek: [Function (anonymous)],
-    fd_tell: [Function (anonymous)],
-    fd_sync: [Function (anonymous)],
-    path_create_directory: [Function (anonymous)],
-    path_filestat_get: [Function (anonymous)],
-    path_filestat_set_times: [Function (anonymous)],
-    path_link: [Function (anonymous)],
-    path_open: [Function (anonymous)],
-    path_readlink: [Function (anonymous)],
-    path_remove_directory: [Function (anonymous)],
-    path_rename: [Function (anonymous)],
-    path_symlink: [Function (anonymous)],
-    path_unlink_file: [Function (anonymous)],
-    poll_oneoff: [Function: poll_oneoff],
-    proc_exit: [Function: proc_exit],
-    proc_raise: [Function: proc_raise],
-    random_get: [Function: random_get],
-    sched_yield: [Function: sched_yield],
-    sock_recv: [Function: sock_recv],
-    sock_send: [Function: sock_send],
-    sock_shutdown: [Function: sock_shutdown]
-  },
-  env: {
-    __linear_memory: Memory [WebAssembly.Memory] {},
-    __stack_pointer: Global [WebAssembly.Global] {}
-  }
-}
-wasmModule is: {
-  module: Module [WebAssembly.Module] {},
-  instance: Instance [WebAssembly.Instance] {}
-}
-wasmModule.module is: Module [WebAssembly.Module] {}
-wasmModule.instance is: Instance [WebAssembly.Instance] {}
-wasmModule.instance.exports is: [Object: null prototype] {
-  fib: [Function: 7],
+exports.fib is: [Function: 8]
+exports.fib(20) is: 6765
+exports.fib2(20) is: 6765
+[Object: null prototype] {
+  fib2: [Function: 7],
+  fib: [Function: 8],
   _start: [Function: 6],
   memory: Memory [WebAssembly.Memory] {}
 }
-wasmModule.instance.exports.fib is: [Function: 7]
-wasmModule.instance.exports.fib(10) is: 55
-{
-  module: Module [WebAssembly.Module] {},
-  instance: Instance [WebAssembly.Instance] {}
-}
+fib(20) is: 6765
