@@ -21085,7 +21085,7 @@ var { default: G11, ...ne } = _30;
 var ie = G11 !== void 0 ? G11 : ne;
 
 // ../main/node_shims/helpers/util.js
-var exports6 = { types: types_exports };
+var exports6 = { types: { ...types_exports } };
 var getOwnPropertyDescriptors = Object.getOwnPropertyDescriptors || function getOwnPropertyDescriptors2(obj) {
   var keys = Object.keys(obj);
   var descriptors = {};

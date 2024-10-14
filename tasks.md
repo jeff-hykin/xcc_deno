@@ -4,7 +4,10 @@
 - try to get fib exported
     - DONE: manually create necessary imports
     - DONE: post issue about -e not working
+    - make a way to get the names of all functions, or make an export-all option
 - compile ./wcc from scratch using a nixpkgs setup
+    - figure out how to build lib/wcrt0.a
+    - figure out how to build lib/wlibc.a
 - Make Deno.exit() not needed (use worker.terminate())
 - Create a way to write binary files to the worker
 - get args for:
