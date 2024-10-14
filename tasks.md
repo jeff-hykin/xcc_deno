@@ -10,3 +10,5 @@
     - target system selection
     - system path lookup
     - ENV vars
+- add caching techniques
+    - preserve file system
