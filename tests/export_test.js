@@ -30,12 +30,12 @@ async function compileAndOrRun({sourceCode}) {
     var wccRunner = await xcc.Compiler()
     
     const sourceName = "main.c"
-    const objFn = "main.o"
+    const objFn = "main.wasm"
     const compiledPath = "a.wasm"
     const extraOptions =  ["-e", "fib", "-c", "-o", objFn, "--import-module-name=env", ]
     await wccRunner.writeFile(sourceName, sourceCode)
 
-    const exitCode = await wccRunner.compile(sourceName, extraOptions)
+    const exitCode = await wccRunner.compile(sourceName, [ "--verbose", "-e", "fib", "-o", objFn, "--import-module-name=env", ])
     if (exitCode !== 0) {
         throw new Error(`Compile failed: ${exitCode}`)
     }
@@ -52,7 +52,7 @@ async function compileAndOrRun({sourceCode}) {
         ...imports,
         env: {
             ...imports.env,
-                __linear_memory: new WebAssembly.Memory({ initial: 65536 /*65536 is max size*/ }),
+            __linear_memory: new WebAssembly.Memory({ initial: 65536 /*65536 is max size*/ }),
             __stack_pointer: new WebAssembly.Global({ value: "i32", mutable: true }, 0),
         },
     }
@@ -63,6 +63,8 @@ async function compileAndOrRun({sourceCode}) {
     console.debug(`wasmModule.module is:`,wasmModule.module)
     console.debug(`wasmModule.instance is:`,wasmModule.instance)
     console.debug(`wasmModule.instance.exports is:`,wasmModule.instance.exports)
+    console.debug(`wasmModule.instance.exports.fib is:`,wasmModule.instance.exports.fib)
+    console.debug(`wasmModule.instance.exports.fib(10) is:`,wasmModule.instance.exports.fib(10))
     return wasmModule
 }
 
@@ -72,6 +74,9 @@ int fib(int n) {
         return n;
     else
         return fib(n - 1) + fib(n - 2);
+}
+int main() {
+    return 0;
 }
 `
 
