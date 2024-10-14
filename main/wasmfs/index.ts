@@ -12,7 +12,6 @@ import {
 } from "../memfs-3.0.4/volume.ts";
 
 import { relative } from "../node_shims/path.js";
-import "./node_sync_emit.ts";
 
 const assert = (cond: boolean, message: string) => {
   if (!cond) {
