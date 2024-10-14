@@ -1,5 +1,5 @@
 import { DisWasm } from "./diswasm.ts"
-import { WccRunner } from "./wcc_runner.ts"
+import { Compiler } from "./compiler.js"
 import { version } from "./version.js"
 
-export { DisWasm, WccRunner, version }
+export { DisWasm, Compiler, version }

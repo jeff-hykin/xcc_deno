@@ -1,11 +1,10 @@
-// import * as xcc from '../main/main.js'
-import * as xcc from '../main/main.bundle.js'
+import * as xcc from '../main/main.js'
+// import * as xcc from '../main/main.bundle.js'
 // import { WccRunner, DisWasm } from '../main/main.js'
 
 export async function compileAndOrRun({args, sourceCode, compileAndDump=true}) {
-    var wccRunner = new xcc.WccRunner()
-    wccRunner.setConsoleOutFunction((text, _isError) => console.log(`[wccRunner.setConsoleOutFunction] error?: ${_isError}, text: ${text}`))
-    await wccRunner.setUp()
+    var wccRunner = await xcc.Compiler()
+    // wccRunner.setConsoleOutFunction((text, isError) => console.log(`[wccRunner.setConsoleOutFunction] error?: ${isError}, text: ${text}`))
     
     const sourceName = "main.c"
     const objFn = "main.o"
