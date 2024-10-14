@@ -1,5 +1,4 @@
 // "https://cdn.jsdelivr.net/npm/@wasmer/wasi@0.12.0/lib/index.js"
-import { DataViewPolyfill } from "./polyfills/dataview.js"
 import { Buffer } from "../node_shims/buffer.js"
 import browserBindings from "./bindings/browser.js";
 var exports = {};
@@ -45,19 +44,19 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 IN THE SOFTWARE.
 
  */
-import constants_1 from "./constants.js"
-const STDIN_DEFAULT_RIGHTS = constants_1.WASI_RIGHT_FD_DATASYNC |
-    constants_1.WASI_RIGHT_FD_READ |
-    constants_1.WASI_RIGHT_FD_SYNC |
-    constants_1.WASI_RIGHT_FD_ADVISE |
-    constants_1.WASI_RIGHT_FD_FILESTAT_GET |
-    constants_1.WASI_RIGHT_POLL_FD_READWRITE;
-const STDOUT_DEFAULT_RIGHTS = constants_1.WASI_RIGHT_FD_DATASYNC |
-    constants_1.WASI_RIGHT_FD_WRITE |
-    constants_1.WASI_RIGHT_FD_SYNC |
-    constants_1.WASI_RIGHT_FD_ADVISE |
-    constants_1.WASI_RIGHT_FD_FILESTAT_GET |
-    constants_1.WASI_RIGHT_POLL_FD_READWRITE;
+import * as constants from "./constants.js"
+const STDIN_DEFAULT_RIGHTS = constants.WASI_RIGHT_FD_DATASYNC |
+    constants.WASI_RIGHT_FD_READ |
+    constants.WASI_RIGHT_FD_SYNC |
+    constants.WASI_RIGHT_FD_ADVISE |
+    constants.WASI_RIGHT_FD_FILESTAT_GET |
+    constants.WASI_RIGHT_POLL_FD_READWRITE;
+const STDOUT_DEFAULT_RIGHTS = constants.WASI_RIGHT_FD_DATASYNC |
+    constants.WASI_RIGHT_FD_WRITE |
+    constants.WASI_RIGHT_FD_SYNC |
+    constants.WASI_RIGHT_FD_ADVISE |
+    constants.WASI_RIGHT_FD_FILESTAT_GET |
+    constants.WASI_RIGHT_POLL_FD_READWRITE;
 const STDERR_DEFAULT_RIGHTS = STDOUT_DEFAULT_RIGHTS;
 const msToNs = (ms) => {
     const msInt = Math.trunc(ms);
@@ -79,7 +78,7 @@ const wrap = (f) => (...args) => {
     catch (e) {
         // If it's an error from the fs
         if (e && e.code && typeof e.code === "string") {
-            return constants_1.ERROR_MAP[e.code] || constants_1.WASI_EINVAL;
+            return constants.ERROR_MAP[e.code] || constants.WASI_EINVAL;
         }
         // If it's a WASI error, we return it directly
         if (e instanceof WASIError) {
@@ -92,7 +91,7 @@ const wrap = (f) => (...args) => {
 const stat = (wasi, fd) => {
     const entry = wasi.FD_MAP.get(fd);
     if (!entry) {
-        throw new WASIError(constants_1.WASI_EBADF);
+        throw new WASIError(constants.WASI_EBADF);
     }
     if (entry.filetype === undefined) {
         const stats = wasi.bindings.fs.fstatSync(entry.real);
@@ -111,58 +110,58 @@ const translateFileAttributes = (wasi, fd, stats) => {
     switch (true) {
         case stats.isBlockDevice():
             return {
-                filetype: constants_1.WASI_FILETYPE_BLOCK_DEVICE,
-                rightsBase: constants_1.RIGHTS_BLOCK_DEVICE_BASE,
-                rightsInheriting: constants_1.RIGHTS_BLOCK_DEVICE_INHERITING
+                filetype: constants.WASI_FILETYPE_BLOCK_DEVICE,
+                rightsBase: constants.RIGHTS_BLOCK_DEVICE_BASE,
+                rightsInheriting: constants.RIGHTS_BLOCK_DEVICE_INHERITING
             };
         case stats.isCharacterDevice(): {
-            const filetype = constants_1.WASI_FILETYPE_CHARACTER_DEVICE;
+            const filetype = constants.WASI_FILETYPE_CHARACTER_DEVICE;
             if (fd !== undefined && wasi.bindings.isTTY(fd)) {
                 return {
                     filetype,
-                    rightsBase: constants_1.RIGHTS_TTY_BASE,
-                    rightsInheriting: constants_1.RIGHTS_TTY_INHERITING
+                    rightsBase: constants.RIGHTS_TTY_BASE,
+                    rightsInheriting: constants.RIGHTS_TTY_INHERITING
                 };
             }
             return {
                 filetype,
-                rightsBase: constants_1.RIGHTS_CHARACTER_DEVICE_BASE,
-                rightsInheriting: constants_1.RIGHTS_CHARACTER_DEVICE_INHERITING
+                rightsBase: constants.RIGHTS_CHARACTER_DEVICE_BASE,
+                rightsInheriting: constants.RIGHTS_CHARACTER_DEVICE_INHERITING
             };
         }
         case stats.isDirectory():
             return {
-                filetype: constants_1.WASI_FILETYPE_DIRECTORY,
-                rightsBase: constants_1.RIGHTS_DIRECTORY_BASE,
-                rightsInheriting: constants_1.RIGHTS_DIRECTORY_INHERITING
+                filetype: constants.WASI_FILETYPE_DIRECTORY,
+                rightsBase: constants.RIGHTS_DIRECTORY_BASE,
+                rightsInheriting: constants.RIGHTS_DIRECTORY_INHERITING
             };
         case stats.isFIFO():
             return {
-                filetype: constants_1.WASI_FILETYPE_SOCKET_STREAM,
-                rightsBase: constants_1.RIGHTS_SOCKET_BASE,
-                rightsInheriting: constants_1.RIGHTS_SOCKET_INHERITING
+                filetype: constants.WASI_FILETYPE_SOCKET_STREAM,
+                rightsBase: constants.RIGHTS_SOCKET_BASE,
+                rightsInheriting: constants.RIGHTS_SOCKET_INHERITING
             };
         case stats.isFile():
             return {
-                filetype: constants_1.WASI_FILETYPE_REGULAR_FILE,
-                rightsBase: constants_1.RIGHTS_REGULAR_FILE_BASE,
-                rightsInheriting: constants_1.RIGHTS_REGULAR_FILE_INHERITING
+                filetype: constants.WASI_FILETYPE_REGULAR_FILE,
+                rightsBase: constants.RIGHTS_REGULAR_FILE_BASE,
+                rightsInheriting: constants.RIGHTS_REGULAR_FILE_INHERITING
             };
         case stats.isSocket():
             return {
-                filetype: constants_1.WASI_FILETYPE_SOCKET_STREAM,
-                rightsBase: constants_1.RIGHTS_SOCKET_BASE,
-                rightsInheriting: constants_1.RIGHTS_SOCKET_INHERITING
+                filetype: constants.WASI_FILETYPE_SOCKET_STREAM,
+                rightsBase: constants.RIGHTS_SOCKET_BASE,
+                rightsInheriting: constants.RIGHTS_SOCKET_INHERITING
             };
         case stats.isSymbolicLink():
             return {
-                filetype: constants_1.WASI_FILETYPE_SYMBOLIC_LINK,
+                filetype: constants.WASI_FILETYPE_SYMBOLIC_LINK,
                 rightsBase: BigInt(0),
                 rightsInheriting: BigInt(0)
             };
         default:
             return {
-                filetype: constants_1.WASI_FILETYPE_UNKNOWN,
+                filetype: constants.WASI_FILETYPE_UNKNOWN,
                 rightsBase: BigInt(0),
                 rightsInheriting: BigInt(0)
             };
@@ -202,10 +201,10 @@ export class WASIDefault {
         this.bindings = bindings;
         this.FD_MAP = new Map([
             [
-                constants_1.WASI_STDIN_FILENO,
+                constants.WASI_STDIN_FILENO,
                 {
                     real: 0,
-                    filetype: constants_1.WASI_FILETYPE_CHARACTER_DEVICE,
+                    filetype: constants.WASI_FILETYPE_CHARACTER_DEVICE,
                     // offset: BigInt(0),
                     rights: {
                         base: STDIN_DEFAULT_RIGHTS,
@@ -215,10 +214,10 @@ export class WASIDefault {
                 }
             ],
             [
-                constants_1.WASI_STDOUT_FILENO,
+                constants.WASI_STDOUT_FILENO,
                 {
                     real: 1,
-                    filetype: constants_1.WASI_FILETYPE_CHARACTER_DEVICE,
+                    filetype: constants.WASI_FILETYPE_CHARACTER_DEVICE,
                     // offset: BigInt(0),
                     rights: {
                         base: STDOUT_DEFAULT_RIGHTS,
@@ -228,10 +227,10 @@ export class WASIDefault {
                 }
             ],
             [
-                constants_1.WASI_STDERR_FILENO,
+                constants.WASI_STDERR_FILENO,
                 {
                     real: 2,
-                    filetype: constants_1.WASI_FILETYPE_CHARACTER_DEVICE,
+                    filetype: constants.WASI_FILETYPE_CHARACTER_DEVICE,
                     // offset: BigInt(0),
                     rights: {
                         base: STDERR_DEFAULT_RIGHTS,
@@ -248,11 +247,11 @@ export class WASIDefault {
             const newfd = [...this.FD_MAP.keys()].reverse()[0] + 1;
             this.FD_MAP.set(newfd, {
                 real,
-                filetype: constants_1.WASI_FILETYPE_DIRECTORY,
+                filetype: constants.WASI_FILETYPE_DIRECTORY,
                 // offset: BigInt(0),
                 rights: {
-                    base: constants_1.RIGHTS_DIRECTORY_BASE,
-                    inheriting: constants_1.RIGHTS_DIRECTORY_INHERITING
+                    base: constants.RIGHTS_DIRECTORY_BASE,
+                    inheriting: constants.RIGHTS_DIRECTORY_INHERITING
                 },
                 fakePath: k,
                 path: v
@@ -277,19 +276,19 @@ export class WASIDefault {
             const stats = stat(this, fd);
             // console.log(`CHECK_FD: stats.real: ${stats.real}, stats.path:`, stats.path);
             if (rights !== BigInt(0) && (stats.rights.base & rights) === BigInt(0)) {
-                throw new WASIError(constants_1.WASI_EPERM);
+                throw new WASIError(constants.WASI_EPERM);
             }
             return stats;
         };
         const CPUTIME_START = bindings.hrtime();
         const now = (clockId) => {
             switch (clockId) {
-                case constants_1.WASI_CLOCK_MONOTONIC:
+                case constants.WASI_CLOCK_MONOTONIC:
                     return bindings.hrtime();
-                case constants_1.WASI_CLOCK_REALTIME:
+                case constants.WASI_CLOCK_REALTIME:
                     return msToNs(Date.now());
-                case constants_1.WASI_CLOCK_PROCESS_CPUTIME_ID:
-                case constants_1.WASI_CLOCK_THREAD_CPUTIME_ID:
+                case constants.WASI_CLOCK_PROCESS_CPUTIME_ID:
+                case constants.WASI_CLOCK_THREAD_CPUTIME_ID:
                     // return bindings.hrtime(CPUTIME_START)
                     return bindings.hrtime() - CPUTIME_START;
                 default:
@@ -306,14 +305,14 @@ export class WASIDefault {
                     coffset += 4;
                     offset += Buffer.from(this.memory.buffer).write(`${a}\0`, offset);
                 });
-                return constants_1.WASI_ESUCCESS;
+                return constants.WASI_ESUCCESS;
             },
             args_sizes_get: (argc, argvBufSize) => {
                 this.refreshMemory();
                 this.view.setUint32(argc, args.length, true);
                 const size = args.reduce((acc, a) => acc + Buffer.byteLength(a) + 1, 0);
                 this.view.setUint32(argvBufSize, size, true);
-                return constants_1.WASI_ESUCCESS;
+                return constants.WASI_ESUCCESS;
             },
             environ_get: (environ, environBuf) => {
                 this.refreshMemory();
@@ -324,7 +323,7 @@ export class WASIDefault {
                     coffset += 4;
                     offset += Buffer.from(this.memory.buffer).write(`${key}=${value}\0`, offset);
                 });
-                return constants_1.WASI_ESUCCESS;
+                return constants.WASI_ESUCCESS;
             },
             environ_sizes_get: (environCount, environBufSize) => {
                 this.refreshMemory();
@@ -332,52 +331,52 @@ export class WASIDefault {
                 const size = envProcessed.reduce((acc, e) => acc + Buffer.byteLength(e), 0);
                 this.view.setUint32(environCount, envProcessed.length, true);
                 this.view.setUint32(environBufSize, size, true);
-                return constants_1.WASI_ESUCCESS;
+                return constants.WASI_ESUCCESS;
             },
             clock_res_get: (clockId, resolution) => {
                 let res;
                 switch (clockId) {
-                    case constants_1.WASI_CLOCK_MONOTONIC:
-                    case constants_1.WASI_CLOCK_PROCESS_CPUTIME_ID:
-                    case constants_1.WASI_CLOCK_THREAD_CPUTIME_ID: {
+                    case constants.WASI_CLOCK_MONOTONIC:
+                    case constants.WASI_CLOCK_PROCESS_CPUTIME_ID:
+                    case constants.WASI_CLOCK_THREAD_CPUTIME_ID: {
                         res = BigInt(1);
                         break;
                     }
-                    case constants_1.WASI_CLOCK_REALTIME: {
+                    case constants.WASI_CLOCK_REALTIME: {
                         res = BigInt(1000);
                         break;
                     }
                 }
                 this.view.setBigUint64(resolution, res);
-                return constants_1.WASI_ESUCCESS;
+                return constants.WASI_ESUCCESS;
             },
             clock_time_get: (clockId, precision, time) => {
                 this.refreshMemory();
                 const n = now(clockId);
                 if (n === null) {
-                    return constants_1.WASI_EINVAL;
+                    return constants.WASI_EINVAL;
                 }
                 this.view.setBigUint64(time, BigInt(n), true);
-                return constants_1.WASI_ESUCCESS;
+                return constants.WASI_ESUCCESS;
             },
             fd_advise: wrap((fd, offset, len, advice) => {
-                CHECK_FD(fd, constants_1.WASI_RIGHT_FD_ADVISE);
-                return constants_1.WASI_ENOSYS;
+                CHECK_FD(fd, constants.WASI_RIGHT_FD_ADVISE);
+                return constants.WASI_ENOSYS;
             }),
             fd_allocate: wrap((fd, offset, len) => {
-                CHECK_FD(fd, constants_1.WASI_RIGHT_FD_ALLOCATE);
-                return constants_1.WASI_ENOSYS;
+                CHECK_FD(fd, constants.WASI_RIGHT_FD_ALLOCATE);
+                return constants.WASI_ENOSYS;
             }),
             fd_close: wrap((fd) => {
                 const stats = CHECK_FD(fd, BigInt(0));
                 fs.closeSync(stats.real);
                 this.FD_MAP.delete(fd);
-                return constants_1.WASI_ESUCCESS;
+                return constants.WASI_ESUCCESS;
             }),
             fd_datasync: wrap((fd) => {
-                const stats = CHECK_FD(fd, constants_1.WASI_RIGHT_FD_DATASYNC);
+                const stats = CHECK_FD(fd, constants.WASI_RIGHT_FD_DATASYNC);
                 fs.fdatasyncSync(stats.real);
-                return constants_1.WASI_ESUCCESS;
+                return constants.WASI_ESUCCESS;
             }),
             fd_fdstat_get: wrap((fd, bufPtr) => {
                 const stats = CHECK_FD(fd, BigInt(0));
@@ -387,28 +386,28 @@ export class WASIDefault {
                 this.view.setUint16(bufPtr + 4, 0, true); // FDFLAG u16
                 this.view.setBigUint64(bufPtr + 8, BigInt(stats.rights.base), true); // u64
                 this.view.setBigUint64(bufPtr + 8 + 8, BigInt(stats.rights.inheriting), true); // u64
-                return constants_1.WASI_ESUCCESS;
+                return constants.WASI_ESUCCESS;
             }),
             fd_fdstat_set_flags: wrap((fd, flags) => {
-                CHECK_FD(fd, constants_1.WASI_RIGHT_FD_FDSTAT_SET_FLAGS);
-                return constants_1.WASI_ENOSYS;
+                CHECK_FD(fd, constants.WASI_RIGHT_FD_FDSTAT_SET_FLAGS);
+                return constants.WASI_ENOSYS;
             }),
             fd_fdstat_set_rights: wrap((fd, fsRightsBase, fsRightsInheriting) => {
                 const stats = CHECK_FD(fd, BigInt(0));
                 const nrb = stats.rights.base | fsRightsBase;
                 if (nrb > stats.rights.base) {
-                    return constants_1.WASI_EPERM;
+                    return constants.WASI_EPERM;
                 }
                 const nri = stats.rights.inheriting | fsRightsInheriting;
                 if (nri > stats.rights.inheriting) {
-                    return constants_1.WASI_EPERM;
+                    return constants.WASI_EPERM;
                 }
                 stats.rights.base = fsRightsBase;
                 stats.rights.inheriting = fsRightsInheriting;
-                return constants_1.WASI_ESUCCESS;
+                return constants.WASI_ESUCCESS;
             }),
             fd_filestat_get: wrap((fd, bufPtr) => {
-                const stats = CHECK_FD(fd, constants_1.WASI_RIGHT_FD_FILESTAT_GET);
+                const stats = CHECK_FD(fd, constants.WASI_RIGHT_FD_FILESTAT_GET);
                 const rstats = fs.fstatSync(stats.real);
                 this.refreshMemory();
                 this.view.setBigUint64(bufPtr, BigInt(rstats.dev), true);
@@ -426,63 +425,63 @@ export class WASIDefault {
                 this.view.setBigUint64(bufPtr, msToNs(rstats.mtimeMs), true);
                 bufPtr += 8;
                 this.view.setBigUint64(bufPtr, msToNs(rstats.ctimeMs), true);
-                return constants_1.WASI_ESUCCESS;
+                return constants.WASI_ESUCCESS;
             }),
             fd_filestat_set_size: wrap((fd, stSize) => {
-                const stats = CHECK_FD(fd, constants_1.WASI_RIGHT_FD_FILESTAT_SET_SIZE);
+                const stats = CHECK_FD(fd, constants.WASI_RIGHT_FD_FILESTAT_SET_SIZE);
                 fs.ftruncateSync(stats.real, Number(stSize));
-                return constants_1.WASI_ESUCCESS;
+                return constants.WASI_ESUCCESS;
             }),
             fd_filestat_set_times: wrap((fd, stAtim, stMtim, fstflags) => {
-                const stats = CHECK_FD(fd, constants_1.WASI_RIGHT_FD_FILESTAT_SET_TIMES);
+                const stats = CHECK_FD(fd, constants.WASI_RIGHT_FD_FILESTAT_SET_TIMES);
                 const rstats = fs.fstatSync(stats.real);
                 let atim = rstats.atime;
                 let mtim = rstats.mtime;
-                const n = nsToMs(now(constants_1.WASI_CLOCK_REALTIME));
-                const atimflags = constants_1.WASI_FILESTAT_SET_ATIM | constants_1.WASI_FILESTAT_SET_ATIM_NOW;
+                const n = nsToMs(now(constants.WASI_CLOCK_REALTIME));
+                const atimflags = constants.WASI_FILESTAT_SET_ATIM | constants.WASI_FILESTAT_SET_ATIM_NOW;
                 if ((fstflags & atimflags) === atimflags) {
-                    return constants_1.WASI_EINVAL;
+                    return constants.WASI_EINVAL;
                 }
-                const mtimflags = constants_1.WASI_FILESTAT_SET_MTIM | constants_1.WASI_FILESTAT_SET_MTIM_NOW;
+                const mtimflags = constants.WASI_FILESTAT_SET_MTIM | constants.WASI_FILESTAT_SET_MTIM_NOW;
                 if ((fstflags & mtimflags) === mtimflags) {
-                    return constants_1.WASI_EINVAL;
+                    return constants.WASI_EINVAL;
                 }
-                if ((fstflags & constants_1.WASI_FILESTAT_SET_ATIM) === constants_1.WASI_FILESTAT_SET_ATIM) {
+                if ((fstflags & constants.WASI_FILESTAT_SET_ATIM) === constants.WASI_FILESTAT_SET_ATIM) {
                     atim = nsToMs(stAtim);
                 }
-                else if ((fstflags & constants_1.WASI_FILESTAT_SET_ATIM_NOW) === constants_1.WASI_FILESTAT_SET_ATIM_NOW) {
+                else if ((fstflags & constants.WASI_FILESTAT_SET_ATIM_NOW) === constants.WASI_FILESTAT_SET_ATIM_NOW) {
                     atim = n;
                 }
-                if ((fstflags & constants_1.WASI_FILESTAT_SET_MTIM) === constants_1.WASI_FILESTAT_SET_MTIM) {
+                if ((fstflags & constants.WASI_FILESTAT_SET_MTIM) === constants.WASI_FILESTAT_SET_MTIM) {
                     mtim = nsToMs(stMtim);
                 }
-                else if ((fstflags & constants_1.WASI_FILESTAT_SET_MTIM_NOW) === constants_1.WASI_FILESTAT_SET_MTIM_NOW) {
+                else if ((fstflags & constants.WASI_FILESTAT_SET_MTIM_NOW) === constants.WASI_FILESTAT_SET_MTIM_NOW) {
                     mtim = n;
                 }
                 fs.futimesSync(stats.real, new Date(atim), new Date(mtim));
-                return constants_1.WASI_ESUCCESS;
+                return constants.WASI_ESUCCESS;
             }),
             fd_prestat_get: wrap((fd, bufPtr) => {
                 const stats = CHECK_FD(fd, BigInt(0));
                 if (!stats.path) {
-                    return constants_1.WASI_EINVAL;
+                    return constants.WASI_EINVAL;
                 }
                 this.refreshMemory();
-                this.view.setUint8(bufPtr, constants_1.WASI_PREOPENTYPE_DIR);
+                this.view.setUint8(bufPtr, constants.WASI_PREOPENTYPE_DIR);
                 this.view.setUint32(bufPtr + 4, Buffer.byteLength(stats.fakePath), true);
-                return constants_1.WASI_ESUCCESS;
+                return constants.WASI_ESUCCESS;
             }),
             fd_prestat_dir_name: wrap((fd, pathPtr, pathLen) => {
                 const stats = CHECK_FD(fd, BigInt(0));
                 if (!stats.path) {
-                    return constants_1.WASI_EINVAL;
+                    return constants.WASI_EINVAL;
                 }
                 this.refreshMemory();
                 Buffer.from(this.memory.buffer).write(stats.fakePath, pathPtr, pathLen, "utf8");
-                return constants_1.WASI_ESUCCESS;
+                return constants.WASI_ESUCCESS;
             }),
             fd_pwrite: wrap((fd, iovs, iovsLen, offset, nwritten) => {
-                const stats = CHECK_FD(fd, constants_1.WASI_RIGHT_FD_WRITE | constants_1.WASI_RIGHT_FD_SEEK);
+                const stats = CHECK_FD(fd, constants.WASI_RIGHT_FD_WRITE | constants.WASI_RIGHT_FD_SEEK);
                 let written = 0;
                 getiovs(iovs, iovsLen).forEach(iov => {
                     let w = 0;
@@ -492,10 +491,10 @@ export class WASIDefault {
                     written += w;
                 });
                 this.view.setUint32(nwritten, written, true);
-                return constants_1.WASI_ESUCCESS;
+                return constants.WASI_ESUCCESS;
             }),
             fd_write: wrap((fd, iovs, iovsLen, nwritten) => {
-                const stats = CHECK_FD(fd, constants_1.WASI_RIGHT_FD_WRITE);
+                const stats = CHECK_FD(fd, constants.WASI_RIGHT_FD_WRITE);
                 let written = 0;
                 getiovs(iovs, iovsLen).forEach(iov => {
                     let w = 0;
@@ -508,10 +507,10 @@ export class WASIDefault {
                     written += w;
                 });
                 this.view.setUint32(nwritten, written, true);
-                return constants_1.WASI_ESUCCESS;
+                return constants.WASI_ESUCCESS;
             }),
             fd_pread: wrap((fd, iovs, iovsLen, offset, nread) => {
-                const stats = CHECK_FD(fd, constants_1.WASI_RIGHT_FD_READ | constants_1.WASI_RIGHT_FD_SEEK);
+                const stats = CHECK_FD(fd, constants.WASI_RIGHT_FD_READ | constants.WASI_RIGHT_FD_SEEK);
                 let read = 0;
                 outer: for (const iov of getiovs(iovs, iovsLen)) {
                     let r = 0;
@@ -529,10 +528,10 @@ export class WASIDefault {
                 }
                 ;
                 this.view.setUint32(nread, read, true);
-                return constants_1.WASI_ESUCCESS;
+                return constants.WASI_ESUCCESS;
             }),
             fd_read: wrap((fd, iovs, iovsLen, nread) => {
-                const stats = CHECK_FD(fd, constants_1.WASI_RIGHT_FD_READ);
+                const stats = CHECK_FD(fd, constants.WASI_RIGHT_FD_READ);
                 const IS_STDIN = stats.real === 0;
                 let read = 0;
                 outer: for (const iov of getiovs(iovs, iovsLen)) {
@@ -562,10 +561,10 @@ export class WASIDefault {
                 }
                 // We should not modify the offset of stdin
                 this.view.setUint32(nread, read, true);
-                return constants_1.WASI_ESUCCESS;
+                return constants.WASI_ESUCCESS;
             }),
             fd_readdir: wrap((fd, bufPtr, bufLen, cookie, bufusedPtr) => {
-                const stats = CHECK_FD(fd, constants_1.WASI_RIGHT_FD_READDIR);
+                const stats = CHECK_FD(fd, constants.WASI_RIGHT_FD_READDIR);
                 this.refreshMemory();
                 const entries = fs.readdirSync(stats.path, { withFileTypes: true });
                 const startPtr = bufPtr;
@@ -594,28 +593,28 @@ export class WASIDefault {
                     let filetype;
                     switch (true) {
                         case rstats.isBlockDevice():
-                            filetype = constants_1.WASI_FILETYPE_BLOCK_DEVICE;
+                            filetype = constants.WASI_FILETYPE_BLOCK_DEVICE;
                             break;
                         case rstats.isCharacterDevice():
-                            filetype = constants_1.WASI_FILETYPE_CHARACTER_DEVICE;
+                            filetype = constants.WASI_FILETYPE_CHARACTER_DEVICE;
                             break;
                         case rstats.isDirectory():
-                            filetype = constants_1.WASI_FILETYPE_DIRECTORY;
+                            filetype = constants.WASI_FILETYPE_DIRECTORY;
                             break;
                         case rstats.isFIFO():
-                            filetype = constants_1.WASI_FILETYPE_SOCKET_STREAM;
+                            filetype = constants.WASI_FILETYPE_SOCKET_STREAM;
                             break;
                         case rstats.isFile():
-                            filetype = constants_1.WASI_FILETYPE_REGULAR_FILE;
+                            filetype = constants.WASI_FILETYPE_REGULAR_FILE;
                             break;
                         case rstats.isSocket():
-                            filetype = constants_1.WASI_FILETYPE_SOCKET_STREAM;
+                            filetype = constants.WASI_FILETYPE_SOCKET_STREAM;
                             break;
                         case rstats.isSymbolicLink():
-                            filetype = constants_1.WASI_FILETYPE_SYMBOLIC_LINK;
+                            filetype = constants.WASI_FILETYPE_SYMBOLIC_LINK;
                             break;
                         default:
-                            filetype = constants_1.WASI_FILETYPE_UNKNOWN;
+                            filetype = constants.WASI_FILETYPE_UNKNOWN;
                             break;
                     }
                     this.view.setUint8(bufPtr, filetype);
@@ -631,7 +630,7 @@ export class WASIDefault {
                 }
                 const bufused = bufPtr - startPtr;
                 this.view.setUint32(bufusedPtr, Math.min(bufused, bufLen), true);
-                return constants_1.WASI_ESUCCESS;
+                return constants.WASI_ESUCCESS;
             }),
             fd_renumber: wrap((from, to) => {
                 CHECK_FD(from, BigInt(0));
@@ -639,55 +638,55 @@ export class WASIDefault {
                 fs.closeSync(this.FD_MAP.get(from).real);
                 this.FD_MAP.set(from, this.FD_MAP.get(to));
                 this.FD_MAP.delete(to);
-                return constants_1.WASI_ESUCCESS;
+                return constants.WASI_ESUCCESS;
             }),
             fd_seek: wrap((fd, offset, whence, newOffsetPtr) => {
-                const stats = CHECK_FD(fd, constants_1.WASI_RIGHT_FD_SEEK);
+                const stats = CHECK_FD(fd, constants.WASI_RIGHT_FD_SEEK);
                 this.refreshMemory();
                 switch (whence) {
-                    case constants_1.WASI_WHENCE_CUR:
+                    case constants.WASI_WHENCE_CUR:
                         stats.offset =
                             (stats.offset ? stats.offset : BigInt(0)) + BigInt(offset);
                         break;
-                    case constants_1.WASI_WHENCE_END:
+                    case constants.WASI_WHENCE_END:
                         const { size } = fs.fstatSync(stats.real);
                         stats.offset = BigInt(size) + BigInt(offset);
                         break;
-                    case constants_1.WASI_WHENCE_SET:
+                    case constants.WASI_WHENCE_SET:
                         stats.offset = BigInt(offset);
                         break;
                 }
                 this.view.setBigUint64(newOffsetPtr, stats.offset, true);
-                return constants_1.WASI_ESUCCESS;
+                return constants.WASI_ESUCCESS;
             }),
             fd_tell: wrap((fd, offsetPtr) => {
-                const stats = CHECK_FD(fd, constants_1.WASI_RIGHT_FD_TELL);
+                const stats = CHECK_FD(fd, constants.WASI_RIGHT_FD_TELL);
                 this.refreshMemory();
                 if (!stats.offset) {
                     stats.offset = BigInt(0);
                 }
                 this.view.setBigUint64(offsetPtr, stats.offset, true);
-                return constants_1.WASI_ESUCCESS;
+                return constants.WASI_ESUCCESS;
             }),
             fd_sync: wrap((fd) => {
-                const stats = CHECK_FD(fd, constants_1.WASI_RIGHT_FD_SYNC);
+                const stats = CHECK_FD(fd, constants.WASI_RIGHT_FD_SYNC);
                 fs.fsyncSync(stats.real);
-                return constants_1.WASI_ESUCCESS;
+                return constants.WASI_ESUCCESS;
             }),
             path_create_directory: wrap((fd, pathPtr, pathLen) => {
-                const stats = CHECK_FD(fd, constants_1.WASI_RIGHT_PATH_CREATE_DIRECTORY);
+                const stats = CHECK_FD(fd, constants.WASI_RIGHT_PATH_CREATE_DIRECTORY);
                 if (!stats.path) {
-                    return constants_1.WASI_EINVAL;
+                    return constants.WASI_EINVAL;
                 }
                 this.refreshMemory();
                 const p = Buffer.from(this.memory.buffer, pathPtr, pathLen).toString();
                 fs.mkdirSync(path.resolve(stats.path, p));
-                return constants_1.WASI_ESUCCESS;
+                return constants.WASI_ESUCCESS;
             }),
             path_filestat_get: wrap((fd, flags, pathPtr, pathLen, bufPtr) => {
-                const stats = CHECK_FD(fd, constants_1.WASI_RIGHT_PATH_FILESTAT_GET);
+                const stats = CHECK_FD(fd, constants.WASI_RIGHT_PATH_FILESTAT_GET);
                 if (!stats.path) {
-                    return constants_1.WASI_EINVAL;
+                    return constants.WASI_EINVAL;
                 }
                 this.refreshMemory();
                 const p = Buffer.from(this.memory.buffer, pathPtr, pathLen).toString();
@@ -707,65 +706,65 @@ export class WASIDefault {
                 this.view.setBigUint64(bufPtr, msToNs(rstats.mtimeMs), true);
                 bufPtr += 8;
                 this.view.setBigUint64(bufPtr, msToNs(rstats.ctimeMs), true);
-                return constants_1.WASI_ESUCCESS;
+                return constants.WASI_ESUCCESS;
             }),
             path_filestat_set_times: wrap((fd, dirflags, pathPtr, pathLen, stAtim, stMtim, fstflags) => {
-                const stats = CHECK_FD(fd, constants_1.WASI_RIGHT_PATH_FILESTAT_SET_TIMES);
+                const stats = CHECK_FD(fd, constants.WASI_RIGHT_PATH_FILESTAT_SET_TIMES);
                 if (!stats.path) {
-                    return constants_1.WASI_EINVAL;
+                    return constants.WASI_EINVAL;
                 }
                 this.refreshMemory();
                 const rstats = fs.fstatSync(stats.real);
                 let atim = rstats.atime;
                 let mtim = rstats.mtime;
-                const n = nsToMs(now(constants_1.WASI_CLOCK_REALTIME));
-                const atimflags = constants_1.WASI_FILESTAT_SET_ATIM | constants_1.WASI_FILESTAT_SET_ATIM_NOW;
+                const n = nsToMs(now(constants.WASI_CLOCK_REALTIME));
+                const atimflags = constants.WASI_FILESTAT_SET_ATIM | constants.WASI_FILESTAT_SET_ATIM_NOW;
                 if ((fstflags & atimflags) === atimflags) {
-                    return constants_1.WASI_EINVAL;
+                    return constants.WASI_EINVAL;
                 }
-                const mtimflags = constants_1.WASI_FILESTAT_SET_MTIM | constants_1.WASI_FILESTAT_SET_MTIM_NOW;
+                const mtimflags = constants.WASI_FILESTAT_SET_MTIM | constants.WASI_FILESTAT_SET_MTIM_NOW;
                 if ((fstflags & mtimflags) === mtimflags) {
-                    return constants_1.WASI_EINVAL;
+                    return constants.WASI_EINVAL;
                 }
-                if ((fstflags & constants_1.WASI_FILESTAT_SET_ATIM) === constants_1.WASI_FILESTAT_SET_ATIM) {
+                if ((fstflags & constants.WASI_FILESTAT_SET_ATIM) === constants.WASI_FILESTAT_SET_ATIM) {
                     atim = nsToMs(stAtim);
                 }
-                else if ((fstflags & constants_1.WASI_FILESTAT_SET_ATIM_NOW) === constants_1.WASI_FILESTAT_SET_ATIM_NOW) {
+                else if ((fstflags & constants.WASI_FILESTAT_SET_ATIM_NOW) === constants.WASI_FILESTAT_SET_ATIM_NOW) {
                     atim = n;
                 }
-                if ((fstflags & constants_1.WASI_FILESTAT_SET_MTIM) === constants_1.WASI_FILESTAT_SET_MTIM) {
+                if ((fstflags & constants.WASI_FILESTAT_SET_MTIM) === constants.WASI_FILESTAT_SET_MTIM) {
                     mtim = nsToMs(stMtim);
                 }
-                else if ((fstflags & constants_1.WASI_FILESTAT_SET_MTIM_NOW) === constants_1.WASI_FILESTAT_SET_MTIM_NOW) {
+                else if ((fstflags & constants.WASI_FILESTAT_SET_MTIM_NOW) === constants.WASI_FILESTAT_SET_MTIM_NOW) {
                     mtim = n;
                 }
                 const p = Buffer.from(this.memory.buffer, pathPtr, pathLen).toString();
                 fs.utimesSync(path.resolve(stats.path, p), new Date(atim), new Date(mtim));
-                return constants_1.WASI_ESUCCESS;
+                return constants.WASI_ESUCCESS;
             }),
             path_link: wrap((oldFd, oldFlags, oldPath, oldPathLen, newFd, newPath, newPathLen) => {
-                const ostats = CHECK_FD(oldFd, constants_1.WASI_RIGHT_PATH_LINK_SOURCE);
-                const nstats = CHECK_FD(newFd, constants_1.WASI_RIGHT_PATH_LINK_TARGET);
+                const ostats = CHECK_FD(oldFd, constants.WASI_RIGHT_PATH_LINK_SOURCE);
+                const nstats = CHECK_FD(newFd, constants.WASI_RIGHT_PATH_LINK_TARGET);
                 if (!ostats.path || !nstats.path) {
-                    return constants_1.WASI_EINVAL;
+                    return constants.WASI_EINVAL;
                 }
                 this.refreshMemory();
                 const op = Buffer.from(this.memory.buffer, oldPath, oldPathLen).toString();
                 const np = Buffer.from(this.memory.buffer, newPath, newPathLen).toString();
                 fs.linkSync(path.resolve(ostats.path, op), path.resolve(nstats.path, np));
-                return constants_1.WASI_ESUCCESS;
+                return constants.WASI_ESUCCESS;
             }),
             path_open: wrap((dirfd, dirflags, pathPtr, pathLen, oflags, fsRightsBase, fsRightsInheriting, fsFlags, fd) => {
-                const stats = CHECK_FD(dirfd, constants_1.WASI_RIGHT_PATH_OPEN);
+                const stats = CHECK_FD(dirfd, constants.WASI_RIGHT_PATH_OPEN);
                 fsRightsBase = BigInt(fsRightsBase);
                 fsRightsInheriting = BigInt(fsRightsInheriting);
-                const read = (fsRightsBase & (constants_1.WASI_RIGHT_FD_READ | constants_1.WASI_RIGHT_FD_READDIR)) !==
+                const read = (fsRightsBase & (constants.WASI_RIGHT_FD_READ | constants.WASI_RIGHT_FD_READDIR)) !==
                     BigInt(0);
                 const write = (fsRightsBase &
-                    (constants_1.WASI_RIGHT_FD_DATASYNC |
-                        constants_1.WASI_RIGHT_FD_WRITE |
-                        constants_1.WASI_RIGHT_FD_ALLOCATE |
-                        constants_1.WASI_RIGHT_FD_FILESTAT_SET_SIZE)) !==
+                    (constants.WASI_RIGHT_FD_DATASYNC |
+                        constants.WASI_RIGHT_FD_WRITE |
+                        constants.WASI_RIGHT_FD_ALLOCATE |
+                        constants.WASI_RIGHT_FD_FILESTAT_SET_SIZE)) !==
                     BigInt(0);
                 let noflags;
                 if (write && read) {
@@ -778,66 +777,66 @@ export class WASIDefault {
                     noflags = fs.constants.O_WRONLY;
                 }
                 // fsRightsBase is needed here but perhaps we should do it in neededInheriting
-                let neededBase = fsRightsBase | constants_1.WASI_RIGHT_PATH_OPEN;
+                let neededBase = fsRightsBase | constants.WASI_RIGHT_PATH_OPEN;
                 let neededInheriting = fsRightsBase | fsRightsInheriting;
-                if ((oflags & constants_1.WASI_O_CREAT) !== 0) {
+                if ((oflags & constants.WASI_O_CREAT) !== 0) {
                     noflags |= fs.constants.O_CREAT;
-                    neededBase |= constants_1.WASI_RIGHT_PATH_CREATE_FILE;
+                    neededBase |= constants.WASI_RIGHT_PATH_CREATE_FILE;
                 }
-                if ((oflags & constants_1.WASI_O_DIRECTORY) !== 0) {
+                if ((oflags & constants.WASI_O_DIRECTORY) !== 0) {
                     noflags |= fs.constants.O_DIRECTORY;
                 }
-                if ((oflags & constants_1.WASI_O_EXCL) !== 0) {
+                if ((oflags & constants.WASI_O_EXCL) !== 0) {
                     noflags |= fs.constants.O_EXCL;
                 }
-                if ((oflags & constants_1.WASI_O_TRUNC) !== 0) {
+                if ((oflags & constants.WASI_O_TRUNC) !== 0) {
                     noflags |= fs.constants.O_TRUNC;
-                    neededBase |= constants_1.WASI_RIGHT_PATH_FILESTAT_SET_SIZE;
+                    neededBase |= constants.WASI_RIGHT_PATH_FILESTAT_SET_SIZE;
                 }
                 // Convert file descriptor flags.
-                if ((fsFlags & constants_1.WASI_FDFLAG_APPEND) !== 0) {
+                if ((fsFlags & constants.WASI_FDFLAG_APPEND) !== 0) {
                     noflags |= fs.constants.O_APPEND;
                 }
-                if ((fsFlags & constants_1.WASI_FDFLAG_DSYNC) !== 0) {
+                if ((fsFlags & constants.WASI_FDFLAG_DSYNC) !== 0) {
                     if (fs.constants.O_DSYNC) {
                         noflags |= fs.constants.O_DSYNC;
                     }
                     else {
                         noflags |= fs.constants.O_SYNC;
                     }
-                    neededInheriting |= constants_1.WASI_RIGHT_FD_DATASYNC;
+                    neededInheriting |= constants.WASI_RIGHT_FD_DATASYNC;
                 }
-                if ((fsFlags & constants_1.WASI_FDFLAG_NONBLOCK) !== 0) {
+                if ((fsFlags & constants.WASI_FDFLAG_NONBLOCK) !== 0) {
                     noflags |= fs.constants.O_NONBLOCK;
                 }
-                if ((fsFlags & constants_1.WASI_FDFLAG_RSYNC) !== 0) {
+                if ((fsFlags & constants.WASI_FDFLAG_RSYNC) !== 0) {
                     if (fs.constants.O_RSYNC) {
                         noflags |= fs.constants.O_RSYNC;
                     }
                     else {
                         noflags |= fs.constants.O_SYNC;
                     }
-                    neededInheriting |= constants_1.WASI_RIGHT_FD_SYNC;
+                    neededInheriting |= constants.WASI_RIGHT_FD_SYNC;
                 }
-                if ((fsFlags & constants_1.WASI_FDFLAG_SYNC) !== 0) {
+                if ((fsFlags & constants.WASI_FDFLAG_SYNC) !== 0) {
                     noflags |= fs.constants.O_SYNC;
-                    neededInheriting |= constants_1.WASI_RIGHT_FD_SYNC;
+                    neededInheriting |= constants.WASI_RIGHT_FD_SYNC;
                 }
                 if (write &&
                     (noflags & (fs.constants.O_APPEND | fs.constants.O_TRUNC)) === 0) {
-                    neededInheriting |= constants_1.WASI_RIGHT_FD_SEEK;
+                    neededInheriting |= constants.WASI_RIGHT_FD_SEEK;
                 }
                 this.refreshMemory();
                 const p = Buffer.from(this.memory.buffer, pathPtr, pathLen).toString();
                 const fullUnresolved = path.resolve(stats.path, p);
                 if (path.relative(stats.path, fullUnresolved).startsWith("..")) {
-                    return constants_1.WASI_ENOTCAPABLE;
+                    return constants.WASI_ENOTCAPABLE;
                 }
                 let full;
                 try {
                     full = fs.realpathSync(fullUnresolved);
                     if (path.relative(stats.path, full).startsWith("..")) {
-                        return constants_1.WASI_ENOTCAPABLE;
+                        return constants.WASI_ENOTCAPABLE;
                     }
                 }
                 catch (e) {
@@ -875,12 +874,12 @@ export class WASIDefault {
                 });
                 stat(this, newfd);
                 this.view.setUint32(fd, newfd, true);
-                return constants_1.WASI_ESUCCESS;
+                return constants.WASI_ESUCCESS;
             }),
             path_readlink: wrap((fd, pathPtr, pathLen, buf, bufLen, bufused) => {
-                const stats = CHECK_FD(fd, constants_1.WASI_RIGHT_PATH_READLINK);
+                const stats = CHECK_FD(fd, constants.WASI_RIGHT_PATH_READLINK);
                 if (!stats.path) {
-                    return constants_1.WASI_EINVAL;
+                    return constants.WASI_EINVAL;
                 }
                 this.refreshMemory();
                 const p = Buffer.from(this.memory.buffer, pathPtr, pathLen).toString();
@@ -888,50 +887,50 @@ export class WASIDefault {
                 const r = fs.readlinkSync(full);
                 const used = Buffer.from(this.memory.buffer).write(r, buf, bufLen);
                 this.view.setUint32(bufused, used, true);
-                return constants_1.WASI_ESUCCESS;
+                return constants.WASI_ESUCCESS;
             }),
             path_remove_directory: wrap((fd, pathPtr, pathLen) => {
-                const stats = CHECK_FD(fd, constants_1.WASI_RIGHT_PATH_REMOVE_DIRECTORY);
+                const stats = CHECK_FD(fd, constants.WASI_RIGHT_PATH_REMOVE_DIRECTORY);
                 if (!stats.path) {
-                    return constants_1.WASI_EINVAL;
+                    return constants.WASI_EINVAL;
                 }
                 this.refreshMemory();
                 const p = Buffer.from(this.memory.buffer, pathPtr, pathLen).toString();
                 fs.rmdirSync(path.resolve(stats.path, p));
-                return constants_1.WASI_ESUCCESS;
+                return constants.WASI_ESUCCESS;
             }),
             path_rename: wrap((oldFd, oldPath, oldPathLen, newFd, newPath, newPathLen) => {
-                const ostats = CHECK_FD(oldFd, constants_1.WASI_RIGHT_PATH_RENAME_SOURCE);
-                const nstats = CHECK_FD(newFd, constants_1.WASI_RIGHT_PATH_RENAME_TARGET);
+                const ostats = CHECK_FD(oldFd, constants.WASI_RIGHT_PATH_RENAME_SOURCE);
+                const nstats = CHECK_FD(newFd, constants.WASI_RIGHT_PATH_RENAME_TARGET);
                 if (!ostats.path || !nstats.path) {
-                    return constants_1.WASI_EINVAL;
+                    return constants.WASI_EINVAL;
                 }
                 this.refreshMemory();
                 const op = Buffer.from(this.memory.buffer, oldPath, oldPathLen).toString();
                 const np = Buffer.from(this.memory.buffer, newPath, newPathLen).toString();
                 fs.renameSync(path.resolve(ostats.path, op), path.resolve(nstats.path, np));
-                return constants_1.WASI_ESUCCESS;
+                return constants.WASI_ESUCCESS;
             }),
             path_symlink: wrap((oldPath, oldPathLen, fd, newPath, newPathLen) => {
-                const stats = CHECK_FD(fd, constants_1.WASI_RIGHT_PATH_SYMLINK);
+                const stats = CHECK_FD(fd, constants.WASI_RIGHT_PATH_SYMLINK);
                 if (!stats.path) {
-                    return constants_1.WASI_EINVAL;
+                    return constants.WASI_EINVAL;
                 }
                 this.refreshMemory();
                 const op = Buffer.from(this.memory.buffer, oldPath, oldPathLen).toString();
                 const np = Buffer.from(this.memory.buffer, newPath, newPathLen).toString();
                 fs.symlinkSync(op, path.resolve(stats.path, np));
-                return constants_1.WASI_ESUCCESS;
+                return constants.WASI_ESUCCESS;
             }),
             path_unlink_file: wrap((fd, pathPtr, pathLen) => {
-                const stats = CHECK_FD(fd, constants_1.WASI_RIGHT_PATH_UNLINK_FILE);
+                const stats = CHECK_FD(fd, constants.WASI_RIGHT_PATH_UNLINK_FILE);
                 if (!stats.path) {
-                    return constants_1.WASI_EINVAL;
+                    return constants.WASI_EINVAL;
                 }
                 this.refreshMemory();
                 const p = Buffer.from(this.memory.buffer, pathPtr, pathLen).toString();
                 fs.unlinkSync(path.resolve(stats.path, p));
-                return constants_1.WASI_ESUCCESS;
+                return constants.WASI_ESUCCESS;
             }),
             poll_oneoff: (sin, sout, nsubscriptions, nevents) => {
                 let eventc = 0;
@@ -943,7 +942,7 @@ export class WASIDefault {
                     const type = this.view.getUint8(sin);
                     sin += 1;
                     switch (type) {
-                        case constants_1.WASI_EVENTTYPE_CLOCK: {
+                        case constants.WASI_EVENTTYPE_CLOCK: {
                             sin += 7; // padding
                             const identifier = this.view.getBigUint64(sin, true);
                             sin += 8;
@@ -958,10 +957,10 @@ export class WASIDefault {
                             sin += 2;
                             sin += 6; // padding
                             const absolute = subclockflags === 1;
-                            let e = constants_1.WASI_ESUCCESS;
+                            let e = constants.WASI_ESUCCESS;
                             const n = BigInt(now(clockid));
                             if (n === null) {
-                                e = constants_1.WASI_EINVAL;
+                                e = constants.WASI_EINVAL;
                             }
                             else {
                                 const end = absolute ? timestamp : n + timestamp;
@@ -972,20 +971,20 @@ export class WASIDefault {
                             sout += 8;
                             this.view.setUint16(sout, e, true); // error
                             sout += 2; // pad offset 2
-                            this.view.setUint8(sout, constants_1.WASI_EVENTTYPE_CLOCK);
+                            this.view.setUint8(sout, constants.WASI_EVENTTYPE_CLOCK);
                             sout += 1; // pad offset 3
                             sout += 5; // padding to 8
                             eventc += 1;
                             break;
                         }
-                        case constants_1.WASI_EVENTTYPE_FD_READ:
-                        case constants_1.WASI_EVENTTYPE_FD_WRITE: {
+                        case constants.WASI_EVENTTYPE_FD_READ:
+                        case constants.WASI_EVENTTYPE_FD_WRITE: {
                             sin += 3; // padding
                             const fd = this.view.getUint32(sin, true);
                             sin += 4;
                             this.view.setBigUint64(sout, userdata, true);
                             sout += 8;
-                            this.view.setUint16(sout, constants_1.WASI_ENOSYS, true); // error
+                            this.view.setUint16(sout, constants.WASI_ENOSYS, true); // error
                             sout += 2; // pad offset 2
                             this.view.setUint8(sout, type);
                             sout += 1; // pad offset 3
@@ -994,44 +993,44 @@ export class WASIDefault {
                             break;
                         }
                         default:
-                            return constants_1.WASI_EINVAL;
+                            return constants.WASI_EINVAL;
                     }
                 }
                 this.view.setUint32(nevents, eventc, true);
                 while (bindings.hrtime() < waitEnd) {
                     // nothing
                 }
-                return constants_1.WASI_ESUCCESS;
+                return constants.WASI_ESUCCESS;
             },
             proc_exit: (rval) => {
                 bindings.exit(rval);
-                return constants_1.WASI_ESUCCESS;
+                return constants.WASI_ESUCCESS;
             },
             proc_raise: (sig) => {
-                if (!(sig in constants_1.SIGNAL_MAP)) {
-                    return constants_1.WASI_EINVAL;
+                if (!(sig in constants.SIGNAL_MAP)) {
+                    return constants.WASI_EINVAL;
                 }
-                bindings.kill(constants_1.SIGNAL_MAP[sig]);
-                return constants_1.WASI_ESUCCESS;
+                bindings.kill(constants.SIGNAL_MAP[sig]);
+                return constants.WASI_ESUCCESS;
             },
             random_get: (bufPtr, bufLen) => {
                 this.refreshMemory();
                 bindings.randomFillSync(new Uint8Array(this.memory.buffer), bufPtr, bufLen);
-                return constants_1.WASI_ESUCCESS;
+                return constants.WASI_ESUCCESS;
             },
             sched_yield() {
                 // Single threaded environment
                 // This is a no-op in JS
-                return constants_1.WASI_ESUCCESS;
+                return constants.WASI_ESUCCESS;
             },
             sock_recv() {
-                return constants_1.WASI_ENOSYS;
+                return constants.WASI_ENOSYS;
             },
             sock_send() {
-                return constants_1.WASI_ENOSYS;
+                return constants.WASI_ENOSYS;
             },
             sock_shutdown() {
-                return constants_1.WASI_ENOSYS;
+                return constants.WASI_ENOSYS;
             }
         };
         // Wrap each of the imports to show the calls in the console
@@ -1056,7 +1055,7 @@ export class WASIDefault {
     refreshMemory() {
         // @ts-ignore
         if (!this.view || this.view.buffer.byteLength === 0) {
-            this.view = new DataViewPolyfill(this.memory.buffer);
+            this.view = new DataView(this.memory.buffer);
         }
     }
     setMemory(memory) {
