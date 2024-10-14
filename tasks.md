@@ -2,6 +2,7 @@
     - DONE: download memfs
     - DONE: patch fs-monkey/lib/util/lists 
 - Make Deno.exit() not needed (use worker.terminate())
+- Create a way to write binary files to the worker
 - load wasm and grab wrapped C function
 - get args for:
     - header files
