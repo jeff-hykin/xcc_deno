@@ -7,7 +7,7 @@ import { WasmFs } from "./wasmfs/index.ts"
 // import { WASIExitError } from "https://esm.sh/@wasmer/wasi@0.12.0"
 // import { WASIExitError } from "https://esm.sh/@wasmer/wasi@0.12.0/lib/index.js"
 // import { WASIExitError } from "https://cdn.jsdelivr.net/npm/@wasmer/wasi@0.12.0/lib/index.js"
-import { WASIExitError } from "./wasi/index.js"
+import { WASIExitError } from "./wasi/errors.js"
 
 export class WasiWorker {
     private wasmFs = new WasmFs()

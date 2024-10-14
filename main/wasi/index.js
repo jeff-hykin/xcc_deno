@@ -1,7 +1,7 @@
 // "https://cdn.jsdelivr.net/npm/@wasmer/wasi@0.12.0/lib/index.js"
+import { WASIError, WASIExitError, WASIKillError } from "./errors.js" 
 import { Buffer } from "../node_shims/buffer.js"
 import browserBindings from "./bindings/browser.js";
-var exports = {};
 // Import our default bindings depending on the environment
 let defaultBindings = browserBindings;
 /*ROLLUP_REPLACE_NODE
@@ -167,10 +167,6 @@ const translateFileAttributes = (wasi, fd, stats) => {
             };
     }
 };
-import { WASIError, WASIExitError, WASIKillError } from "./errors.js" 
-exports.WASIError = WASIError;
-exports.WASIExitError = WASIExitError;
-exports.WASIKillError = WASIKillError;
 export class WASIDefault {
     constructor(wasiConfig) {
         // Destructure our wasiConfig
@@ -1113,19 +1109,10 @@ export class WASIDefault {
         }
     }
 }
-exports.default = WASIDefault;
 WASIDefault.defaultBindings = defaultBindings;
-// Also export it as a field in the export object
-exports.WASI = WASIDefault;
-
-;export default WASIDefault
-
-var { memory, _start, WASI } = exports;
 export {
     WASIError,
     WASIExitError,
     WASIKillError,
-    memory,
-    _start,
-    WASI,
+    WASIDefault as WASI,
 }
