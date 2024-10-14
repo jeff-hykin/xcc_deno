@@ -1,3 +1,17 @@
+// https://github.com/wasmerio/wasmer-js/issues/321
+try {
+    Object.defineProperty(Object.getPrototypeOf({}), "__proto__", {
+        get() {
+            return Object.getPrototypeOf(this)
+        },
+        set(value) {
+            return Object.setPrototypeOf(this, value)
+        }
+    })
+} catch (error) {
+    
+}
+
 var __defProp = Object.defineProperty;
 var __export = (target, all) => {
   for (var name in all)

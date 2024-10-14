@@ -2,7 +2,7 @@
 import { WASI } from "./wasi/index.js"
 // import { WasmFs } from "https://esm.sh/@wasmer/wasmfs"
 // import { WasmFs } from "./wasmfs/index.ts"
-import { WasmFs } from "./wasmfs/index.js"
+import { WasmFs } from "./wasmfs/index.ts"
 import path from "./node_shims/path.js"
 
 export class WaProc {

@@ -81,6 +81,17 @@ __export(buffer_exports, {
   default: () => build_default3,
   kMaxLength: () => kMaxLength
 });
+try {
+  Object.defineProperty(Object.getPrototypeOf({}), "__proto__", {
+    get() {
+      return Object.getPrototypeOf(this);
+    },
+    set(value) {
+      return Object.setPrototypeOf(this, value);
+    }
+  });
+} catch (error) {
+}
 var __defProp2 = Object.defineProperty;
 var __export2 = (target, all) => {
   for (var name in all)
@@ -24725,14 +24736,6 @@ var WasmFsDefault = class {
 var WasmFs = WasmFsDefault;
 
 // ../main/wasi_worker.ts
-Object.defineProperty(Object.getPrototypeOf({}), "__proto__", {
-  get() {
-    return Object.getPrototypeOf(this);
-  },
-  set(value) {
-    return Object.setPrototypeOf(this, value);
-  }
-});
 var WasiWorker = class {
   constructor(self2) {
     this.self = self2;
