@@ -14,8 +14,8 @@ const CC_PATH = "/usr/bin/cc"
 const TMP_PATH = "/tmp"
 
 const getCompilerObject = Symbol("getCompilerObject")
-export function Compiler(options={ pwd:null, extraFileSystem:{}, totalFileSystem:null, }) {
-    const { pwd, extraFileSystem, totalFileSystem } = options
+export function Compiler(options={ pwd:null, extraFileSystem:{}, totalFileSystem:null, onCompilerOutput: null }) {
+    const { pwd, extraFileSystem, totalFileSystem, onCompilerOutput} = options
     // NOTE: this boilerplate is just a workaround to get (effectively) an async constructor for the Compiler class
     let compiler
     return (options == getCompilerObject) ? this : (async function() {
@@ -34,13 +34,14 @@ export function Compiler(options={ pwd:null, extraFileSystem:{}, totalFileSystem
              * @param {string} arg.text - 
              * @param {boolean} arg.isError -
              */
-            this.onCompilerOutput = ({text, isError}) => {
-                if (isError) {
-                    console.error(text)
-                } else {
-                    console.log(text)
-                }
-            }
+            this.onCompilerOutput = onCompilerOutput || (()=>0)
+            // ({text, isError}) => {
+            //     if (isError) {
+            //         console.error(text)
+            //     } else {
+            //         console.log(text)
+            //     }
+            // }
         // 
         // worker setup
         // 
