@@ -12,7 +12,7 @@ export async function compileAndOrRun({args, sourceCode, compileAndDump=true}) {
     const extraOptions = compileAndDump ? ["-c", "-o", objFn, "--import-module-name=env"] : undefined
     await wccRunner.writeFile(sourceName, sourceCode)
 
-    const exitCode = await wccRunner.compile(sourceName, extraOptions)
+    const {exitCode} = await wccRunner.compile(sourceName, extraOptions)
     if (exitCode !== 0) {
         throw new Error(`Compile failed: ${exitCode}`)
     }

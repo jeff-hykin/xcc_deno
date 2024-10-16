@@ -63,9 +63,7 @@ export class WasiWorker {
                         break
                     case "terminate":
                         if (globalThis.Deno) {
-                            console.log(`trying to terminate self`)
                             Deno.exit()
-                            console.log(`finished calling Deno.exit()`)
                         }
                         break
                     default:
