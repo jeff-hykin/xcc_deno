@@ -39,6 +39,7 @@ async function compileAndOrRun({sourceCode, imports, extraArgs=[ "--verbose", "-
     console.log(out)
 
     const compiledCode = await wccRunner.readFile(objFn)
+    console.debug(`compiledCode is:`,compiledCode)
     console.debug(`compiledWasm is:`, xcc.wasmToWast(compiledCode.buffer))
     let exports = await xcc.loadWasm({wasmBuffer: compiledCode.buffer, imports, initalMemorySize: 65536})
     console.debug(`exports.fib is:`,exports.fib)
