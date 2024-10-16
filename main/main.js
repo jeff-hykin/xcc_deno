@@ -103,6 +103,10 @@ export async function quickC(maybeStrings, ...args) {
         }
     }
     if (verbose) {
+        console.log(`[quickC] terminating worker`)
+    }
+    await wccRunner.terminate()
+    if (verbose) {
         console.log(`[quickC] done`)
     }
     return output

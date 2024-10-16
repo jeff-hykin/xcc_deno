@@ -230,6 +230,25 @@ export function Compiler(options={ pwd:null, extraFileSystem:{}, totalFileSystem
         const files = await this._postMessage("readdir", { filePath: TMP_PATH });
         await Promise.all(files.map((file) => this._postMessage("unlink", { filePath: `${TMP_PATH}/${file}` })));
     }
+    
+    /**
+     * terminate
+     *
+     * @returns {Promise<void>} stops the compiler from keeping a worker alive
+     */
+    Compiler.prototype.terminate = async function () {
+        await this._worker.postMessage({ action: "terminate" });
+        await this._worker.terminate()
+        for (const [key, value] of this._actionHandlerMap.entries()) {
+            try {
+                console.log(`resolving action handler: ${key}`)
+                value.resolve()
+            } catch (error) {
+                console.log(`error when trying to resolve action handler: ${error}`)
+            }
+        }
+        return
+    }
 
 // 
 // 

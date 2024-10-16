@@ -9,6 +9,9 @@ import { WasmFs } from "./wasmfs/index.ts"
 // import { WASIExitError } from "https://cdn.jsdelivr.net/npm/@wasmer/wasi@0.12.0/lib/index.js"
 import { WASIExitError } from "./wasi/errors.js"
 
+// import { deepCopy, deepCopySymbol, allKeyDescriptions, deepSortObject, shallowSortObject, isGeneratorObject,isAsyncIterable, isSyncIterable, isIterableTechnically, isSyncIterableObjectOrContainer, allKeys } from "https://deno.land/x/good@1.9.1.1/value.js"
+
+
 export class WasiWorker {
     private wasmFs = new WasmFs()
     private curDir = "/"
@@ -57,6 +60,13 @@ export class WasiWorker {
                         break
                     case "runWasi":
                         result = await this.runWasi(data.filePath, data.args)
+                        break
+                    case "terminate":
+                        if (globalThis.Deno) {
+                            console.log(`trying to terminate self`)
+                            Deno.exit()
+                            console.log(`finished calling Deno.exit()`)
+                        }
                         break
                     default:
                         throw `${data.action}: Not handled`

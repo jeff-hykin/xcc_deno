@@ -24461,6 +24461,11 @@ var WasiWorker = class {
           case "runWasi":
             result = await this.runWasi(data.filePath, data.args);
             break;
+          case "terminate":
+            if (globalThis.Deno) {
+              Deno.exit();
+            }
+            break;
           default:
             throw `${data.action}: Not handled`;
         }
