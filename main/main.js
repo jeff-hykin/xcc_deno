@@ -80,6 +80,7 @@ export async function quickC(maybeStrings, ...args) {
     // actual compilation
     // 
         if (verbose) {
+            console.debug(`[quickC] exportableNames is:`,exportableNames)
             console.log(`[quickC] compiling`)
         }
         var { exitCode, out, stdout, stderr } = await wccRunner.compile(sourcePath, [...compileArgs, ...exportableNames.map(each=>["-e", each])].flat(Infinity))
