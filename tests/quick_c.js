@@ -1,6 +1,6 @@
 import { quickC } from '../main/main.js'
 // import { quickC } from '../main/main.bundle.js'
-// import { quickC } from 'https://raw.githubusercontent.com/jeff-hykin/xcc_deno/2b8678bb598ceedd2d74ac494bfddbf3ff615d6a/main/main.bundle.js'
+// import { quickC } from 'https://raw.githubusercontent.com/jeff-hykin/xcc_deno/41ef849e9571798b2a43f10fc9b96d78e7463986/main/main.bundle.js'
 
 var { fib, fib2 } = await quickC`
     int fib(int n) {

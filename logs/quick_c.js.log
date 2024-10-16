@@ -1,10 +1,2 @@
-[quickC] loading compiler
-[quickC] sending source code to compiler
-[quickC] discovering exportable names
-[quickC] exportableNames is: [ "__stack_pointer", "fib2", "fib" ]
-[quickC] compiling
-[quickC] loading wasm module
-[quickC] terminating worker
-[quickC] done
 fib(22) is: 17711
 fib2(22) is: 17711

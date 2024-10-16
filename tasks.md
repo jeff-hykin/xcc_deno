@@ -9,6 +9,7 @@
 - compile ./wcc from scratch using a nixpkgs setup
     - figure out how to build lib/wcrt0.a
     - figure out how to build lib/wlibc.a
+- fix binaryify not self-updating
 - Make Deno.exit() not needed (use worker.terminate())
 - Create a way to write binary files to the worker
 - simplify the c args for:
