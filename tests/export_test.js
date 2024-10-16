@@ -11,7 +11,7 @@ async function compileAndOrRun({sourceCode, exportNames, imports}) {
     const sourceName = "main.c"
     const objFn = "main.wasm"
     const compiledPath = "a.wasm"
-    const compileArgs =  [ "--verbose", ...exportNames.map(each=>["-e", each]).toReversed(), "-o", objFn, "--import-module-name=env", ].flat(Infinity)
+    const compileArgs =  [ "--verbose", "--entry-point=", ...exportNames.map(each=>["-e", each]), "-o", objFn, "--import-module-name=env", ].flat(Infinity)
     await wccRunner.writeFile(sourceName, sourceCode)
 
     const exitCode = await wccRunner.compile(sourceName, compileArgs)
@@ -40,9 +40,6 @@ int fib2(int n) {
         return n;
     else
         return fib(n - 1) + fib(n - 2);
-}
-int main() {
-    return 0;
 }
 `
 
