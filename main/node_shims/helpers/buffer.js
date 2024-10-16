@@ -11,6 +11,7 @@ try {
 } catch (error) {
     
 }
+import { toRepresentation } from "https://deno.land/x/good@1.9.1.1/flattened/to_representation.js"
 
 var __defProp = Object.defineProperty;
 var __export = (target, all) => {
@@ -423,7 +424,7 @@ var require_buffer = __commonJS3({
       }
       if (value == null) {
         throw new TypeError(
-          "The first argument must be one of type string, Buffer, ArrayBuffer, Array, or Array-like Object. Received type " + typeof value
+          `[Buffer.from] The first argument must be one of type string, Buffer, ArrayBuffer, Array, or Array-like Object. Received ${toRepresentation(value)}`
         );
       }
       if (isInstance(value, ArrayBuffer) || value && isInstance(value.buffer, ArrayBuffer)) {
@@ -448,7 +449,7 @@ var require_buffer = __commonJS3({
         return Buffer3.from(value[Symbol.toPrimitive]("string"), encodingOrOffset, length);
       }
       throw new TypeError(
-        "The first argument must be one of type string, Buffer, ArrayBuffer, Array, or Array-like Object. Received type " + typeof value
+        `[Buffer.from] The first argument must be one of type string, Buffer, ArrayBuffer, Array, or Array-like Object. Received ${toRepresentation(value)}`
       );
     }
     Buffer3.from = function(value, encodingOrOffset, length) {
@@ -662,7 +663,7 @@ var require_buffer = __commonJS3({
       }
       if (typeof string !== "string") {
         throw new TypeError(
-          'The "string" argument must be one of type string, Buffer, or ArrayBuffer. Received type ' + typeof string
+          `[Buffer.byteLength] The "string" argument must be one of type string, Buffer, or ArrayBuffer. Received ${toRepresentation(string)}`
         );
       }
       const len = string.length;
@@ -819,7 +820,7 @@ var require_buffer = __commonJS3({
       }
       if (!Buffer3.isBuffer(target)) {
         throw new TypeError(
-          'The "target" argument must be one of type Buffer or Uint8Array. Received type ' + typeof target
+          `[Buffer.compare] The "target" argument must be one of type Buffer or Uint8Array. Received ${toRepresentation(target)}`
         );
       }
       if (start === void 0) {
