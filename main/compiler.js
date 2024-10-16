@@ -25,6 +25,7 @@ export function Compiler(options={ pwd:null, extraFileSystem:{}, totalFileSystem
             this._worker = null
             this._messageId = 0
             this._actionHandlerMap = new Map() // <number, ActionHandler>
+            this._priorTasks = Promise.resolve()
             this.pwd = pwd || `/home/${USER}`
             
             /**
@@ -153,16 +154,33 @@ export function Compiler(options={ pwd:null, extraFileSystem:{}, totalFileSystem
      *
      * @param {string} sourceName - The name of the source file to compile.
      * @param {string[]} [extraOptions] - Optional additional options for the compiler.
-     * @returns {Promise<number>} A promise that resolves to the exit code of the compilation process.
+     * @param {boolean} [options.captureOutput=true] - Whether to capture the output of the compiler.
+     * @param {function} [options.onCompilerOutput=null] - Optional callback for compiler output.
+     * @returns {Promise<{} & { exitCode: number, out: string, stdout: string, stderr: string }>} exitCode and output
      */
-    Compiler.prototype.compile = function(sourceName, extraOptions) {
+    Compiler.prototype.compile = function(sourceName, extraOptions, { captureOutput=true, onCompilerOutput=null }={ captureOutput: true, }) {
         let args = [CC_PATH];
         if (extraOptions != null) {
             args = args.concat(extraOptions);
         }
         args.push(sourceName);
-
-        return this.runWasi(args[0], args);
+        if (captureOutput && onCompilerOutput == null) {
+            let out = []
+            let stdout = []
+            let stderr = []
+            onCompilerOutput = ({ text, isError }) => {
+                out.push(text)
+                if (isError) {
+                    stderr.push(text)
+                } else {
+                    stdout.push(text)
+                }
+            }
+            return this.runWasi(args[0], args, { onCompilerOutput }).then(
+                exitCode=>({ exitCode, out: out.join("\n"), stdout: stdout.join("\n"), stderr: stderr.join("\n") })
+            );
+        }
+        return this.runWasi(args[0], args, { onCompilerOutput })
     }
 
     /**
@@ -172,8 +190,34 @@ export function Compiler(options={ pwd:null, extraFileSystem:{}, totalFileSystem
      * @param {string[]} args - The arguments to pass to the executable.
      * @returns {Promise<number>} A promise that resolves to the exit code of the command.
      */
-    Compiler.prototype.runWasi = async function (filePath, args) {
-        return await this._postMessage("runWasi", { filePath, args });
+    Compiler.prototype.runWasi = function (filePath, args, { onCompilerOutput=null }={}) {
+        if (onCompilerOutput == null) {
+            this._priorTasks = this._priorTasks.then(()=>this._postMessage("runWasi", { filePath, args }))
+        } else {
+            // this._priorTasks enforces sequential execution so that stdout/stderr can be properly isolated per-compile task
+            this._priorTasks = this._priorTasks.then(()=>{
+                const onCompilerOutputBefore = this.onCompilerOutput || (()=>0)
+                this.onCompilerOutput = async (...args)=>{
+                    try {
+                        await onCompilerOutputBefore(...args)
+                    } catch (error) {
+                        let errorStack
+                        try {
+                            throw Error(``)
+                        } catch (error) {
+                            errorStack = error.stack
+                        }
+                        console.error(`Error in Compiler().onCompilerOutput: ${error}\n${error?.stack||errorStack}`)
+                    }
+                    return onCompilerOutput(...args)
+                }
+                return this._postMessage("runWasi", { filePath, args }).then((result)=>{
+                    this.onCompilerOutput = onCompilerOutputBefore
+                    return result
+                });
+            });
+        }
+        return this._priorTasks;
     }
 
     /**
@@ -255,7 +299,6 @@ export function Compiler(options={ pwd:null, extraFileSystem:{}, totalFileSystem
         return new Promise((resolve, reject) => {
             const messageId = ++this._messageId;
             this._actionHandlerMap.set(messageId, { resolve, reject });
-
             data.action = action;
             data.messageId = messageId;
             this._worker.postMessage(data);

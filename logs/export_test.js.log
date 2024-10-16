@@ -1,14 +1,23 @@
-s is: fib
+    @exportable:__stack_pointer
 
-s is: fib2
+    @exportable:fib2
 
-got here 2
+    @exportable:fib
 
+out is:     @exportable:__stack_pointer
+
+    @exportable:fib2
+
+    @exportable:fib
+
+exportableNames is: [ "__stack_pointer", "fib2", "fib" ]
 ### Exports
 
-fib
+__stack_pointer
 
 fib2
+
+fib
 
 
 
@@ -32,12 +41,6 @@ fib2
 
 ---- BSS  0x1
 
-got to almost-end of do_compile
-
-got to do_link
-
-got here
-
 ### Functions
 
  0: __wasm_call_ctors
@@ -52,9 +55,49 @@ got here
 
 ### Data
 
-should_link is: 1
+### Exports
 
-should_emit_wasm is: 1
+__stack_pointer
+
+fib2
+
+fib
+
+
+
+### Globals(import)
+
+ 0: __stack_pointer (2)
+
+### Globals(data)
+
+### Globals(bss)
+
+### Functions
+
+ 0: fib2
+
+ 1: fib
+
+
+
+### Memory  0x1
+
+---- BSS  0x1
+
+### Functions
+
+ 0: __wasm_call_ctors
+
+ 1: fib2
+
+ 2: fib
+
+### Globals
+
+ 0: __stack_pointer
+
+### Data
 
 compiledWasm is: (module
 ;; WASM version: 1
@@ -75,12 +118,13 @@ compiledWasm is: (module
 ;;=== 0x1e: GLOBAL, len=8
 (global (;0;) (mut i32) (i32.const 8192))
 
-;;=== 0x28: EXPORT, len=23
-(export "fib" (func 2))
+;;=== 0x28: EXPORT, len=41
+(export "__stack_pointer" (global 0))
 (export "fib2" (func 1))
+(export "fib" (func 2))
 (export "memory" (memory 0))
 
-;;=== 0x41: CODE, len=78
+;;=== 0x53: CODE, len=78
 (func (;0;) (type 0)
 )
 (func $fib2 (;1;) (type 1)
@@ -120,13 +164,14 @@ compiledWasm is: (module
   end
 )
 
-;;=== 0x91: DATA, len=1
+;;=== 0xa3: DATA, len=1
 )
 exports.fib is: [Function: 2]
 exports.fib(20) is: 6765
 exports.fib2(20) is: 6765
 [Object: null prototype] {
-  fib: [Function: 2],
+  __stack_pointer: Global [WebAssembly.Global] {},
   fib2: [Function: 1],
+  fib: [Function: 2],
   memory: Memory [WebAssembly.Memory] {}
 }

@@ -59,6 +59,128 @@ __export(buffer_exports, {
   default: () => build_default3,
   kMaxLength: () => kMaxLength
 });
+
+// https://deno.land/x/good@1.9.1.1/flattened/indent.js
+var indent = ({ string, by = "    ", noLead = false }) => (noLead ? "" : by) + string.replace(/\n/g, "\n" + by);
+
+// https://deno.land/x/good@1.9.1.1/flattened/to_representation.js
+var reprSymbol = Symbol.for("representation");
+var denoInspectSymbol = Symbol.for("Deno.customInspect");
+var toRepresentation = (item, { alreadySeen = /* @__PURE__ */ new Set() } = {}) => {
+  const recursionWrapper = (item2) => {
+    if (item2 instanceof Object) {
+      if (alreadySeen.has(item2)) {
+        return `[Self Reference]`;
+      } else {
+        alreadySeen.add(item2);
+      }
+    }
+    let output;
+    if (item2 == null || typeof item2 == "function" || typeof item2 == "number" || typeof item2 == "boolean" || item2 instanceof RegExp) {
+      output = String(item2);
+    } else if (typeof item2 == "string") {
+      output = JSON.stringify(item2);
+    } else if (typeof item2 == "symbol") {
+      if (!item2.description) {
+        output = "Symbol()";
+      } else {
+        const globalVersion = Symbol.for(item2.description);
+        if (globalVersion == item2) {
+          output = `Symbol.for(${JSON.stringify(item2.description)})`;
+        } else {
+          output = `Symbol(${JSON.stringify(item2.description)})`;
+        }
+      }
+    } else if (item2 instanceof BigInt) {
+      output = `BigInt(${item2.toString()})`;
+    } else if (item2 instanceof Date) {
+      output = `new Date(${item2.getTime()})`;
+    } else if (item2 instanceof Array) {
+      output = `[${item2.map((each) => recursionWrapper(each)).join(",")}]`;
+    } else if (item2 instanceof Set) {
+      output = `new Set([${[...item2].map((each) => recursionWrapper(each)).join(",")}])`;
+    } else if (item2 instanceof Object && item2.constructor == Object) {
+      output = pureObjectRepr(item2);
+    } else if (item2 instanceof Map) {
+      let string = "new Map(";
+      for (const [key, value] of item2.entries()) {
+        const stringKey = recursionWrapper(key);
+        const stringValue = recursionWrapper(value);
+        if (!stringKey.match(/\n/g)) {
+          string += `
+  [${stringKey}, ${indent({ string: stringValue, by: "  ", noLead: true })}],`;
+        } else {
+          string += `
+  [${indent({ string: stringKey, by: "  ", noLead: true })},
+  ${indent({ string: stringValue, by: "    ", noLead: true })}],`;
+        }
+      }
+      string += "\n)";
+      output = string;
+    } else {
+      if (item2[reprSymbol] instanceof Function) {
+        try {
+          output = item2[reprSymbol]();
+          return output;
+        } catch (error) {
+        }
+      }
+      if (item2[denoInspectSymbol] instanceof Function) {
+        try {
+          output = item2[denoInspectSymbol]();
+          return output;
+        } catch (error) {
+        }
+      }
+      if (item2?.constructor == Error) {
+        output = `new Error(${JSON.stringify(item2.message)})`;
+        return output;
+      }
+      try {
+        if (item2.constructor instanceof Function && typeof item2.constructor.name == "string") {
+          output = `new ${item2.constructor.name}(${pureObjectRepr(item2)})`;
+          return output;
+        }
+      } catch (error) {
+      }
+      console.log(`here4`);
+      try {
+        if (item2.constructor instanceof Function && item2.prototype && typeof item2.name == "string") {
+          output = `class ${item2.name} { /*...*/ }`;
+          return output;
+        }
+      } catch (error) {
+      }
+      try {
+        output = item2.toString();
+        if (output !== "[object Object]") {
+          return output;
+        }
+      } catch (error) {
+      }
+      return pureObjectRepr(item2);
+    }
+    return output;
+  };
+  const pureObjectRepr = (item2) => {
+    let string = "{";
+    for (const [key, value] of Object.entries(item2)) {
+      const stringKey = recursionWrapper(key);
+      const stringValue = recursionWrapper(value);
+      string += `
+  ${stringKey}: ${indent({ string: stringValue, by: "  ", noLead: true })},`;
+    }
+    string += "\n}";
+    return string;
+  };
+  try {
+    return recursionWrapper(item);
+  } catch (error) {
+    return String(item);
+  }
+};
+
+// ../main/node_shims/helpers/buffer.js
 try {
   Object.defineProperty(Object.getPrototypeOf({}), "__proto__", {
     get() {
@@ -475,7 +597,7 @@ var require_buffer = __commonJS3({
       }
       if (value == null) {
         throw new TypeError(
-          "The first argument must be one of type string, Buffer, ArrayBuffer, Array, or Array-like Object. Received type " + typeof value
+          `[Buffer.from] The first argument must be one of type string, Buffer, ArrayBuffer, Array, or Array-like Object. Received ${toRepresentation(value)}`
         );
       }
       if (isInstance(value, ArrayBuffer) || value && isInstance(value.buffer, ArrayBuffer)) {
@@ -500,7 +622,7 @@ var require_buffer = __commonJS3({
         return Buffer32.from(value[Symbol.toPrimitive]("string"), encodingOrOffset, length);
       }
       throw new TypeError(
-        "The first argument must be one of type string, Buffer, ArrayBuffer, Array, or Array-like Object. Received type " + typeof value
+        `[Buffer.from] The first argument must be one of type string, Buffer, ArrayBuffer, Array, or Array-like Object. Received ${toRepresentation(value)}`
       );
     }
     Buffer32.from = function(value, encodingOrOffset, length) {
@@ -714,7 +836,7 @@ var require_buffer = __commonJS3({
       }
       if (typeof string !== "string") {
         throw new TypeError(
-          'The "string" argument must be one of type string, Buffer, or ArrayBuffer. Received type ' + typeof string
+          `[Buffer.byteLength] The "string" argument must be one of type string, Buffer, or ArrayBuffer. Received ${toRepresentation(string)}`
         );
       }
       const len = string.length;
@@ -871,7 +993,7 @@ var require_buffer = __commonJS3({
       }
       if (!Buffer32.isBuffer(target)) {
         throw new TypeError(
-          'The "target" argument must be one of type Buffer or Uint8Array. Received type ' + typeof target
+          `[Buffer.compare] The "target" argument must be one of type Buffer or Uint8Array. Received ${toRepresentation(target)}`
         );
       }
       if (start === void 0) {
@@ -24382,7 +24504,9 @@ var WasiWorker = class {
     try {
       await waProc.runWasiEntry(filePath);
     } catch (e3) {
-      if (!(e3 instanceof WASIExitError)) throw e3;
+      if (!(e3 instanceof WASIExitError)) {
+        throw e3;
+      }
       const err = e3;
       exitCode = err.code;
     }

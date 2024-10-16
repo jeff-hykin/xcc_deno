@@ -106,7 +106,9 @@ export class WasiWorker {
         try {
             await waProc.runWasiEntry(filePath)
         } catch (e) {
-            if (!(e instanceof WASIExitError)) throw e
+            if (!(e instanceof WASIExitError)) {
+                throw e
+            }
             const err = e as WASIExitError
             exitCode = err.code!
         }

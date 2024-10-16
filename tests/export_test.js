@@ -5,19 +5,38 @@ import * as xcc from '../main/main.js'
 // 
 // setup imports
 // 
-async function compileAndOrRun({sourceCode, exportNames, imports}) {
+async function compileAndOrRun({sourceCode, imports, extraArgs=[ "--verbose", "--import-module-name=env" ]}) {
     var wccRunner = await xcc.Compiler()
     
-    const sourceName = "main.c"
-    const objFn = "main.wasm"
-    const compiledPath = "a.wasm"
-    const compileArgs =  [ "--verbose", "--entry-point=", ...exportNames.map(each=>["-e", each]), "-o", objFn, "--import-module-name=env", ].flat(Infinity)
+    // TODO: make these temp
+    const sourceName   = "main.c"
+    const objFn        = "main.wasm"
     await wccRunner.writeFile(sourceName, sourceCode)
-
-    const exitCode = await wccRunner.compile(sourceName, compileArgs)
-    if (exitCode !== 0) {
-        throw new Error(`Compile failed: ${exitCode}`)
-    }
+    const compileArgs =  [ "--entry-point=", "-o", objFn, ...extraArgs ].flat(Infinity)
+    
+    // 
+    // get exportable names
+    // 
+        // -c allows us to get names even when no main function is present
+        var { exitCode, out, stdout, stderr } = await wccRunner.compile(sourceName, [ "--list-exportable-names", "-c", ...compileArgs.filter(each=>each!="--verbose") ])
+        console.debug(`out is:`,out)
+        const exportableNames = []
+        for (const each of out.matchAll(/@exportable:(.*)/g)) {
+            exportableNames.push(each[1])
+        }
+        console.debug(`exportableNames is:`,exportableNames)
+        if (exitCode !== 0) {
+            throw new Error(`Compile failed:\n${out}\nexit code: ${exitCode}`)
+        }
+    
+    // 
+    // export everything
+    // 
+        var { exitCode, out, stdout, stderr } = await wccRunner.compile(sourceName, [...compileArgs, ...exportableNames.map(each=>["-e", each])].flat(Infinity))
+        if (exitCode !== 0) {
+            throw new Error(`Compile failed:\n${out}\nexit code: ${exitCode}`)
+        }
+    console.log(out)
 
     const compiledCode = await wccRunner.readFile(objFn)
     console.debug(`compiledWasm is:`, xcc.wasmToWast(compiledCode.buffer))
@@ -44,7 +63,7 @@ int fib2(int n) {
 `
 
 try {
-    console.log(await compileAndOrRun({sourceCode: EXAMPLE_CODE, exportNames: ["fib", "fib2"]}))
+    console.log(await compileAndOrRun({sourceCode: EXAMPLE_CODE}))
 } catch (error) {
     console.error(error)
     console.error(error.stack)
