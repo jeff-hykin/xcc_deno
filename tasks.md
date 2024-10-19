@@ -24,3 +24,61 @@
     - target system selection
     - system path lookup
     - ENV vars
+
+
+- big goals:
+    - how to deal with project that use build systems
+        - probably try to wrap gcc and then listen to the args that are used, then translate those to XCC function calls
+    - tools to compile:
+        - `make`
+        - `sed`
+        - `grep`
+        - `bash`
+        - `openssl`
+        - `imagemagick`
+        - `libpng`
+        - `git`
+        - `python`
+        - `ffmpeg`
+    - concepts:
+        - how to use/load a shared object or connected a shared object like ffmpeg into another binary/project
+        - how to patch a system call of a resulting binary
+        
+    - make a list of major blockers:
+        - no goto
+        - probably no libc support for networking
+        - probably nothing involving USB, cameras, or serial ports
+        - env vars?
+        - missing stdlib headers:
+            - `assert.h`     : 👍
+            - `complex.h`    : ❌
+            - `ctype.h`      : 👍
+            - `errno.h`      : 👍
+            - `fenv.h`       : ❌
+            - `float.h`      : ❌
+            - `inttypes.h`   : 👍
+            - `iso646.h`     : ❌
+            - `limits.h`     : 👍
+            - `locale.h`     : ❌
+            - `math.h`       : 👍
+            - `setjmp.h`     : 👍
+            - `signal.h`     : ❌
+            - `stdalign.h`   : ❌
+            - `stdarg.h`     : 👍
+            - `stdatomic.h`  : ❌
+            - `stdbit.h`     : ❌
+            - `stdbool.h`    : 👍
+            - `stdckdint.h`  : ❌
+            - `stddef.h`     : 👍
+            - `stdint.h`     : 👍
+            - `stdio.h`      : 👍
+            - `stdlib.h`     : 👍
+            - `stdnoreturn.h`: ❌
+            - `string.h`     : 👍
+            - `tgmath.h`     : ❌
+            - `threads.h`    : ❌
+            - `time.h`       : 👍
+            - `uchar.h`      : ❌
+            - `wchar.h`      : ❌
+            - `wctype.h`     : ❌
+    
