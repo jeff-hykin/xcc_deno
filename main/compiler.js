@@ -14,8 +14,8 @@ const CC_PATH = "/usr/bin/cc"
 const TMP_PATH = "/tmp"
 
 const getCompilerObject = Symbol("getCompilerObject")
-export function Compiler(options={ pwd:null, extraFileSystem:{}, totalFileSystem:null, onCompilerOutput: null }) {
-    const { pwd, extraFileSystem, totalFileSystem, onCompilerOutput} = options
+export function Compiler(options={ pwd:null, extraFileSystem:{}, totalFileSystem:null }) {
+    const { pwd, extraFileSystem, totalFileSystem } = options
     // NOTE: this boilerplate is just a workaround to get (effectively) an async constructor for the Compiler class
     let compiler
     return (options == getCompilerObject) ? this : (async function() {
@@ -34,7 +34,7 @@ export function Compiler(options={ pwd:null, extraFileSystem:{}, totalFileSystem
              * @param {string} arg.text - 
              * @param {boolean} arg.isError -
              */
-            this.onCompilerOutput = onCompilerOutput || (()=>0)
+            this._onOutput = (()=>0)
             // ({text, isError}) => {
             //     if (isError) {
             //         console.error(text)
@@ -63,7 +63,7 @@ export function Compiler(options={ pwd:null, extraFileSystem:{}, totalFileSystem
                 } else {
                     switch (data.action) {
                         case "consoleOut":
-                            this.onCompilerOutput(data)
+                            this._onOutput(data)
                             break
                         default:
                             console.error(`[Inside of WccRunner, worker.onmessage] Received an unknown action ${data.action}`, toRepresentation(data))
@@ -156,32 +156,16 @@ export function Compiler(options={ pwd:null, extraFileSystem:{}, totalFileSystem
      * @param {string} sourceName - The name of the source file to compile.
      * @param {string[]} [extraOptions] - Optional additional options for the compiler.
      * @param {boolean} [options.captureOutput=true] - Whether to capture the output of the compiler.
-     * @param {function} [options.onCompilerOutput=null] - Optional callback for compiler output.
+     * @param {function} [options.onOutput=null] - Optional callback for compiler output.
      * @returns {Promise<{} & { exitCode: number, out: string, stdout: string, stderr: string }>} exitCode and output
      */
-    Compiler.prototype.compile = function(sourceName, extraOptions, { captureOutput=true, onCompilerOutput=null }={ captureOutput: true, }) {
+    Compiler.prototype.compile = function(sourceName, extraOptions) {
         let args = [CC_PATH];
         if (extraOptions != null) {
             args = args.concat(extraOptions);
         }
         args.push(sourceName);
-        if (captureOutput && onCompilerOutput == null) {
-            let out = []
-            let stdout = []
-            let stderr = []
-            onCompilerOutput = ({ text, isError }) => {
-                out.push(text)
-                if (isError) {
-                    stderr.push(text)
-                } else {
-                    stdout.push(text)
-                }
-            }
-            return this.runWasi(args[0], args, { onCompilerOutput }).then(
-                exitCode=>({ exitCode, out: out.join("\n"), stdout: stdout.join("\n"), stderr: stderr.join("\n") })
-            );
-        }
-        return this.runWasi(args[0], args, { onCompilerOutput })
+        return this.runWasi(args[0], args)
     }
 
     /**
@@ -191,34 +175,38 @@ export function Compiler(options={ pwd:null, extraFileSystem:{}, totalFileSystem
      * @param {string[]} args - The arguments to pass to the executable.
      * @returns {Promise<number>} A promise that resolves to the exit code of the command.
      */
-    Compiler.prototype.runWasi = function (filePath, args, { onCompilerOutput=null }={}) {
-        if (onCompilerOutput == null) {
-            this._priorTasks = this._priorTasks.then(()=>this._postMessage("runWasi", { filePath, args }))
+    Compiler.prototype.runWasi = function (filePath, args, { onOutput=null }={}) {
+        if (onOutput == null) {
+            const out = []
+            const stdout = []
+            const stderr = []
+            onOutput = ({ text, isError }) => {
+                out.push(text)
+                if (isError) {
+                    stderr.push(text)
+                } else {
+                    stdout.push(text)
+                }
+            }
+            const onOutputBefore = this._onOutput
+            this._onOutput = onOutput
+            return this._priorTasks = this._priorTasks.then(()=>this._postMessage("runWasi", { filePath, args })).then(
+                exitCode=>{
+                    this._onOutput = onOutputBefore
+                    return { exitCode, out: out.join(""), stdout: stdout.join(""), stderr: stderr.join("") }
+                }
+            );
         } else {
             // this._priorTasks enforces sequential execution so that stdout/stderr can be properly isolated per-compile task
-            this._priorTasks = this._priorTasks.then(()=>{
-                const onCompilerOutputBefore = this.onCompilerOutput || (()=>0)
-                this.onCompilerOutput = async (...args)=>{
-                    try {
-                        await onCompilerOutputBefore(...args)
-                    } catch (error) {
-                        let errorStack
-                        try {
-                            throw Error(``)
-                        } catch (error) {
-                            errorStack = error.stack
-                        }
-                        console.error(`Error in Compiler().onCompilerOutput: ${error}\n${error?.stack||errorStack}`)
-                    }
-                    return onCompilerOutput(...args)
-                }
-                return this._postMessage("runWasi", { filePath, args }).then((result)=>{
-                    this.onCompilerOutput = onCompilerOutputBefore
-                    return result
-                });
+            return this._priorTasks = this._priorTasks.then(()=>{
+                const onOutputBefore = this._onOutput
+                this._onOutput = onOutput
+                return this._postMessage("runWasi", { filePath, args }).then((exitCode)=>{
+                    this._onOutput = onOutputBefore
+                    return {exitCode}
+                })
             });
         }
-        return this._priorTasks;
     }
 
     /**

@@ -41520,8 +41520,8 @@ var USER = "wasm";
 var CC_PATH = "/usr/bin/cc";
 var TMP_PATH = "/tmp";
 var getCompilerObject = Symbol("getCompilerObject");
-function Compiler(options = { pwd: null, extraFileSystem: {}, totalFileSystem: null, onCompilerOutput: null }) {
-  const { pwd, extraFileSystem, totalFileSystem, onCompilerOutput } = options;
+function Compiler(options = { pwd: null, extraFileSystem: {}, totalFileSystem: null, onOutput: null }) {
+  const { pwd, extraFileSystem, totalFileSystem, onOutput } = options;
   let compiler;
   return options == getCompilerObject ? this : async function() {
     this._worker = null;
@@ -41529,7 +41529,7 @@ function Compiler(options = { pwd: null, extraFileSystem: {}, totalFileSystem: n
     this._actionHandlerMap = /* @__PURE__ */ new Map();
     this._priorTasks = Promise.resolve();
     this.pwd = pwd || `/home/${USER}`;
-    this.onCompilerOutput = onCompilerOutput || (() => 0);
+    this.onOutput = onOutput || (() => 0);
     this._worker = new Worker(
       // "file:///Users/jeffhykin/repos/xcc_deno/main/wasi_worker.bundle.js",
       webWorkerCode,
@@ -41548,7 +41548,7 @@ function Compiler(options = { pwd: null, extraFileSystem: {}, totalFileSystem: n
       } else {
         switch (data.action) {
           case "consoleOut":
-            this.onCompilerOutput(data);
+            this.onOutput(data);
             break;
           default:
             console.error(`[Inside of WccRunner, worker.onmessage] Received an unknown action ${data.action}`, toRepresentation2(data));
@@ -41622,17 +41622,17 @@ Instead it was: ${toRepresentation2(actualContents)}`);
     await Promise.all(fileSystemSetupPromises);
   }.bind(compiler = new Compiler(getCompilerObject))().then(() => compiler);
 }
-Compiler.prototype.compile = function(sourceName, extraOptions, { captureOutput = true, onCompilerOutput = null } = { captureOutput: true }) {
+Compiler.prototype.compile = function(sourceName, extraOptions, { captureOutput = true, onOutput = null } = { captureOutput: true }) {
   let args2 = [CC_PATH];
   if (extraOptions != null) {
     args2 = args2.concat(extraOptions);
   }
   args2.push(sourceName);
-  if (captureOutput && onCompilerOutput == null) {
+  if (captureOutput && onOutput == null) {
     let out = [];
     let stdout3 = [];
     let stderr3 = [];
-    onCompilerOutput = ({ text, isError: isError3 }) => {
+    onOutput = ({ text, isError: isError3 }) => {
       out.push(text);
       if (isError3) {
         stderr3.push(text);
@@ -41640,21 +41640,21 @@ Compiler.prototype.compile = function(sourceName, extraOptions, { captureOutput 
         stdout3.push(text);
       }
     };
-    return this.runWasi(args2[0], args2, { onCompilerOutput }).then(
+    return this.runWasi(args2[0], args2, { onOutput }).then(
       (exitCode) => ({ exitCode, out: out.join("\n"), stdout: stdout3.join("\n"), stderr: stderr3.join("\n") })
     );
   }
-  return this.runWasi(args2[0], args2, { onCompilerOutput });
+  return this.runWasi(args2[0], args2, { onOutput });
 };
-Compiler.prototype.runWasi = function(filePath, args2, { onCompilerOutput = null } = {}) {
-  if (onCompilerOutput == null) {
+Compiler.prototype.runWasi = function(filePath, args2, { onOutput = null } = {}) {
+  if (onOutput == null) {
     this._priorTasks = this._priorTasks.then(() => this._postMessage("runWasi", { filePath, args: args2 }));
   } else {
     this._priorTasks = this._priorTasks.then(() => {
-      const onCompilerOutputBefore = this.onCompilerOutput || (() => 0);
-      this.onCompilerOutput = async (...args3) => {
+      const onOutputBefore = this.onOutput || (() => 0);
+      this.onOutput = async (...args3) => {
         try {
-          await onCompilerOutputBefore(...args3);
+          await onOutputBefore(...args3);
         } catch (error) {
           let errorStack;
           try {
@@ -41662,13 +41662,13 @@ Compiler.prototype.runWasi = function(filePath, args2, { onCompilerOutput = null
           } catch (error2) {
             errorStack = error2.stack;
           }
-          console.error(`Error in Compiler().onCompilerOutput: ${error}
+          console.error(`Error in Compiler().onOutput: ${error}
 ${error?.stack || errorStack}`);
         }
-        return onCompilerOutput(...args3);
+        return onOutput(...args3);
       };
       return this._postMessage("runWasi", { filePath, args: args2 }).then((result) => {
-        this.onCompilerOutput = onCompilerOutputBefore;
+        this.onOutput = onOutputBefore;
         return result;
       });
     });

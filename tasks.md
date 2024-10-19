@@ -1,16 +1,21 @@
 - DONE: Use wasi_worker.ts instead of wasi_worker.js
     - DONE: download memfs
     - DONE: patch fs-monkey/lib/util/lists 
-- try to get fib exported
+- DONE: try to get fib exported
     - DONE: manually create necessary imports
     - DONE: post issue about -e not working
     - make a way to get the names of all functions, or make an export-all option
         - make a PR for that
+- DONE: Make Deno.exit() not needed (use worker.terminate())
+
+- fix binaryify not self-updating
+- make quickC have a class setup
+- DONE: test if terminating worker is necessary
+    - answer: yes
+- add caching techniques
 - compile ./wcc from scratch using a nixpkgs setup
     - figure out how to build lib/wcrt0.a
     - figure out how to build lib/wlibc.a
-- fix binaryify not self-updating
-- Make Deno.exit() not needed (use worker.terminate())
 - Create a way to write binary files to the worker
 - simplify the c args for:
     - header files
@@ -19,5 +24,3 @@
     - target system selection
     - system path lookup
     - ENV vars
-- add caching techniques
-    - preserve file system

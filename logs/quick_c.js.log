@@ -1,2 +1,11 @@
+text is:     @exportable:__stack_pointer
+
+isError is: false
+text is:     @exportable:fib2
+
+isError is: false
+text is:     @exportable:fib
+
+isError is: false
 fib(22) is: 17711
 fib2(22) is: 17711

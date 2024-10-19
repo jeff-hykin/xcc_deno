@@ -1,0 +1,687 @@
+- 00001.c
+    passed
+- 00002.c
+    passed
+- 00003.c
+    passed
+- 00004.c
+    passed
+- 00005.c
+    passed
+- 00006.c
+    passed
+- 00007.c
+    passed
+- 00008.c
+    passed
+- 00009.c
+    passed
+- 00010.c
+        Compile failed: 1, output:
+            main.c(10): warning: `foo' not used
+            	foo:
+            	^~~
+            main.c(4): warning: `start' not used
+            	start:
+            	^~~~~
+            main.c(6): warning: unreachable
+            		return 1;
+            		^~~~~~
+            main.c(12): warning: unreachable
+            		return 1;
+            		^~~~~~
+            main.c(5): cannot use goto
+            		goto next;
+            		^~~~
+            
+- 00011.c
+    passed
+- 00012.c
+    passed
+- 00013.c
+    passed
+- 00014.c
+    passed
+- 00015.c
+    passed
+- 00016.c
+    passed
+- 00017.c
+    passed
+- 00018.c
+    passed
+- 00019.c
+    passed
+- 00020.c
+    passed
+- 00021.c
+    passed
+- 00022.c
+    passed
+- 00023.c
+    passed
+- 00024.c
+    passed
+- 00025.c
+    passed
+- 00026.c
+    passed
+- 00027.c
+    passed
+- 00028.c
+    passed
+- 00029.c
+    passed
+- 00030.c
+    passed
+- 00031.c
+    passed
+- 00032.c
+    passed
+- 00033.c
+    passed
+- 00034.c
+    passed
+- 00035.c
+    passed
+- 00036.c
+    passed
+- 00037.c
+    passed
+- 00038.c
+    passed
+- 00039.c
+    passed
+- 00040.c
+    passed
+- 00041.c
+    passed
+- 00042.c
+    passed
+- 00043.c
+    passed
+- 00044.c
+    passed
+- 00045.c
+    passed
+- 00046.c
+    passed
+- 00047.c
+    passed
+- 00048.c
+    passed
+- 00049.c
+    passed
+- 00050.c
+    passed
+- 00051.c
+        Compile failed: 1, output:
+            main.c(25): warning: `foo' not used
+            			foo:
+            			^~~
+            main.c(13): cannot use goto
+            					goto next;
+            					^~~~
+            
+- 00052.c
+    passed
+- 00053.c
+    passed
+- 00054.c
+    passed
+- 00055.c
+    passed
+- 00056.c
+    passed
+- 00057.c
+    passed
+- 00058.c
+    passed
+- 00059.c
+    passed
+- 00060.c
+    passed
+- 00061.c
+    passed
+- 00062.c
+    passed
+- 00063.c
+    passed
+- 00064.c
+    passed
+- 00065.c
+    passed
+- 00066.c
+    passed
+- 00067.c
+    passed
+- 00068.c
+    passed
+- 00069.c
+    passed
+- 00070.c
+    passed
+- 00071.c
+    passed
+- 00072.c
+    passed
+- 00073.c
+    passed
+- 00074.c
+    passed
+- 00075.c
+    passed
+- 00076.c
+    passed
+- 00077.c
+    passed
+- 00078.c
+    passed
+- 00079.c
+    passed
+- 00080.c
+    passed
+- 00081.c
+    passed
+- 00082.c
+    passed
+- 00083.c
+    passed
+- 00084.c
+    passed
+- 00085.c
+    passed
+- 00086.c
+    passed
+- 00087.c
+        Compile failed: 1, output:
+            main.c(18): function's parameters must be known
+            	return v.fptr();
+            	        ^
+            
+- 00088.c
+    passed
+- 00089.c
+        Compile failed: 1, output:
+            function's parameters must be known
+            main.c(29): function's parameters must be known
+            	return go()()->zerofunc();
+            	             ^~
+            
+- 00090.c
+    passed
+- 00091.c
+    passed
+- 00092.c
+    passed
+- 00093.c
+    passed
+- 00094.c
+    passed
+- 00095.c
+        Compile failed: 1, output:
+            main.c(3): `x' already defined
+            int x;
+                ^
+            
+- 00096.c
+        Compile failed: 1, output:
+            main.c(1): `x' already defined
+            int x, x = 3, x;
+                          ^
+            
+- 00097.c
+    passed
+- 00098.c
+    passed
+- 00099.c
+    passed
+- 00100.c
+    passed
+- 00101.c
+    passed
+- 00102.c
+    passed
+- 00103.c
+    passed
+- 00104.c
+    passed
+- 00105.c
+    passed
+- 00106.c
+    passed
+- 00107.c
+    passed
+- 00108.c
+    passed
+- 00109.c
+    passed
+- 00110.c
+    passed
+- 00111.c
+    passed
+- 00112.c
+    passed
+- 00113.c
+    passed
+- 00114.c
+    passed
+- 00115.c
+    passed
+- 00116.c
+    passed
+- 00117.c
+    passed
+- 00118.c
+    passed
+- 00119.c
+    passed
+- 00120.c
+    passed
+- 00121.c
+    passed
+- 00122.c
+    passed
+- 00123.c
+    passed
+- 00124.c
+    passed
+- 00125.c
+    passed
+- 00126.c
+    passed
+- 00127.c
+    passed
+- 00128.c
+    passed
+- 00129.c
+        Compile failed: 1, output:
+            main.c(30): warning: unreachable
+            main.c(29): warning: unreachable
+            	return 1;
+            	^~~~~~
+            main.c(18): cannot use goto
+            	goto s;
+            	^~~~
+            
+- 00130.c
+    passed
+- 00131.c
+    passed
+- 00132.c
+    passed
+- 00133.c
+    passed
+- 00134.c
+    passed
+- 00135.c
+    passed
+- 00136.c
+    passed
+- 00137.c
+    passed
+- 00138.c
+    passed
+- 00139.c
+    passed
+- 00140.c
+        Compile failed: 1, output:
+            src/wcc/gen_wasm.c:380: gen_funcall: Assertion `!is_stack_param(arg->type)` failed
+            
+- 00141.c
+    passed
+- 00142.c
+    passed
+- 00143.c
+        Compile failed: 1, output:
+            main.c(24): case/default inside branch not supported
+                case 7:      *to++ = *from++;
+                ^~~~
+            
+- 00144.c
+    passed
+- 00145.c
+    passed
+- 00146.c
+    passed
+- 00147.c
+    passed
+- 00148.c
+    passed
+- 00149.c
+    passed
+- 00150.c
+    passed
+- 00151.c
+    passed
+- 00152.c
+    passed
+- 00153.c
+    passed
+- 00154.c
+    passed
+- 00155.c
+    passed
+- 00156.c
+    passed
+- 00157.c
+    passed
+- 00158.c
+    passed
+- 00159.c
+    passed
+- 00160.c
+    passed
+- 00161.c
+    passed
+- 00162.c
+        Compile failed: 1, output:
+            main.c(21): Number or Ident or open paren expected
+            void foovm(int x[const *]);
+                                    ^
+            main.c(21): Cannot dereference raw type
+            void foovm(int x[const *]);
+                                   ^
+            
+- 00163.c
+    passed
+- 00164.c
+    passed
+- 00165.c
+    passed
+- 00166.c
+    passed
+- 00167.c
+    passed
+- 00168.c
+    passed
+- 00169.c
+    passed
+- 00170.c
+        Compile failed: 1, output:
+            main.c(22): Unknown enum type
+            enum efoo;
+                 ^~~~
+            
+- 00171.c
+    passed
+- 00172.c
+    passed
+- 00173.c
+    passed
+- 00174.c
+    passed
+- 00175.c
+    passed
+- 00176.c
+    passed
+- 00177.c
+    passed
+- 00178.c
+    passed
+- 00179.c
+    passed
+- 00180.c
+    passed
+- 00181.c
+    passed
+- 00182.c
+    passed
+- 00183.c
+    passed
+- 00184.c
+    passed
+- 00185.c
+    passed
+- 00186.c
+    passed
+- 00187.c
+    passed
+- 00188.c
+    passed
+- 00189.c
+    passed
+- 00190.c
+    passed
+- 00191.c
+    passed
+- 00192.c
+    passed
+- 00193.c
+    passed
+- 00194.c
+    passed
+- 00195.c
+    passed
+- 00196.c
+    passed
+- 00197.c
+    passed
+- 00198.c
+    passed
+- 00199.c
+        Compile failed: 1, output:
+            main.c(7): warning: unreachable
+               printf("In middle\n");
+                                   ^
+            main.c(22): warning: unreachable
+                  printf("uh-oh\n");
+                                  ^
+            main.c(37): warning: unreachable
+               {
+               ^
+            main.c(6): cannot use goto
+               goto done;
+               ^~~~
+            
+- 00200.c
+    passed
+- 00201.c
+    passed
+- 00202.c
+        Compile failed: 1, output:
+            main.c(11): lvalue expected
+                jim = 60 ++ 3;
+                         ^~
+            main.c(11): `;' expected
+                jim = 60 ++ 3;
+                            ^
+            
+- 00203.c
+    passed
+- 00204.c
+        Compile failed: 1, output:
+            src/wcc/gen_wasm.c:380: gen_funcall: Assertion `!is_stack_param(arg->type)` failed
+            
+- 00205.c
+    passed
+- 00206.c
+        Expected output:
+            abort = 111
+            abort = 222
+            abort = 333
+            abort = 222
+            abort = 111
+            
+        Actual output:
+            abort = 111
+            abort = 222
+            abort = 333
+            abort = 333
+            abort = 333
+            
+- 00207.c
+        Compile failed: 1, output:
+            main.c(19): warning: unreachable
+                {
+                ^
+            main.c(12): cannot use goto
+              goto label;
+              ^~~~
+            
+- 00208.c
+    passed
+- 00209.c
+        Compile failed: 1, output:
+            main.c(3): Unknown enum type
+            enum E *e;
+                 ^
+            
+- 00210.c
+        Compile failed: 1, output:
+            main.c(7): ident expected
+            } __attribute__((packed)) Unaligned16a;
+              ^~~~~~~~~~~~~
+            
+- 00211.c
+    passed
+- 00212.c
+    passed
+- 00213.c
+        Compile failed: 1, output:
+            main.c(72): cannot use goto
+                goto yeah;
+                ^~~~
+            
+- 00214.c
+        Compile failed: 1, output:
+            main.c(13): `__builtin_expect' undeclared
+            	 if (__builtin_expect(!!(_brk_start == 0), 0))
+            	     ^~~~~~~~~~~~~~~~
+            main.c(13): Cannot call except function
+            	 if (__builtin_expect(!!(_brk_start == 0), 0))
+            	     ^~~~~~~~~~~~~~~~
+            main.c(37): `__builtin_expect' undeclared
+                if (__builtin_expect(!!(0), 0)) {
+                    ^~~~~~~~~~~~~~~~
+            main.c(37): Cannot call except function
+                if (__builtin_expect(!!(0), 0)) {
+                    ^~~~~~~~~~~~~~~~
+            main.c(38): Cannot call except function
+                  if (__builtin_expect(!!__ret, 0))
+                      ^~~~~~~~~~~~~~~~
+            main.c(54): warning: `return' required
+            }
+            ^
+            
+- 00215.c
+        Compile failed: 1, output:
+            main.c(65): warning: unreachable
+                        i = i + 2;
+                          ^
+            main.c(51): cannot use goto
+                        goto label;
+                        ^~~~
+            
+- 00216.c
+        Compile failed: 1, output:
+            main.c(168): `]' expected
+              struct T lt2 = { { [1 ... 5] = 9, [6 ... 10] = elt, [4 ... 7] = elt+1 }, 1 };
+                                    ^~~
+            main.c(168): Number or Ident or open paren expected
+              struct T lt2 = { { [1 ... 5] = 9, [6 ... 10] = elt, [4 ... 7] = elt+1 }, 1 };
+                                    ^~~
+            main.c(168): `}' or `,' expected
+              struct T lt2 = { { [1 ... 5] = 9, [6 ... 10] = elt, [4 ... 7] = elt+1 }, 1 };
+                                    ^~~
+            main.c(168): `}' or `,' expected
+              struct T lt2 = { { [1 ... 5] = 9, [6 ... 10] = elt, [4 ... 7] = elt+1 }, 1 };
+                                    ^~~
+            main.c(168): `;' expected
+              struct T lt2 = { { [1 ... 5] = 9, [6 ... 10] = elt, [4 ... 7] = elt+1 }, 1 };
+                                    ^~~
+            main.c(168): Number or Ident or open paren expected
+              struct T lt2 = { { [1 ... 5] = 9, [6 ... 10] = elt, [4 ... 7] = elt+1 }, 1 };
+                                    ^~~
+            main.c(168): `;' expected
+              struct T lt2 = { { [1 ... 5] = 9, [6 ... 10] = elt, [4 ... 7] = elt+1 }, 1 };
+                                    ^~~
+            main.c(168): Number or Ident or open paren expected
+              struct T lt2 = { { [1 ... 5] = 9, [6 ... 10] = elt, [4 ... 7] = elt+1 }, 1 };
+                                    ^~~
+            main.c(168): `;' expected
+              struct T lt2 = { { [1 ... 5] = 9, [6 ... 10] = elt, [4 ... 7] = elt+1 }, 1 };
+                                    ^~~
+            main.c(168): Number or Ident or open paren expected
+              struct T lt2 = { { [1 ... 5] = 9, [6 ... 10] = elt, [4 ... 7] = elt+1 }, 1 };
+                                    ^~~
+            main.c(168): `;' expected
+              struct T lt2 = { { [1 ... 5] = 9, [6 ... 10] = elt, [4 ... 7] = elt+1 }, 1 };
+                                    ^~~
+            main.c(168): Number or Ident or open paren expected
+              struct T lt2 = { { [1 ... 5] = 9, [6 ... 10] = elt, [4 ... 7] = elt+1 }, 1 };
+                                    ^~~
+            main.c(168): `;' expected
+              struct T lt2 = { { [1 ... 5] = 9, [6 ... 10] = elt, [4 ... 7] = elt+1 }, 1 };
+                                    ^~~
+            main.c(168): Number or Ident or open paren expected
+              struct T lt2 = { { [1 ... 5] = 9, [6 ... 10] = elt, [4 ... 7] = elt+1 }, 1 };
+                                    ^~~
+            main.c(168): `;' expected
+              struct T lt2 = { { [1 ... 5] = 9, [6 ... 10] = elt, [4 ... 7] = elt+1 }, 1 };
+                                    ^~~
+            main.c(168): Number or Ident or open paren expected
+              struct T lt2 = { { [1 ... 5] = 9, [6 ... 10] = elt, [4 ... 7] = elt+1 }, 1 };
+                                    ^~~
+            main.c(168): `;' expected
+              struct T lt2 = { { [1 ... 5] = 9, [6 ... 10] = elt, [4 ... 7] = elt+1 }, 1 };
+                                    ^~~
+            main.c(168): Number or Ident or open paren expected
+              struct T lt2 = { { [1 ... 5] = 9, [6 ... 10] = elt, [4 ... 7] = elt+1 }, 1 };
+                                    ^~~
+            main.c(168): `;' expected
+              struct T lt2 = { { [1 ... 5] = 9, [6 ... 10] = elt, [4 ... 7] = elt+1 }, 1 };
+                                    ^~~
+            main.c(168): Number or Ident or open paren expected
+              struct T lt2 = { { [1 ... 5] = 9, [6 ... 10] = elt, [4 ... 7] = elt+1 }, 1 };
+                                    ^~~
+            main.c(168): `;' expected
+              struct T lt2 = { { [1 ... 5] = 9, [6 ... 10] = elt, [4 ... 7] = elt+1 }, 1 };
+                                    ^~~
+            main.c(168): Number or Ident or open paren expected
+              struct T lt2 = { { [1 ... 5] = 9, [6 ... 10] = elt, [4 ... 7] = elt+1 }, 1 };
+                                    ^~~
+            main.c(168): `;' expected
+              struct T lt2 = { { [1 ... 5] = 9, [6 ... 10] = elt, [4 ... 7] = elt+1 }, 1 };
+                                    ^~~
+            main.c(168): Number or Ident or open paren expected
+              struct T lt2 = { { [1 ... 5] = 9, [6 ... 10] = elt, [4 ... 7] = elt+1 }, 1 };
+                                    ^~~
+            main.c(168): `;' expected
+              struct T lt2 = { { [1 ... 5] = 9, [6 ... 10] = elt, [4 ... 7] = elt+1 }, 1 };
+                                    ^~~
+            
+- 00217.c
+    passed
+- 00218.c
+        Compile failed: 1, output:
+            main.c(48): warning: `return' required
+            }
+            ^
+            src/wcc/gen_wasm.c:1689: gen_defun: Assertion `func->body_block->reach & REACH_STOP` failed
+            
+- 00219.c
+        Compile failed: 1, output:
+            main.c(42): `_Generic' undeclared
+            	i = _Generic(a, int: a_f, const int: b_f)();
+            	    ^~~~~~~~
+            main.c(42): Number or Ident or open paren expected
+            	i = _Generic(a, int: a_f, const int: b_f)();
+            	                ^~~
+            main.c(42): `,' or `)` expected
+            	i = _Generic(a, int: a_f, const int: b_f)();
+            	                ^~~
+            main.c(42): Cannot call except function
+            	i = _Generic(a, int: a_f, const int: b_f)();
+            	    ^~~~~~~~
+            main.c(42): `;' expected
+            	i = _Generic(a, int: a_f, const int: b_f)();
+            	                ^~~
+            main.c(42): ident expected
+            	i = _Generic(a, int: a_f, const int: b_f)();
+            	                   ^
+            
+- 00220.c
+    passed
+    (total passed 196 of 220)
+done
