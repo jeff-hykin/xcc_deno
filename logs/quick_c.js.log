@@ -1,11 +1,24 @@
-text is:     @exportable:__stack_pointer
-
-isError is: false
-text is:     @exportable:fib2
-
-isError is: false
-text is:     @exportable:fib
-
-isError is: false
+other is: {
+  __stack_pointer: Global [WebAssembly.Global] {},
+  __main_argc_argv: [Function: 9],
+  _start: [Function: 6],
+  memory: Memory [WebAssembly.Memory] {},
+  "@info": {
+    wasmBytes: Uint8Array(846) [
+        0,  97, 115, 109,   1,   0,   0,   0,   1,  23,   5,  96,
+        0,   0,  96,   1, 127,   1, 127,  96,   2, 127, 127,   1,
+      127,  96,   0,   1, 127,  96,   1, 127,   0,   2, 150,   1,
+        4,  22, 119,  97, 115, 105,  95, 115, 110,  97, 112, 115,
+      104, 111, 116,  95, 112, 114, 101, 118, 105, 101, 119,  49,
+       14, 102, 100,  95, 112, 114, 101, 115, 116,  97, 116,  95,
+      103, 101, 116,   0,   2,  22, 119,  97, 115, 105,  95, 115,
+      110,  97, 112, 115, 104, 111, 116,  95, 112, 114, 101, 118,
+      105, 101, 119,  49,
+      ... 746 more items
+    ],
+    wasmReadable: [Getter]
+  }
+}
+other.__main_argc_argv() is: 17711
 fib(22) is: 17711
 fib2(22) is: 17711

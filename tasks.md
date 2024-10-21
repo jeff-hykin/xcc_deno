@@ -7,23 +7,38 @@
     - make a way to get the names of all functions, or make an export-all option
         - make a PR for that
 - DONE: Make Deno.exit() not needed (use worker.terminate())
-
-- fix binaryify not self-updating
-- make quickC have a class setup
 - DONE: test if terminating worker is necessary
     - answer: yes
-- add caching techniques
-- compile ./wcc from scratch using a nixpkgs setup
-    - figure out how to build lib/wcrt0.a
-    - figure out how to build lib/wlibc.a
+
+- fix binaryify not self-updating
 - Create a way to write binary files to the worker
+
+### quickC
+- make quickC have a class setup
+- add caching techniques
+
+### All targets deterministic output
+- create an "all targets" compilation tool
 - simplify the c args for:
-    - header files
+    - adding more header files
+    - custom predefined macros
+    - adding shared/static object files
     - shared object files
     - shared object outputs
     - target system selection
     - system path lookup
     - ENV vars
+- start making seralizable system for deterministic builds
+    - test how it handles `__DATE__`
+    - test how filepaths (split by `/`) are handled
+- figure out how to specify/hardcode dynamically linked libraries
+
+
+### Custom XCC builds
+- compile ./wcc from scratch using a nixpkgs setup
+    - figure out how to build lib/wcrt0.a
+    - figure out how to build lib/wlibc.a
+
 
 
 - big goals:
@@ -43,7 +58,7 @@
     - concepts:
         - how to use/load a shared object or connected a shared object like ffmpeg into another binary/project
         - how to patch a system call of a resulting binary
-        
+        - make a patching tool that can modify and/or hardcode ENV vars into a binary
     - make a list of major blockers:
         - no goto
         - probably no libc support for networking

@@ -83,6 +83,7 @@ export async function quickC(maybeStrings, ...args) {
             console.debug(`[quickC] exportableNames is:`,exportableNames)
             console.log(`[quickC] compiling`)
         }
+        compileArgs.shift()
         var { exitCode, out, stdout, stderr } = await wccRunner.compile(sourcePath, [...compileArgs, ...exportableNames.map(each=>["-e", each])].flat(Infinity))
         if (exitCode !== 0) {
             throw new Error(`Compile failed:\n${out}\nexit code: ${exitCode}`)
@@ -92,17 +93,25 @@ export async function quickC(maybeStrings, ...args) {
     if (verbose) {
         console.log(`[quickC] loading wasm module`)
     }
+
     const output = {
         ...await loadWasm({
             wasmBuffer: compiledCode.buffer,
             imports,
             initalMemorySize: initalMemorySize || 65536
         }),
-        wasmBytes: compiledCode,
-        get wasmReadable() {
-            return wasmToWast(compiledCode.buffer)
-        }
+        "@info": {
+            wasmBytes: compiledCode,
+            get wasmReadable() {
+                return wasmToWast(compiledCode.buffer)
+            }
+        },
     }
+    // if (output.__main_argc_argv) {
+    //     output.main = wasmExports.__main_argc_argv
+    // }
+    // delete output.__main_argc_argv
+
     if (verbose) {
         console.log(`[quickC] terminating worker`)
     }
