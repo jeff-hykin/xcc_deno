@@ -138,7 +138,7 @@ export function createTimingTools(startTime) {
     }
     const performance = new Performance()
 
-    class Date {
+    class Date extends realDate {
         // FIXME: implement all of Date, especially get ride of timezone knowledge
         constructor(...args) {
             if (args.length === 0) {
@@ -152,5 +152,5 @@ export function createTimingTools(startTime) {
         }
     }
 
-    return { setTimeout, setInterval, clearInterval, clearTimeout, Date, perfomance, Performance, PerformanceMark, internal, }
+    return { setTimeout, setInterval, clearInterval, clearTimeout, Date, performance, Performance, PerformanceMark, internal, }
 }
