@@ -1,9 +1,10 @@
 const realSetTimeout = globalThis.setTimeout
+const realDate = globalThis.Date
 
-export function createTimingTools() {
+export function createTimingTools(startTime) {
     const schedule = []
     const internal = {
-        time: 0,
+        time: startTime,
         increment: 10,
         macroTaskIndex: 0,
     }
@@ -78,5 +79,78 @@ export function createTimingTools() {
         }
     }
 
-    return { setTimeout, setInterval, clearInterval, clearTimeout, internal, }
+    let perfMarkNumber = 0
+    class PerformanceMark {
+        // FIXME: I didn't check the spec for this, its just temp
+        constructor(name, entryType, startTime, duration, detail) {
+            this.name = name
+            this.entryType = entryType
+            this.startTime = startTime
+            this.duration = duration
+            this.detail = detail
+        }
+    }
+    class Performance {
+        constructor() {
+        }
+        timeOrigin = startTime
+        clearMarks() {
+            // FIXME: implement
+            return
+        }
+        clearMeasures() {
+            // FIXME: implement
+            return
+        }
+        getEntries() {
+            // FIXME: implement
+            return []
+        }
+        getEntriesByName() {
+            // FIXME: implement
+            return []
+        }
+        getEntriesByType() {
+            // FIXME: implement
+            return []
+        }
+        mark({
+            markName,
+            markOptions={},
+        }={}) {
+            // FIXME: todo not fully implemented
+            return new PerformanceMark(String(markName)||`${++perfMarkNumber}`, "mark", this.now(), 0, markOptions.detail)
+        }
+        measure(...args) {
+            // FIXME: implement
+            return new PerformanceMark(String(args[0]), "measure", this.now(), 1, args[1])
+        }
+        now() {
+            return internal.time - this.timeOrigin
+        }
+        toJSON() {
+            return { timeOrigin: this.timeOrigin, }
+        }
+        [Symbol.toStringTag]() {
+            return "Performance"
+        }
+        // Symbol(Deno.privateCustomInspect),
+    }
+    const performance = new Performance()
+
+    class Date {
+        // FIXME: implement all of Date, especially get ride of timezone knowledge
+        constructor(...args) {
+            if (args.length === 0) {
+                super(internal.time)
+            } else {
+                super(...args)
+            }
+        }
+        getTime() {
+            return internal.time
+        }
+    }
+
+    return { setTimeout, setInterval, clearInterval, clearTimeout, Date, perfomance, Performance, PerformanceMark, internal, }
 }
