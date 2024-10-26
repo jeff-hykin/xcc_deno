@@ -1,4 +1,4 @@
-new Map(
+export default new Map(
     [Function, {
         "length": {
             "value": 1,
@@ -1565,6 +1565,100 @@ new Map(
         },
         "toString": {
             "value": toString /*native function*/,
+            "writable": true,
+            "enumerable": false,
+            "configurable": true,
+        },
+    }],
+    [Promise, {
+        "length": {
+            "value": 1,
+            "writable": false,
+            "enumerable": false,
+            "configurable": true,
+        },
+        "name": {
+            "value": "Promise",
+            "writable": false,
+            "enumerable": false,
+            "configurable": true,
+        },
+        "prototype": {
+            "value": Promise.prototype,
+            "writable": false,
+            "enumerable": false,
+            "configurable": false,
+        },
+        "all": {
+            "value": all /*native function*/,
+            "writable": true,
+            "enumerable": false,
+            "configurable": true,
+        },
+        "allSettled": {
+            "value": allSettled /*native function*/,
+            "writable": true,
+            "enumerable": false,
+            "configurable": true,
+        },
+        "any": {
+            "value": any /*native function*/,
+            "writable": true,
+            "enumerable": false,
+            "configurable": true,
+        },
+        "race": {
+            "value": race /*native function*/,
+            "writable": true,
+            "enumerable": false,
+            "configurable": true,
+        },
+        "resolve": {
+            "value": resolve /*native function*/,
+            "writable": true,
+            "enumerable": false,
+            "configurable": true,
+        },
+        "reject": {
+            "value": reject /*native function*/,
+            "writable": true,
+            "enumerable": false,
+            "configurable": true,
+        },
+        "withResolvers": {
+            "value": withResolvers /*native function*/,
+            "writable": true,
+            "enumerable": false,
+            "configurable": true,
+        },
+        "try": {
+            "value": try /*native function*/,
+            "writable": true,
+            "enumerable": false,
+            "configurable": true,
+        },
+    }],
+    [Promise.prototype, {
+        "constructor": {
+            "value": Promise,
+            "writable": true,
+            "enumerable": false,
+            "configurable": true,
+        },
+        "then": {
+            "value": then /*native function*/,
+            "writable": true,
+            "enumerable": false,
+            "configurable": true,
+        },
+        "catch": {
+            "value": catch /*native function*/,
+            "writable": true,
+            "enumerable": false,
+            "configurable": true,
+        },
+        "finally": {
+            "value": finally /*native function*/,
             "writable": true,
             "enumerable": false,
             "configurable": true,

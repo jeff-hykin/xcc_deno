@@ -13,6 +13,7 @@ var conservativeGlobalsNames = [
     "RegExp",
     "Symbol",
     "Error", 
+    "Promise",
 ]
 var objects = new Map()
 for (const each of conservativeGlobalsNames) {
@@ -73,4 +74,4 @@ for (const eachObj of [...prototypeKeyMap.keys()].slice(0)) {
 }
 
 // console.log(toRepresentation(prototypeKeyMap, { indent: "    " }))
-console.log(toRepresentation(propertyDescriptorsMap, { indent: "    ", simplified: true }))
+console.log(`export default ${toRepresentation(propertyDescriptorsMap, { indent: "    ", simplified: true })}`) 
