@@ -19,13 +19,14 @@ import { iter, next, Stop, Iterable, map, filter, reduce, frequencyCount, zip, c
     // ;((async ()=>{})())
     // the methods of all the global objects
 
-// // patches needed:
-// [
-//     Object.prototype.toLocaleString, // Note this one even overrides the String.prototype.toLocaleString
-//     String.prototype.toLocaleLowerCase,
-//     String.prototype.toLocaleUpperCase,
-//     String.prototype.localeCompare, 
-// ]
+// TODO:
+    // patch Function.prototype .toString to check setTimeout,setInterval,clearTimeout,clearInterval and return `function ${name}() { [native code] }`
+        // NOTE: for some reason Deno doesn't have that same string output, it has actual code. And NodeJS does too (very different code)
+    // run Object.getPrototypeOf on every value until it converges and we have a complete list of prototypes
+    // then restrict methods on every object
+    // NOTE: will need to generate some objects from function calls (Symbol, BigInt, etc)
+    // don't forget window dispatchEvent as a macrotask
+        // check on NodeJS's microTask limiter
 
 const conservativeGlobals = [
     "structuredClone",
