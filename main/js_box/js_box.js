@@ -2,6 +2,9 @@ import { capitalize, indent, toCamelCase, digitsToEnglishArray, toPascalCase, to
 import { deepCopy, deepCopySymbol, allKeyDescriptions, deepSortObject, shallowSortObject, isGeneratorObject,isAsyncIterable, isSyncIterable, isIterableTechnically, isSyncIterableObjectOrContainer, allKeys } from "https://deno.land/x/good@1.10.0.0/value.js"
 import { iter, next, Stop, Iterable, map, filter, reduce, frequencyCount, zip, count, enumerate, permute, combinations, slices, asyncIteratorToList, concurrentlyTransform, forkBy } from "https://deno.land/x/good@1.10.0.0/iterable.js"
 import { RandomSource } from "./deterministic_tooling/random_seed.js"
+import { recursivelyOwnKeysOf } from "https://deno.land/x/good@1.10.0.0/flattened/recursively_own_keys_of.js"
+import { set } from "https://deno.land/x/good@1.10.0.0/flattened/set.js"
+import { get } from "https://deno.land/x/good@1.10.0.0/flattened/get.js"
 // Goal:
     // 1. Be able to run a subset of practial code deterministicly (engine-independent)
     // 2. Be able to fake major parts:
