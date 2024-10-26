@@ -1,4 +1,5 @@
-import { toRepresentation } from "https://deno.land/x/good@1.11.0.0/flattened/to_representation.js"
+import { toRepresentation } from "https://deno.land/x/good@1.12.0.0/flattened/to_representation.js"
+// import { toRepresentation } from "/Users/jeffhykin/repos/good-js/source/flattened/to_representation.js"
 
 import { capitalize, indent, toCamelCase, digitsToEnglishArray, toPascalCase, toKebabCase, toSnakeCase, toScreamingKebabCase, toScreamingSnakeCase, toString, regex, findAll, iterativelyFindAll, escapeRegexMatch, escapeRegexReplace, extractFirst, isValidIdentifier, removeCommonPrefix, didYouMean } from "https://deno.land/x/good@1.10.0.0/string.js"
 
@@ -275,4 +276,14 @@ var prototypes = new Set(
 )
 var prototypeKeyMap = new Map([...objects.keys()].map(proto=>[proto, proto==null ? [] : ((typeof proto != 'object'&&typeof proto != 'function') ? Object.keys(proto) : Reflect.ownKeys(proto))]))
 
-console.log(toRepresentation(prototypeKeyMap, { indent: "    " }))
+const propertyDescriptorsMap = new Map()
+for (const eachObj of [...prototypeKeyMap.keys()].slice(0)) {
+    if (eachObj == null) {
+        continue
+    }
+    const descriptors = Object.getOwnPropertyDescriptors(eachObj)
+    propertyDescriptorsMap.set(eachObj, descriptors)
+}
+
+// console.log(toRepresentation(prototypeKeyMap, { indent: "    " }))
+console.log(toRepresentation(propertyDescriptorsMap, { indent: "    ", simplified: true }))
