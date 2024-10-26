@@ -418,8 +418,182 @@ var prototypeKeyMap = new Map(
     [URIError, ["length","name","prototype"]],
     [URIError.prototype, ["constructor","name","message"]],
 )
+
+const initDefaultWorld = ({ seed, startTime, localCompareOptions })=>{
+    const numberGenerator = new RandomSource(seed)
+
+    const realToLocaleString = Object.prototype.toLocaleString
+    const realToLocaleLowerCase = String.prototype.toLocaleLowerCase
+    const realToLocaleUpperCase = String.prototype.toLocaleUpperCase
+    const realLocaleCompare     = String.prototype.localeCompare
+    const localCompareDefaults  = { usage: "sort", localeMatcher: "best fit", collation: "default", sensitivity: "base", ignorePunctuation: true, numeric: false, caseFirst: false, ...localCompareOptions }
+
+    return ({
+        extraGlobals: {
+        },
+        patchedMethods: {
+            Object: {
+                prototype: {
+                    toLocaleString: function(...args) {
+                        return args.length === 0 ? this.toString() : realToLocaleString.apply(this, args)
+                    },
+                    toLocaleLowerCase: function(...args) {
+                        return args.length === 0 ? this.toLowerCase() : realToLocaleLowerCase.apply(this, args)
+                    },
+                    toLocaleUpperCase: function(...args) {
+                        return args.length === 0 ? this.toUpperCase() : realToLocaleUpperCase.apply(this, args)
+                    },
+                    localeCompare: function(other, locale="en", options={}) {
+                        options = { ...localCompareDefaults, ...options }
+                        return realLocaleCompare.apply(this, [other, locale, options])
+                    },
+                }
+            },
+            Math: {
+                random: ()=>numberGenerator.next()
+            },
+        },
+        whitelists: {
+            keys: new Map([
+                [
+                    ["Object", "prototype"], [
+                        "constructor",
+                        "__defineGetter__",
+                        "__defineSetter__",
+                        "hasOwnProperty",
+                        "__lookupGetter__",
+                        "__lookupSetter__",
+                        "isPrototypeOf",
+                        "propertyIsEnumerable",
+                        "toString",
+                        "valueOf",
+                        "toLocaleString",
+                    ],
+                    ["Function", "prototype"], [
+                        "length",
+                        "name",
+                        "arguments",
+                        "caller",
+                        "constructor",
+                        "apply",
+                        "bind",
+                        "call",
+                        "toString",
+                        Symbol.hasInstance,
+                        // NOTE: there is one more key, a symbol, that appears on the function prototype
+                        //           on deno its a key for "function() { return this }"
+                        //           on firefox its Symbol(Symbol.metadata) but Symbol.metadata is null, and the value (e.g. Function[thatSymbol]) is null (not undefined)
+                        //           I bet removing these things could break stuff. 
+                        //           Maybe it would be best to patch Reflect.ownKeys and Object.key-stuff to merely hide these
+                    ],
+                    ["Function"], [
+                        "length",
+                        "name",
+                        "prototype",
+                    ],
+                    ["Object"], [
+                        "length",
+                        "name",
+                        "prototype",
+                        "assign",
+                        "getOwnPropertyDescriptor",
+                        "getOwnPropertyDescriptors",
+                        "getOwnPropertyNames",
+                        "getOwnPropertySymbols",
+                        "hasOwn",
+                        "is",
+                        "preventExtensions",
+                        "seal",
+                        "create",
+                        "defineProperties",
+                        "defineProperty",
+                        "freeze",
+                        "getPrototypeOf",
+                        "setPrototypeOf",
+                        "isExtensible",
+                        "isFrozen",
+                        "isSealed",
+                        "keys",
+                        "entries",
+                        "fromEntries",
+                        "values",
+                        "groupBy",
+                    ],
+                    // 
+                    // 
+                    // 
+                    ["String", "prototype"], [
+                        "length",
+                        "constructor",
+                        "anchor",
+                        "at",
+                        "big",
+                        "blink",
+                        "bold",
+                        "charAt",
+                        "charCodeAt",
+                        "codePointAt",
+                        "concat",
+                        "endsWith",
+                        "fontcolor",
+                        "fontsize",
+                        "fixed",
+                        "includes",
+                        "indexOf",
+                        "isWellFormed",
+                        "italics",
+                        "lastIndexOf",
+                        "link",
+                        "localeCompare",
+                        "match",
+                        "matchAll",
+                        "normalize",
+                        "padEnd",
+                        "padStart",
+                        "repeat",
+                        "replace",
+                        "replaceAll",
+                        "search",
+                        "slice",
+                        "small",
+                        "split",
+                        "strike",
+                        "sub",
+                        "substr",
+                        "substring",
+                        "sup",
+                        "startsWith",
+                        "toString",
+                        "toWellFormed",
+                        "trim",
+                        "trimStart",
+                        "trimLeft",
+                        "trimEnd",
+                        "trimRight",
+                        "toLocaleLowerCase",
+                        "toLocaleUpperCase",
+                        "toLowerCase",
+                        "toUpperCase",
+                        "valueOf",
+                        Symbol.iterator,
+                    ],
+                    ["String"], [
+                        "length",
+                        "name",
+                        "prototype",
+                        "fromCharCode",
+                        "fromCodePoint",
+                        "raw"
+                    ],
+                ],
+            ]),
+        }
+    })
+}
+
 function patchEnviornment(globalObj, world) {
     const newGlobal = {}
+    world = typeof world == 'function' ? world() : world
 
     // 
     // global equivlents
@@ -433,35 +607,29 @@ function patchEnviornment(globalObj, world) {
             newGlobal[each] = globalObj[each]
         }
     // 
-    // basic patching
+    // basic method patching
     //
-        const realToLocaleString = Object.prototype.toLocaleString
-        Object.prototype.toLocaleString = function(...args) {
-            return args.length === 0 ? this.toString() : realToLocaleString.apply(this, args)
+        for (const keyList of recursivelyOwnKeysOf(world.patchedMethods)) {
+            const value = get({ keyList, from: globalThis, failValue: null })
+            if (typeof value !== 'function') {
+                // TODO: might need to do some .bind here
+                set({ keyList, on: newGlobal, to: value,  })
+            }
         }
-        const realToLocaleLowerCase = String.prototype.toLocaleLowerCase
-        String.prototype.toLocaleLowerCase = function(...args) {
-            return args.length === 0 ? this.toLowerCase() : realToLocaleLowerCase.apply(this, args)
-        }
-        const realToLocaleUpperCase = String.prototype.toLocaleUpperCase
-        String.prototype.toLocaleUpperCase = function(...args) {
-            return args.length === 0 ? this.toUpperCase() : realToLocaleUpperCase.apply(this, args)
-        }
-        const realLocaleCompare = String.prototype.localeCompare
-        const defaults = { usage: "sort", localeMatcher: "best fit", collation: "default", sensitivity: "base", ignorePunctuation: true, numeric: false, caseFirst: false }
-        String.prototype.localeCompare = function(other, locale="en", options={}) {
-            options = { ...defaults, ...options }
-            return realLocaleCompare.apply(this, [other, locale, options])
-        }
-        
 
-
-        // TODO:
-            // Math.random
-        
     // 
     // method restrictions
     //
+        for (const [keyList, allowedMethods] of world.whitelists.keys.entries()) {
+            const obj = get({ keyList, from: globalThis, failValue: null })
+            const allowedKeys = new Set(allowedMethods)
+            for (const eachKey of Reflect.ownKeys(obj)) {
+                if (!allowedKeys.has(eachKey)) {
+                    delete obj[eachKey]
+                }
+            }
+        }
+        
         // ex: a only allow known methods on Object, String, Function, TextDecoder, etc
         // var whiteList = [
         //         "length",
