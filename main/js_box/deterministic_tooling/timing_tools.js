@@ -5,7 +5,7 @@ export function createTimingTools() {
     const internal = {
         time: 0,
         increment: 10,
-        internal.macroTaskIndex: 0,
+        macroTaskIndex: 0,
     }
     function runNextMacroTask() {
         if (schedule.length) {
