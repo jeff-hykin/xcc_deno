@@ -1,10 +1,10 @@
 const realSetTimeout = globalThis.setTimeout
 const realDate = globalThis.Date
 
-export function createTimingTools({startTime=0,setTimeoutIncrement=10,performanceIncrement=1}={}) {
+export function createTimingTools({startTime=0, setTimeoutIncrement=1, performanceIncrement=0.1,dateIncrement=10, fetchIncrement=10}={}) {
     const schedule = []
     const internal = {
-        time: startTime,
+        time: 0,
         increment: setTimeoutIncrement,
         macroTaskIndex: 0,
     }
@@ -15,7 +15,7 @@ export function createTimingTools({startTime=0,setTimeoutIncrement=10,performanc
             const { 0: targetTime, 1: id, 2: callback, 3: args, 4: interval, } = schedule.pop()
             // teleport forward in time, but never backwards
             // because the code doesn't interact with the outside world, it will/should never know the difference
-            if (targetTime < internal.time) {
+            if (targetTime > internal.time) {
                 internal.time = targetTime + internal.increment
             }
             // console.debug(`args is:`,args)
@@ -127,7 +127,7 @@ export function createTimingTools({startTime=0,setTimeoutIncrement=10,performanc
         }
         now() {
             internal.time += performanceIncrement
-            return internal.time - this.timeOrigin
+            return internal.time + this.timeOrigin
         }
         toJSON() {
             return { timeOrigin: this.timeOrigin, }
@@ -142,14 +142,12 @@ export function createTimingTools({startTime=0,setTimeoutIncrement=10,performanc
     class Date extends realDate {
         // FIXME: implement all of Date, especially get ride of timezone knowledge
         constructor(...args) {
+            internal.time += dateIncrement
             if (args.length === 0) {
                 super(internal.time)
             } else {
                 super(...args)
             }
-        }
-        getTime() {
-            return internal.time
         }
     }
 
