@@ -2,6 +2,8 @@ import { capitalize, indent, toCamelCase, digitsToEnglishArray, toPascalCase, to
 import { deepCopy, deepCopySymbol, allKeyDescriptions, deepSortObject, shallowSortObject, isGeneratorObject,isAsyncIterable, isSyncIterable, isIterableTechnically, isSyncIterableObjectOrContainer, allKeys } from "https://deno.land/x/good@1.10.0.0/value.js"
 import { iter, next, Stop, Iterable, map, filter, reduce, frequencyCount, zip, count, enumerate, permute, combinations, slices, asyncIteratorToList, concurrentlyTransform, forkBy } from "https://deno.land/x/good@1.10.0.0/iterable.js"
 import { RandomSource } from "./deterministic_tooling/random_seed.js"
+import { createTimingTools } from "./deterministic_tooling/timing_tools.js"
+import { TypedArray } from "https://deno.land/x/good@1.11.0.0/flattened/typed_array__class.js"
 import { recursivelyOwnKeysOf } from "https://deno.land/x/good@1.10.0.0/flattened/recursively_own_keys_of.js"
 import { set } from "https://deno.land/x/good@1.10.0.0/flattened/set.js"
 import { get } from "https://deno.land/x/good@1.10.0.0/flattened/get.js"
@@ -262,7 +264,6 @@ var prototypeKeyMap = new Map(
     [structuredClone.prototype, ["constructor"]],
     [Function, ["length","name","prototype"]],
     [parseFloat, ["length","name"]],
-    [undefined, []],
     [Infinity, []],
     [Number.prototype, ["constructor","toExponential","toFixed","toPrecision","toString","valueOf","toLocaleString"]],
     [Number, ["length","name","prototype","isFinite","isInteger","isNaN","isSafeInteger","parseFloat","parseInt","MAX_VALUE","MIN_VALUE","NaN","NEGATIVE_INFINITY","POSITIVE_INFINITY","MAX_SAFE_INTEGER","MIN_SAFE_INTEGER","EPSILON"]],
@@ -419,34 +420,59 @@ var prototypeKeyMap = new Map(
     [URIError.prototype, ["constructor","name","message"]],
 )
 
+// TODO: make time increments accessible
 const initDefaultWorld = ({ seed, startTime, localCompareOptions })=>{
     const numberGenerator = new RandomSource(seed)
+    const createTimingTools = createTimingTools({ startTime, setTimeoutIncrement: 0.1, performanceIncrement: 0.1, dateIncrement: 10, fetchIncrement: 10, })
 
-    const realToLocaleString = Object.prototype.toLocaleString
+    const functionsToConsiderNative = new Map()
+    const markAsNative = (funcName, func)=>(functionsToConsiderNative.set(func, funcName),func)
+    const markAllMethodsNative = (name, classFunc)=>(markAsNative(name,classFunc),Reflect.ownKeys(classFunc.prototype).map(
+        // TODO: might need to make this handle symbols
+        eachKey=>(typeof eachKey == 'string'&&typeof classFunc.prototype.prototype[eachKey] == 'function')&&markAsNative(eachKey, classFunc.prototype.prototype[eachKey])
+    ))
+    markAsNative("random", numberGenerator.next)
+    markAllMethodsNative("Date", createTimingTools.Date)
+    markAllMethodsNative("Performance", createTimingTools.Performance)
+    markAllMethodsNative("PerformanceMark", createTimingTools.PerformanceMark)
+
+    const realFuncToString      = Function.prototype.toString
+    const realToLocaleString    = Object.prototype.toLocaleString
     const realToLocaleLowerCase = String.prototype.toLocaleLowerCase
     const realToLocaleUpperCase = String.prototype.toLocaleUpperCase
     const realLocaleCompare     = String.prototype.localeCompare
     const localCompareDefaults  = { usage: "sort", localeMatcher: "best fit", collation: "default", sensitivity: "base", ignorePunctuation: true, numeric: false, caseFirst: false, ...localCompareOptions }
 
-    return ({
+    
+    const output = ({
         extraGlobals: {
         },
         patchedMethods: {
+            Function: {
+                prototype: {
+                    toString: markAsNative("toString", function(...args) {
+                        if (functionsToConsiderNative.has(this)) {
+                            return `function ${functionsToConsiderNative.get(this)}() { [native code] }`
+                        }
+                        return realFuncToString.apply(this, args)
+                    }),
+                },
+            },
             Object: {
                 prototype: {
-                    toLocaleString: function(...args) {
+                    toLocaleString: markAsNative("toLocaleString", function(...args) {
                         return args.length === 0 ? this.toString() : realToLocaleString.apply(this, args)
-                    },
-                    toLocaleLowerCase: function(...args) {
+                    }),
+                    toLocaleLowerCase: markAsNative("toLocaleLowerCase", function(...args) {
                         return args.length === 0 ? this.toLowerCase() : realToLocaleLowerCase.apply(this, args)
-                    },
-                    toLocaleUpperCase: function(...args) {
+                    }),
+                    toLocaleUpperCase: markAsNative("toLocaleUpperCase", function(...args) {
                         return args.length === 0 ? this.toUpperCase() : realToLocaleUpperCase.apply(this, args)
-                    },
-                    localeCompare: function(other, locale="en", options={}) {
+                    }),
+                    localeCompare: markAsNative("localeCompare", function(other, locale="en", options={}) {
                         options = { ...localCompareDefaults, ...options }
                         return realLocaleCompare.apply(this, [other, locale, options])
-                    },
+                    }),
                 }
             },
             Math: {
@@ -454,141 +480,11 @@ const initDefaultWorld = ({ seed, startTime, localCompareOptions })=>{
             },
         },
         whitelists: {
-            keys: new Map([
-                [
-                    ["Object", "prototype"], [
-                        "constructor",
-                        "__defineGetter__",
-                        "__defineSetter__",
-                        "hasOwnProperty",
-                        "__lookupGetter__",
-                        "__lookupSetter__",
-                        "isPrototypeOf",
-                        "propertyIsEnumerable",
-                        "toString",
-                        "valueOf",
-                        "toLocaleString",
-                    ],
-                    ["Function", "prototype"], [
-                        "length",
-                        "name",
-                        "arguments",
-                        "caller",
-                        "constructor",
-                        "apply",
-                        "bind",
-                        "call",
-                        "toString",
-                        Symbol.hasInstance,
-                        // NOTE: there is one more key, a symbol, that appears on the function prototype
-                        //           on deno its a key for "function() { return this }"
-                        //           on firefox its Symbol(Symbol.metadata) but Symbol.metadata is null, and the value (e.g. Function[thatSymbol]) is null (not undefined)
-                        //           I bet removing these things could break stuff. 
-                        //           Maybe it would be best to patch Reflect.ownKeys and Object.key-stuff to merely hide these
-                    ],
-                    ["Function"], [
-                        "length",
-                        "name",
-                        "prototype",
-                    ],
-                    ["Object"], [
-                        "length",
-                        "name",
-                        "prototype",
-                        "assign",
-                        "getOwnPropertyDescriptor",
-                        "getOwnPropertyDescriptors",
-                        "getOwnPropertyNames",
-                        "getOwnPropertySymbols",
-                        "hasOwn",
-                        "is",
-                        "preventExtensions",
-                        "seal",
-                        "create",
-                        "defineProperties",
-                        "defineProperty",
-                        "freeze",
-                        "getPrototypeOf",
-                        "setPrototypeOf",
-                        "isExtensible",
-                        "isFrozen",
-                        "isSealed",
-                        "keys",
-                        "entries",
-                        "fromEntries",
-                        "values",
-                        "groupBy",
-                    ],
-                    // 
-                    // 
-                    // 
-                    ["String", "prototype"], [
-                        "length",
-                        "constructor",
-                        "anchor",
-                        "at",
-                        "big",
-                        "blink",
-                        "bold",
-                        "charAt",
-                        "charCodeAt",
-                        "codePointAt",
-                        "concat",
-                        "endsWith",
-                        "fontcolor",
-                        "fontsize",
-                        "fixed",
-                        "includes",
-                        "indexOf",
-                        "isWellFormed",
-                        "italics",
-                        "lastIndexOf",
-                        "link",
-                        "localeCompare",
-                        "match",
-                        "matchAll",
-                        "normalize",
-                        "padEnd",
-                        "padStart",
-                        "repeat",
-                        "replace",
-                        "replaceAll",
-                        "search",
-                        "slice",
-                        "small",
-                        "split",
-                        "strike",
-                        "sub",
-                        "substr",
-                        "substring",
-                        "sup",
-                        "startsWith",
-                        "toString",
-                        "toWellFormed",
-                        "trim",
-                        "trimStart",
-                        "trimLeft",
-                        "trimEnd",
-                        "trimRight",
-                        "toLocaleLowerCase",
-                        "toLocaleUpperCase",
-                        "toLowerCase",
-                        "toUpperCase",
-                        "valueOf",
-                        Symbol.iterator,
-                    ],
-                    ["String"], [
-                        "length",
-                        "name",
-                        "prototype",
-                        "fromCharCode",
-                        "fromCodePoint",
-                        "raw"
-                    ],
-                ],
-            ]),
+            keys: prototypeKeyMap,
         }
     })
+
+    return output
 }
 
 function patchEnviornment(globalObj, world) {
