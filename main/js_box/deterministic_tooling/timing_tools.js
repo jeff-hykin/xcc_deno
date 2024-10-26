@@ -1,11 +1,11 @@
 const realSetTimeout = globalThis.setTimeout
 const realDate = globalThis.Date
 
-export function createTimingTools(startTime) {
+export function createTimingTools({startTime=0,setTimeoutIncrement=10,performanceIncrement=1}={}) {
     const schedule = []
     const internal = {
         time: startTime,
-        increment: 10,
+        increment: setTimeoutIncrement,
         macroTaskIndex: 0,
     }
     function runNextMacroTask() {
@@ -126,6 +126,7 @@ export function createTimingTools(startTime) {
             return new PerformanceMark(String(args[0]), "measure", this.now(), 1, args[1])
         }
         now() {
+            internal.time += performanceIncrement
             return internal.time - this.timeOrigin
         }
         toJSON() {
