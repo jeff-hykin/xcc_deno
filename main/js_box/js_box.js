@@ -262,7 +262,7 @@ const conservativeGlobals = [
     // 
 ]
 
-var prototypeKeyMap = new Map(
+var prototypeKeyMap = new Map([
     [structuredClone, ["length","name","prototype"]],
     [Function.prototype, ["length","name","arguments","caller","constructor","apply","bind","call","toString",Symbol.hasInstance]],
     [structuredClone.prototype, ["constructor"]],
@@ -422,7 +422,7 @@ var prototypeKeyMap = new Map(
     [TypeError.prototype, ["constructor","name","message"]],
     [URIError, ["length","name","prototype"]],
     [URIError.prototype, ["constructor","name","message"]],
-)
+])
 
 // TODO: make time increments accessible
 const initDefaultWorld = ({ seed, startTime, localCompareOptions })=>{

@@ -10,15 +10,15 @@ import { get } from "https://deno.land/x/good@1.13.0.1/flattened/get.js"
 import { setSubtract as subtract } from "https://deno.land/x/good@1.13.0.1/flattened/set_subtract.js"
 import { toRepresentation } from "https://deno.land/x/good@1.13.0.1/flattened/to_representation.js"
 
-// Overview:
-    // 1. Start with Object, Function, Array, Number, String, Boolean, Symbol, Error, Promise, Set, Map
-    // 2. whitelist their methods
-        // if name not in descriptor list, delete it
-            // catch if unable to delete (could switch to a proxy, would need to check how equality works with that)
-        // otherwise get descriptors
-            // if descriptors mismatch
-            // check if it can be redefined
-            // if so delete it
+// TODO:
+    // patch Object.getOwnPropertyDescriptors and Object.keys so that the results always appear in the same order for all built-in objects
+        // also allow for this to hide things such as unconfigurable properties on globalThis
+
+    // extend:
+        // fill out Date, make it a function
+        // add Math
+        // add Reflect
+        // add fetch
 
 
 import whitelist from "./whitelist_small.js"
