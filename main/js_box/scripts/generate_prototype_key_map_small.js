@@ -1,8 +1,6 @@
 import { toRepresentation } from "https://deno.land/x/good@1.12.0.0/flattened/to_representation.js"
 // import { toRepresentation } from "/Users/jeffhykin/repos/good-js/source/flattened/to_representation.js"
 
-import { capitalize, indent, toCamelCase, digitsToEnglishArray, toPascalCase, toKebabCase, toSnakeCase, toScreamingKebabCase, toScreamingSnakeCase, toString, regex, findAll, iterativelyFindAll, escapeRegexMatch, escapeRegexReplace, extractFirst, isValidIdentifier, removeCommonPrefix, didYouMean } from "https://deno.land/x/good@1.10.0.0/string.js"
-
 var conservativeGlobalsNames = [
     "Function",
     "Object",
@@ -75,3 +73,7 @@ for (const eachObj of [...prototypeKeyMap.keys()].slice(0)) {
 
 // console.log(toRepresentation(prototypeKeyMap, { indent: "    " }))
 console.log(`export default ${toRepresentation(propertyDescriptorsMap, { indent: "    ", simplified: true })}`) 
+
+console.log(
+    `export const globalThisDescriptors = ${toRepresentation(Object.fromEntries(Object.entries(globalThis).filter(([key,value])=>(conservativeGlobalsNames.includes(key) || !value.configurable))))}`
+)
