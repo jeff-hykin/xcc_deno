@@ -151,5 +151,5 @@ export function createTimingTools({startTime=0, setTimeoutIncrement=1, performan
         }
     }
 
-    return { setTimeout, setInterval, clearInterval, clearTimeout, Date, performance, Performance, PerformanceMark, internal, }
+    return { internal, globals: { setTimeout, setInterval, clearInterval, clearTimeout, Date, performance, Performance, PerformanceMark,} }
 }

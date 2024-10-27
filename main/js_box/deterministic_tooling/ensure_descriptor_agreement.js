@@ -1,3 +1,5 @@
+import { setSubtract as subtract } from "https://deno.land/x/good@1.13.0.1/flattened/set_subtract.js"
+
 export function ensureDescriptorAgreement({desiredDescriptors, name, object, markAsNative}) {
     const warnings = []
     // object will be values such as [ Object, Function, Array, Number, String, Boolean, Symbol, Error, Promise ]
@@ -46,13 +48,13 @@ export function ensureDescriptorAgreement({desiredDescriptors, name, object, mar
         
         if (!disagreement) {
             if (currentHasGetter) {
-                markAsNative(`get ${currentKey}`, object[currentKey])
+                markAsNative(`get ${currentKey}`, get)
             }
             if (currentHasSetter) {
-                markAsNative(`set ${currentKey}`, object[currentKey])
+                markAsNative(`set ${currentKey}`, set)
             }
             if (currentValueType === 'function') {
-                markAsNative(currentKey, object[currentKey])
+                markAsNative(currentKey, value)
             }
             acceptedKeys.push(currentKey)
             continue
