@@ -16,11 +16,16 @@ import { toRepresentation } from "https://deno.land/x/good@1.13.0.1/flattened/to
             // also allow for this to hide things such as unconfigurable properties on globalThis
         // fix the descriptors of setTimeout and friends
         // figure out what to do about errors and how to best ensure uniformity across runtimes
+        // add all the error constructors to the whitelist
+        // add DOMException
     
     // extend:
         // fill out Date, make it a function
         // add console shim
+        // add JSON
+        // add BigInt, ArrayBuffer(s), and Blob
         // add fetch
+        // maybe add Proxy
     
 import whitelist from "./whitelist_small.js"
 import { nameMap, globalThisBaseDescriptors } from "./whitelist_small.js"
@@ -122,6 +127,24 @@ export function enforceNullEnv() {
                     ...Object.getOwnPropertyDescriptors(timingTools),
                     "globalThis": {
                         value: globalThis,
+                        writable: true,
+                        enumerable: false,
+                        configurable: true,
+                    },
+                    "eval": {
+                        value: eval,
+                        writable: true,
+                        enumerable: false,
+                        configurable: true,
+                    },
+                    "parseInt": {
+                        value: parseInt,
+                        writable: true,
+                        enumerable: false,
+                        configurable: true,
+                    },
+                    "parseFloat": {
+                        value: parseFloat,
                         writable: true,
                         enumerable: false,
                         configurable: true,
