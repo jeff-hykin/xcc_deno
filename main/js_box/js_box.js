@@ -3,7 +3,7 @@ import { deepCopy, deepCopySymbol, allKeyDescriptions, deepSortObject, shallowSo
 import { iter, next, Stop, Iterable, map, filter, reduce, frequencyCount, zip, count, enumerate, permute, combinations, slices, asyncIteratorToList, concurrentlyTransform, forkBy } from "https://deno.land/x/good@1.10.0.0/iterable.js"
 import { RandomSource } from "./deterministic_tooling/random_seed.js"
 import { createTimingTools } from "./deterministic_tooling/timing_tools.js"
-import { TypedArray } from "https://deno.land/x/good@1.11.0.0/flattened/typed_array__class.js"
+import { TypedArray } from "https://deno.land/x/good@1.13.0.1/flattened/typed_array__class.js"
 import { recursivelyOwnKeysOf } from "https://deno.land/x/good@1.10.0.0/flattened/recursively_own_keys_of.js"
 import { set } from "https://deno.land/x/good@1.10.0.0/flattened/set.js"
 import { get } from "https://deno.land/x/good@1.10.0.0/flattened/get.js"
@@ -17,6 +17,10 @@ import { get } from "https://deno.land/x/good@1.10.0.0/flattened/get.js"
     //     e. process
     //     f. deno file system
     //     g. node file system
+
+// Overview:
+    // 1. Start with Object, Function, Array, Number, String, Boolean, Symbol, Error, Promise
+    // 2. whitelist their methods
 
 // impure things:
     // import.meta
@@ -431,6 +435,11 @@ const initDefaultWorld = ({ seed, startTime, localCompareOptions })=>{
         // TODO: might need to make this handle symbols
         eachKey=>(typeof eachKey == 'string'&&typeof classFunc.prototype.prototype[eachKey] == 'function')&&markAsNative(eachKey, classFunc.prototype.prototype[eachKey])
     ))
+    for (const each of prototypeKeyMap.keys()) {
+        if (typeof each == 'function' && typeof each.name == 'string' && each.name.length > 0) { // YES: the .length check is necessary (sadly)
+            markAsNative(each.name, each)
+        }
+    }
     markAsNative("random", numberGenerator.next)
     markAllMethodsNative("Date", createTimingTools.Date)
     markAllMethodsNative("Performance", createTimingTools.Performance)
@@ -596,80 +605,5 @@ function patchEnviornment(globalObj, world) {
             // fetch
 }
 
-function safeEval({world, timeout, untrustedCode}={world:{}, timeout:Infinity}) {
-    return new Promise(function (resolve, reject) {
-        var blobURL = URL.createObjectURL(
-            new Blob(
-                ["(", 
-                function() {
-                    var _postMessage = postMessage
-                    var _addEventListener = addEventListener
-
-                    // ;(function (obj) {
-                    //     "use strict"
-
-                    //     // var current = globalThis
-                    //     // console.debug(`current is:`,current)
-                    //     // var keepProperties = [
-                    //     //     // Required
-                    //     //     "Object",
-                    //     //     "Function",
-                    //     //     "Infinity",
-                    //     //     "NaN",
-                    //     //     "undefined",
-                    //     //     "caches",
-                    //     //     "TEMPORARY",
-                    //     //     "PERSISTENT",
-                    //     //     // Optional, but trivial to get back
-                    //     //     "Array",
-                    //     //     "Boolean",
-                    //     //     "Number",
-                    //     //     "String",
-                    //     //     "Symbol",
-                    //     //     // Optional
-                    //     //     "Map",
-                    //     //     "Math",
-                    //     //     "Set",
-                    //     // ]
-
-                    //     // do {
-                    //     //     Object.getOwnPropertyNames(current).forEach(function (name) {
-                    //     //         if (keepProperties.indexOf(name) === -1) {
-                    //     //             delete current[name]
-                    //     //         }
-                    //     //     })
-
-                    //     //     current = Object.getPrototypeOf(current)
-                    //     // } while (current !== Object.prototype)
-                    // })(this)
-
-                    _addEventListener("message", function (e) {
-                        var f = new Function("", "return (" + e.data + "\n);")
-                        _postMessage(f())
-                    })
-                }.toString()
-                ,`)() // ${Math.random()}`, ],
-                { type: "application/javascript" }
-            )
-        )
-        // TODO: clean up Math.random() (debugging stuff)
-        var worker = new Worker(blobURL+`#${Math.random()}`, { type: "module" })
-        // URL.revokeObjectURL(blobURL) // For some reason this causes an error on Deno when calling function more than once
-        worker.onmessage = function (evt) {
-            worker.terminate()
-            resolve(evt.data)
-        }
-        worker.onerror = function (evt) {
-            reject(new Error(evt.message))
-        }
-        worker.postMessage(untrustedCode)
-        
-        if (timeout !== Infinity) {
-            setTimeout(function () {
-                worker.terminate()
-                reject(new Error("The worker timed out."))
-            }, timeout)
-        }
-    })
-}
-safeEval({world:{}, timeout:Infinity, untrustedCode:`Object.hi = 10`})
+import { workerEval } from "./worker_eval.js"
+await workerEval({world:{}, timeout:Infinity, untrustedCode:`10`})
