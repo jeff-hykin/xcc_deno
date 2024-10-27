@@ -1,14 +1,14 @@
-// import { capitalize, indent, toCamelCase, digitsToEnglishArray, toPascalCase, toKebabCase, toSnakeCase, toScreamingKebabCase, toScreamingSnakeCase, toRepresentation, toString, regex, findAll, iterativelyFindAll, escapeRegexMatch, escapeRegexReplace, extractFirst, isValidIdentifier, removeCommonPrefix, didYouMean } from "https://deno.land/x/good@1.12.0.0/string.js"
-// import { deepCopy, deepCopySymbol, allKeyDescriptions, deepSortObject, shallowSortObject, isGeneratorObject,isAsyncIterable, isSyncIterable, isIterableTechnically, isSyncIterableObjectOrContainer, allKeys } from "https://deno.land/x/good@1.12.0.0/value.js"
-// import { iter, next, Stop, Iterable, map, filter, reduce, frequencyCount, zip, count, enumerate, permute, combinations, slices, asyncIteratorToList, concurrentlyTransform, forkBy } from "https://deno.land/x/good@1.12.0.0/iterable.js"
+// import { capitalize, indent, toCamelCase, digitsToEnglishArray, toPascalCase, toKebabCase, toSnakeCase, toScreamingKebabCase, toScreamingSnakeCase, toRepresentation, toString, regex, findAll, iterativelyFindAll, escapeRegexMatch, escapeRegexReplace, extractFirst, isValidIdentifier, removeCommonPrefix, didYouMean } from "https://deno.land/x/good@1.13.0.1/string.js"
+// import { deepCopy, deepCopySymbol, allKeyDescriptions, deepSortObject, shallowSortObject, isGeneratorObject,isAsyncIterable, isSyncIterable, isIterableTechnically, isSyncIterableObjectOrContainer, allKeys } from "https://deno.land/x/good@1.13.0.1/value.js"
+// import { iter, next, Stop, Iterable, map, filter, reduce, frequencyCount, zip, count, enumerate, permute, combinations, slices, asyncIteratorToList, concurrentlyTransform, forkBy } from "https://deno.land/x/good@1.13.0.1/iterable.js"
 import { RandomSource } from "./deterministic_tooling/random_seed.js"
 import { createTimingTools } from "./deterministic_tooling/timing_tools.js"
-import { TypedArray } from "https://deno.land/x/good@1.12.0.0/flattened/typed_array__class.js"
-import { recursivelyOwnKeysOf } from "https://deno.land/x/good@1.12.0.0/flattened/recursively_own_keys_of.js"
-import { set } from "https://deno.land/x/good@1.12.0.0/flattened/set.js"
-import { get } from "https://deno.land/x/good@1.12.0.0/flattened/get.js"
-import { subtract } from "https://deno.land/x/good@1.12.0.0/flattened/subtract.js"
-import { toRepresentation } from "https://deno.land/x/good@1.12.0.0/flattened/to_representation.js"
+import { TypedArray } from "https://deno.land/x/good@1.13.0.1/flattened/typed_array__class.js"
+import { recursivelyOwnKeysOf } from "https://deno.land/x/good@1.13.0.1/flattened/recursively_own_keys_of.js"
+import { set } from "https://deno.land/x/good@1.13.0.1/flattened/set.js"
+import { get } from "https://deno.land/x/good@1.13.0.1/flattened/get.js"
+import { subtract } from "https://deno.land/x/good@1.13.0.1/flattened/subtract.js"
+import { toRepresentation } from "https://deno.land/x/good@1.13.0.1/flattened/to_representation.js"
 
 // Overview:
     // 1. Start with Object, Function, Array, Number, String, Boolean, Symbol, Error, Promise
@@ -28,6 +28,7 @@ import { ensureDescriptorAgreement } from "./deterministic_tooling/ensure_descri
 
 // TODO:
     // must set the prototype of globalThis to a plain object because its not consistent between runtimes
+    // set Error.stackTraceLimit to Infinity 
 
 function enforceNullEnv() {
     if (!globalThis) {
@@ -48,13 +49,13 @@ function enforceNullEnv() {
     // monkeypatching
     // 
         // TODO:
-
+            // setTimeout
+        
     // 
     // globalThis patching
     // 
         const proto = {}
         Object.setPrototypeOf(globalThis, proto)
-
         for (const each of globalThis) {
             
         }

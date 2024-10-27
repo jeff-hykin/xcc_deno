@@ -1,4 +1,4 @@
-import { toRepresentation } from "https://deno.land/x/good@1.12.0.0/flattened/to_representation.js"
+import { toRepresentation } from "https://deno.land/x/good@1.13.0.1/flattened/to_representation.js"
 // import { toRepresentation } from "/Users/jeffhykin/repos/good-js/source/flattened/to_representation.js"
 
 var conservativeGlobalsNames = [
