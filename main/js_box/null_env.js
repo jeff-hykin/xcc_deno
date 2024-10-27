@@ -131,43 +131,37 @@ export function enforceNullEnv() {
                         enumerable: false,
                         configurable: true,
                     },
-                    "eval": {
-                        value: eval,
+                    // 
+                    // non-enumerable top level functions
+                    // 
+                    ...Object.fromEntries([
+                        "eval",
+                        "parseInt",
+                        "parseFloat",
+                        "isFinite",
+                        "isNaN",
+                        "escape",
+                        "unescape",
+                    ].map(each=>[each, {
+                        value: markAsNative(each, globalThis[each]),
                         writable: true,
                         enumerable: false,
                         configurable: true,
-                    },
-                    "parseInt": {
-                        value: parseInt,
-                        writable: true,
-                        enumerable: false,
-                        configurable: true,
-                    },
-                    "parseFloat": {
-                        value: parseFloat,
-                        writable: true,
-                        enumerable: false,
-                        configurable: true,
-                    },
-                    "structuredClone": {
-                        value: markAsNative("structuredClone", structuredClone),
+                    }])),
+                    // 
+                    // enumberable functions
+                    // 
+                    ...Object.fromEntries([
+                        "structuredClone",
+                        "atob",
+                        "btoa",
+                    ].map(each=>[each, {
+                        value: markAsNative(each, globalThis[each]),
                         writable: true,
                         enumerable: true,
                         configurable: true,
-                    },
-                    "atob": {
-                        value: markAsNative("atob", atob),
-                        writable: true,
-                        enumerable: true,
-                        configurable: true,
-                    },
-                    "btoa": {
-                        value: markAsNative("btoa", btoa),
-                        writable: true,
-                        enumerable: true,
-                        configurable: true,
-                    },
-                }, 
+                    }])),
+                },
                 name,
                 markAsNative,
             })
