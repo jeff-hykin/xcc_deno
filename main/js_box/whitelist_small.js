@@ -19,6 +19,10 @@ export const nameMap = new Map([
     [Error.prototype, "Error.prototype" ],
     [Promise, "Promise" ],
     [Promise.prototype, "Promise.prototype" ],
+    [Set, "Set" ],
+    [Set.prototype, "Set.prototype" ],
+    [Map, "Map" ],
+    [Map.prototype, "Map.prototype" ],
 ])
 export default new Map([
     [Function, {
