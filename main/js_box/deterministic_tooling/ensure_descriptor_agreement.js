@@ -64,9 +64,21 @@ export function ensureDescriptorAgreement({desiredDescriptors, name, object, mar
     const desiredKeys = Object.keys(desiredDescriptors)
     const hasAllDesiredKeys = acceptedKeys.length == desiredKeys.length
     if (!hasAllDesiredKeys) {
-        // TODO: could do polyfills for some things here (ex: Error.isError)
         const remainingKeys = subtract({ value: acceptedKeys, from: desiredKeys })
-        warnings.push(`This runtime doesn't match the necessary spec. It is missing the following keys from ${name}:\n${[...remainingKeys].join(', ')}`)
+        const keysThatNeedPolyfills = []
+        const descriptorsToDefine = {}
+        for (const eachKey of remainingKeys) {
+            const desiredDescriptor = desiredDescriptors[eachKey]
+            if (desiredDescriptor.get == undefined && desiredDescriptor.set == undefined && typeof desiredDescriptor.value !== 'function') {
+                descriptorsToDefine[eachKey] = desiredDescriptor
+            } else {
+                keysThatNeedPolyfills.push(eachKey)
+            }
+        }
+        // TODO: could do polyfills argument and fill them in here
+        if (keysThatNeedPolyfills.length > 0) {
+            warnings.push(`This runtime doesn't match the necessary spec. It is missing the following keys from ${name}:\n${[...keysThatNeedPolyfills].join(', ')}`)
+        }
     }
     return warnings
 }
