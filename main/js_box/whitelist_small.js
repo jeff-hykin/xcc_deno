@@ -28,6 +28,7 @@ export const nameMap = new Map([
     [Map.prototype, "Map.prototype" ],
     [Math, "Math" ],
     [Reflect, "Reflect" ],
+    [JSON, "JSON" ],
 ])
 export default new Map([
     [Function, {
@@ -2254,6 +2255,32 @@ export default new Map([
             configurable: true,
         },
     }],
+    [JSON, {
+        parse: {
+            value: JSON.parse /*native function*/,
+            writable: true,
+            enumerable: false,
+            configurable: true,
+        },
+        stringify: {
+            value: JSON.stringify /*native function*/,
+            writable: true,
+            enumerable: false,
+            configurable: true,
+        },
+        rawJSON: {
+            value: JSON.rawJSON /*native function*/,
+            writable: true,
+            enumerable: false,
+            configurable: true,
+        },
+        isRawJSON: {
+            value: JSON.isRawJSON /*native function*/,
+            writable: true,
+            enumerable: false,
+            configurable: true,
+        },
+    }],
 ])
 export const globalThisBaseDescriptors = {
     undefined: {
@@ -2354,6 +2381,12 @@ export const globalThisBaseDescriptors = {
     },
     Reflect: {
         value: Reflect,
+        writable: true,
+        enumerable: false,
+        configurable: true,
+    },
+    JSON: {
+        value: JSON,
         writable: true,
         enumerable: false,
         configurable: true,

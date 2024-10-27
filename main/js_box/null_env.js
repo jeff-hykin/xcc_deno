@@ -12,17 +12,17 @@ import { toRepresentation } from "https://deno.land/x/good@1.13.0.1/flattened/to
 
 // TODO:
     // determinism:
+        // add DOMException
+        // add properties of the inlined functions to the whitelist/locklist
+        // add all the error constructors to the whitelist
+        // make the descriptors of setTimeout and friends align with the default descriptors
         // patch Object.getOwnPropertyDescriptors, Reflect.ownKeys, and friends so that the results always appear in the same order for all built-in objects
             // also allow for this to hide things such as unconfigurable properties on globalThis
-        // fix the descriptors of setTimeout and friends
-        // figure out what to do about errors and how to best ensure uniformity across runtimes
-        // add all the error constructors to the whitelist
-        // add DOMException
+        // figure out best approach for errors (minimize runtime difference)
     
     // extend:
-        // fill out Date, make it a function
+        // fill out other Date methods, make it a function
         // add console shim
-        // add JSON
         // add BigInt, ArrayBuffer(s), and Blob
         // add fetch
         // maybe add Proxy
