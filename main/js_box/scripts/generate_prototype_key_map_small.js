@@ -12,6 +12,8 @@ var conservativeGlobalsNames = [
     "Symbol",
     "Error", 
     "Promise",
+    "Set",
+    "Map",
 ]
 var objects = new Map()
 for (const each of conservativeGlobalsNames) {
@@ -75,5 +77,5 @@ for (const eachObj of [...prototypeKeyMap.keys()].slice(0)) {
 console.log(`export default ${toRepresentation(propertyDescriptorsMap, { indent: "    ", simplified: true })}`) 
 
 console.log(
-    `export const globalThisDescriptors = ${toRepresentation(Object.fromEntries(Object.entries(globalThis).filter(([key,value])=>(conservativeGlobalsNames.includes(key) || !value.configurable))))}`
+    `export const globalThisDescriptors = ${toRepresentation(Object.fromEntries(Object.entries(Object.getOwnPropertyDescriptors(globalThis)).filter(([key,value])=>(conservativeGlobalsNames.includes(key) || !value?.configurable))))}`
 )

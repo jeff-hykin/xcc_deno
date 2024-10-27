@@ -1,4 +1,7 @@
 export const nameMap = new Map([
+    [NaN, "NaN" ],
+    [Infinity, "Infinity" ],
+    [undefined, "undefined" ],
     [Function, "Function" ],
     [Function.prototype, "Function.prototype" ],
     [Object, "Object" ],
@@ -1913,13 +1916,13 @@ export const globalThisBaseDescriptors = {
     },
     NaN: {
         value: NaN,
-        writable: true,
+        writable: false,
         enumerable: false,
         configurable: false,
     },
     Infinity: {
         value: Infinity,
-        writable: true,
+        writable: false,
         enumerable: false,
         configurable: false,
     },

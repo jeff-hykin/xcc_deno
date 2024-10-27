@@ -11,7 +11,7 @@ import { setSubtract as subtract } from "https://deno.land/x/good@1.13.0.1/flatt
 import { toRepresentation } from "https://deno.land/x/good@1.13.0.1/flattened/to_representation.js"
 
 // Overview:
-    // 1. Start with Object, Function, Array, Number, String, Boolean, Symbol, Error, Promise
+    // 1. Start with Object, Function, Array, Number, String, Boolean, Symbol, Error, Promise, Set, Map
     // 2. whitelist their methods
         // if name not in descriptor list, delete it
             // catch if unable to delete (could switch to a proxy, would need to check how equality works with that)
@@ -25,10 +25,6 @@ import whitelist from "./whitelist_small.js"
 import { nameMap, globalThisBaseDescriptors } from "./whitelist_small.js"
 import { fail } from "../node_shims/assert.js"
 import { ensureDescriptorAgreement } from "./deterministic_tooling/ensure_descriptor_agreement.js"
-
-// TODO:
-    // must set the prototype of globalThis to a plain object because its not consistent between runtimes
-    // set Error.stackTraceLimit to Infinity 
 
 export function enforceNullEnv() {
     const warnings = []
@@ -45,10 +41,7 @@ export function enforceNullEnv() {
 
     // obj will be values such as [ Object, Function, Array, Number, String, Boolean, Symbol, Error, Promise ]
     for (const [obj, desiredDescriptors] of whitelist.entries()) {
-        console.debug(`obj is:`,obj)
-        console.debug(`desiredDescriptors is:`,desiredDescriptors)
         const name = nameMap.get(obj)
-        console.debug(`nameMap[obj] is:`,name)
         const currentDescriptors = Object.getOwnPropertyDescriptors(obj)
         warnings.push(
             ...ensureDescriptorAgreement({ desiredDescriptors, name, object: obj, markAsNative })
@@ -104,6 +97,11 @@ export function enforceNullEnv() {
                 return realLocaleCompare.apply(this, [other, locale, options])
             })
             Math.random = markAsNative("random", ()=>numberGenerator.next())
+            // to clear descriptor mismatches
+            // TODO: should change this to use the existing descriptors (e.g. enumerable:false)
+            for (const each of Object.keys(timingTools)) {
+                delete globalThis[each]
+            }
             Object.assign(globalThis, timingTools)
             Error.stackTraceLimit = Infinity
             
@@ -130,19 +128,19 @@ export function enforceNullEnv() {
                     "structuredClone": {
                         value: markAsNative("structuredClone", structuredClone),
                         writable: true,
-                        enumerable: false,
+                        enumerable: true,
                         configurable: true,
                     },
                     "atob": {
                         value: markAsNative("atob", atob),
                         writable: true,
-                        enumerable: false,
+                        enumerable: true,
                         configurable: true,
                     },
                     "btoa": {
                         value: markAsNative("btoa", btoa),
                         writable: true,
-                        enumerable: false,
+                        enumerable: true,
                         configurable: true,
                     },
                 }, 
