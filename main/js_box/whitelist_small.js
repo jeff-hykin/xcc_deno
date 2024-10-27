@@ -1,26 +1,26 @@
-export const nameMap = new Map(
+export const nameMap = new Map([
     [Function, "Function" ],
-    [Function.prototype, "Function.prototyp" ],
+    [Function.prototype, "Function.prototype" ],
     [Object, "Object" ],
-    [Object.prototype, "Object.prototyp" ],
+    [Object.prototype, "Object.prototype" ],
     [Boolean, "Boolean" ],
-    [Boolean.prototype, "Boolean.prototyp" ],
+    [Boolean.prototype, "Boolean.prototype" ],
     [Number, "Number" ],
-    [Number.prototype, "Number.prototyp" ],
+    [Number.prototype, "Number.prototype" ],
     [String, "String" ],
-    [String.prototype, "String.prototyp" ],
+    [String.prototype, "String.prototype" ],
     [Array, "Array" ],
-    [Array.prototype, "Array.prototyp" ],
+    [Array.prototype, "Array.prototype" ],
     [RegExp, "RegExp" ],
-    [RegExp.prototype, "RegExp.prototyp" ],
+    [RegExp.prototype, "RegExp.prototype" ],
     [Symbol, "Symbol" ],
-    [Symbol.prototype, "Symbol.prototyp" ],
+    [Symbol.prototype, "Symbol.prototype" ],
     [Error, "Error" ],
-    [Error.prototype, "Error.prototyp" ],
+    [Error.prototype, "Error.prototype" ],
     [Promise, "Promise" ],
-    [Promise.prototype, "Promise.prototyp" ],
-)
-export default new Map(
+    [Promise.prototype, "Promise.prototype" ],
+])
+export default new Map([
     [Function, {
         "length": {
             "value": 1,
@@ -1681,4 +1681,91 @@ export default new Map(
             "configurable": true,
         },
     }],
-)
+])
+export const globalThisDescriptors = {
+    Object: {
+        value: Object,
+        writable: true,
+        enumerable: false,
+        configurable: true,
+    },
+    Function: {
+        value: Function,
+        writable: true,
+        enumerable: false,
+        configurable: true,
+    },
+    Array: {
+        value: Array,
+        writable: true,
+        enumerable: false,
+        configurable: true,
+    },
+    Number: {
+        value: Number,
+        writable: true,
+        enumerable: false,
+        configurable: true,
+    },
+    Infinity: {
+        value: Infinity,
+        writable: false,
+        enumerable: false,
+        configurable: false,
+    },
+    NaN: {
+        value: NaN,
+        writable: false,
+        enumerable: false,
+        configurable: false,
+    },
+    undefined: {
+        value: undefined,
+        writable: false,
+        enumerable: false,
+        configurable: false,
+    },
+    Boolean: {
+        value: Boolean,
+        writable: true,
+        enumerable: false,
+        configurable: true,
+    },
+    String: {
+        value: String,
+        writable: true,
+        enumerable: false,
+        configurable: true,
+    },
+    Symbol: {
+        value: Symbol,
+        writable: true,
+        enumerable: false,
+        configurable: true,
+    },
+    Promise: {
+        value: Promise,
+        writable: true,
+        enumerable: false,
+        configurable: true,
+    },
+    RegExp: {
+        value: RegExp,
+        writable: true,
+        enumerable: false,
+        configurable: true,
+    },
+    Error: {
+        value: Error,
+        writable: true,
+        enumerable: false,
+        configurable: true,
+    },
+    // for some reason Deno defines this. And because its non-configurable, we need to define if we want the spec to work with Deno
+    location: {
+        value: undefined,
+        writable: true,
+        enumerable: false,
+        configurable: false,
+    },
+}
