@@ -2,18 +2,20 @@ import { toRepresentation } from "https://deno.land/x/good@1.13.0.1/flattened/to
 // import { toRepresentation } from "/Users/jeffhykin/repos/good-js/source/flattened/to_representation.js"
 
 var conservativeGlobalsNames = [
-    "Function",
-    "Object",
-    "Boolean",
-    "Number",
-    "String",
-    "Array",
-    "RegExp",
-    "Symbol",
-    "Error", 
-    "Promise",
-    "Set",
-    "Map",
+    "Math",
+    "Reflect",
+    // "Function",
+    // "Object",
+    // "Boolean",
+    // "Number",
+    // "String",
+    // "Array",
+    // "RegExp",
+    // "Symbol",
+    // "Error", 
+    // "Promise",
+    // "Set",
+    // "Map",
 ]
 var objects = new Map()
 for (const each of conservativeGlobalsNames) {

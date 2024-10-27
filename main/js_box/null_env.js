@@ -11,16 +11,17 @@ import { setSubtract as subtract } from "https://deno.land/x/good@1.13.0.1/flatt
 import { toRepresentation } from "https://deno.land/x/good@1.13.0.1/flattened/to_representation.js"
 
 // TODO:
-    // patch Object.getOwnPropertyDescriptors and Object.keys so that the results always appear in the same order for all built-in objects
-        // also allow for this to hide things such as unconfigurable properties on globalThis
-
+    // determinism:
+        // patch Object.getOwnPropertyDescriptors, Reflect.ownKeys, and friends so that the results always appear in the same order for all built-in objects
+            // also allow for this to hide things such as unconfigurable properties on globalThis
+        // fix the descriptors of setTimeout and friends
+        // figure out what to do about errors and how to best ensure uniformity across runtimes
+    
     // extend:
         // fill out Date, make it a function
-        // add Math
-        // add Reflect
+        // add console shim
         // add fetch
-
-
+    
 import whitelist from "./whitelist_small.js"
 import { nameMap, globalThisBaseDescriptors } from "./whitelist_small.js"
 import { fail } from "../node_shims/assert.js"
