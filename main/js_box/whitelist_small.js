@@ -1,3 +1,25 @@
+export const nameMap = new Map(
+    [Function, "Function" ],
+    [Function.prototype, "Function.prototyp" ],
+    [Object, "Object" ],
+    [Object.prototype, "Object.prototyp" ],
+    [Boolean, "Boolean" ],
+    [Boolean.prototype, "Boolean.prototyp" ],
+    [Number, "Number" ],
+    [Number.prototype, "Number.prototyp" ],
+    [String, "String" ],
+    [String.prototype, "String.prototyp" ],
+    [Array, "Array" ],
+    [Array.prototype, "Array.prototyp" ],
+    [RegExp, "RegExp" ],
+    [RegExp.prototype, "RegExp.prototyp" ],
+    [Symbol, "Symbol" ],
+    [Symbol.prototype, "Symbol.prototyp" ],
+    [Error, "Error" ],
+    [Error.prototype, "Error.prototyp" ],
+    [Promise, "Promise" ],
+    [Promise.prototype, "Promise.prototyp" ],
+)
 export default new Map(
     [Function, {
         "length": {
