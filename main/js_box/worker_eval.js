@@ -1,3 +1,18 @@
+import nullEnvBytes from "./null_env.bundle.js.binaryified.js"
+
+function makeImport(codeString) {
+    function replaceNonAsciiWithUnicode(str) {
+        return str.replace(/[^\0-~](?<!\n|\r|\t|\0)/g, (char) => {
+            return '\\u' + ('0000' + char.charCodeAt(0).toString(16)).slice(-4);
+        })
+    }
+
+    return `import "data:text/javascript;base64,${btoa(replaceNonAsciiWithUnicode(codeString))}"`
+}
+const nullEnvCode = new TextDecoder().decode(nullEnvBytes)
+console.debug(`nullEnvCode.slice(-200) is:`,nullEnvCode.slice(-200))
+const importString = makeImport(nullEnvCode+'\nenforceNullEnv()')
+
 /**
  * run code in a web worker
  *
@@ -11,18 +26,18 @@ export function workerEval({ timeout, untrustedCode } = { timeout: Infinity }) {
         var blobURL = URL.createObjectURL(
             new Blob(
                 [
-                    "(",
-                    function () {
+                    importString,
+                    `
+                    (function() {
                         // TODO: fix this data transfer method (there's got to be a better way)
                         var _postMessage = postMessage
                         var _addEventListener = addEventListener
 
                         _addEventListener("message", function (e) {
-                            var f = new Function("", "return(" + e.data + "\n)")
+                            var f = new Function("", "return(" + e.data + "\\n)")
                             _postMessage(f())
                         })
-                    }.toString(),
-                    `)()`,
+                    })()`,
                 ],
                 { type: "application/javascript" }
             )

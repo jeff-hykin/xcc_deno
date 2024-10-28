@@ -801,7 +801,8 @@ var nameMap = /* @__PURE__ */ new Map([
   [Map, "Map"],
   [Map.prototype, "Map.prototype"],
   [Math, "Math"],
-  [Reflect, "Reflect"]
+  [Reflect, "Reflect"],
+  [JSON, "JSON"]
 ]);
 var whitelist_small_default = /* @__PURE__ */ new Map([
   [Function, {
@@ -3027,6 +3028,32 @@ var whitelist_small_default = /* @__PURE__ */ new Map([
       enumerable: false,
       configurable: true
     }
+  }],
+  [JSON, {
+    parse: {
+      value: JSON.parse,
+      writable: true,
+      enumerable: false,
+      configurable: true
+    },
+    stringify: {
+      value: JSON.stringify,
+      writable: true,
+      enumerable: false,
+      configurable: true
+    },
+    rawJSON: {
+      value: JSON.rawJSON,
+      writable: true,
+      enumerable: false,
+      configurable: true
+    },
+    isRawJSON: {
+      value: JSON.isRawJSON,
+      writable: true,
+      enumerable: false,
+      configurable: true
+    }
   }]
 ]);
 var globalThisBaseDescriptors = {
@@ -3128,6 +3155,12 @@ var globalThisBaseDescriptors = {
   },
   Reflect: {
     value: Reflect,
+    writable: true,
+    enumerable: false,
+    configurable: true
+  },
+  JSON: {
+    value: JSON,
     writable: true,
     enumerable: false,
     configurable: true
@@ -3329,6 +3362,9 @@ function enforceNullEnv() {
   const realToLocaleUpperCase = String.prototype.toLocaleUpperCase;
   const realLocaleCompare = String.prototype.localeCompare;
   const localCompareDefaults = { usage: "sort", localeMatcher: "best fit", collation: "default", sensitivity: "base", ignorePunctuation: true, numeric: false, caseFirst: false };
+  const realDispatchEvent = globalThis.dispatchEvent;
+  const realPostMessage = globalThis.postMessage;
+  const realAddEventListener = globalThis.addEventListener;
   Function.prototype.toString = markAsNative("toString", function(...args) {
     if (functionsToConsiderNative.has(this)) {
       return `function ${functionsToConsiderNative.get(this)}() { [native code] }`;
@@ -3355,7 +3391,6 @@ function enforceNullEnv() {
   Object.assign(globalThis, timingTools);
   Error.stackTraceLimit = Infinity;
   const proto = {};
-  Object.setPrototypeOf(globalThis, proto);
   warnings.push(
     ...ensureDescriptorAgreement({
       object: globalThis,
@@ -3389,6 +3424,7 @@ function enforceNullEnv() {
         // enumberable functions
         // 
         ...Object.fromEntries([
+          "dispatchEvent",
           "structuredClone",
           "atob",
           "btoa"
@@ -3403,6 +3439,7 @@ function enforceNullEnv() {
       markAsNative
     })
   );
+  globalThis.postMessage = markAsNative("postMessage", realPostMessage);
   return warnings;
 }
 export {

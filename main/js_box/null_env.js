@@ -79,6 +79,9 @@ export function enforceNullEnv() {
             const realToLocaleUpperCase = String.prototype.toLocaleUpperCase
             const realLocaleCompare     = String.prototype.localeCompare
             const localCompareDefaults  = { usage: "sort", localeMatcher: "best fit", collation: "default", sensitivity: "base", ignorePunctuation: true, numeric: false, caseFirst: false, }
+            const realDispatchEvent     = globalThis.dispatchEvent
+            const realPostMessage       = globalThis.postMessage
+            const realAddEventListener  = globalThis.addEventListener
         
         // 
         // patching
@@ -118,7 +121,7 @@ export function enforceNullEnv() {
     // globalThis patching
     // 
         const proto = {}
-        Object.setPrototypeOf(globalThis, proto)
+        // Object.setPrototypeOf(globalThis, proto) // TODO: fix this
         warnings.push(
             ...ensureDescriptorAgreement({
                 object: globalThis,
@@ -152,6 +155,7 @@ export function enforceNullEnv() {
                     // enumberable functions
                     // 
                     ...Object.fromEntries([
+                        "dispatchEvent",
                         "structuredClone",
                         "atob",
                         "btoa",
@@ -166,6 +170,9 @@ export function enforceNullEnv() {
                 markAsNative,
             })
         )
-    
+        // TODO: fix. Idk why these don't work when passed into ensureDescriptorAgreement
+        globalThis.postMessage = markAsNative("postMessage", realPostMessage)
+        
     return warnings
 }
+// enforceNullEnv
