@@ -2334,6 +2334,128 @@ export default new Map([
             configurable: true,
         },
     }],
+    [Date.prototype,{
+        toISOString: {
+            value: Date.prototype.toISOString /*native function*/,
+            writable: true,
+            enumerable: false,
+            configurable: true,
+        },
+        getTime: {
+            value: Date.prototype.getTime /*native function*/,
+            writable: true,
+            enumerable: false,
+            configurable: true,
+        },
+        setTime: {
+            value: Date.prototype.setTime /*native function*/,
+            writable: true,
+            enumerable: false,
+            configurable: true,
+        },
+        getUTCDate: {
+            value: Date.prototype.getUTCDate /*native function*/,
+            writable: true,
+            enumerable: false,
+            configurable: true,
+        },
+        setUTCDate: {
+            value: Date.prototype.setUTCDate /*native function*/,
+            writable: true,
+            enumerable: false,
+            configurable: true,
+        },
+        getUTCDay: {
+            value: Date.prototype.getUTCDay /*native function*/,
+            writable: true,
+            enumerable: false,
+            configurable: true,
+        },
+        getUTCFullYear: {
+            value: Date.prototype.getUTCFullYear /*native function*/,
+            writable: true,
+            enumerable: false,
+            configurable: true,
+        },
+        setUTCFullYear: {
+            value: Date.prototype.setUTCFullYear /*native function*/,
+            writable: true,
+            enumerable: false,
+            configurable: true,
+        },
+        getUTCHours: {
+            value: Date.prototype.getUTCHours /*native function*/,
+            writable: true,
+            enumerable: false,
+            configurable: true,
+        },
+        setUTCHours: {
+            value: Date.prototype.setUTCHours /*native function*/,
+            writable: true,
+            enumerable: false,
+            configurable: true,
+        },
+        getUTCMilliseconds: {
+            value: Date.prototype.getUTCMilliseconds /*native function*/,
+            writable: true,
+            enumerable: false,
+            configurable: true,
+        },
+        setUTCMilliseconds: {
+            value: Date.prototype.setUTCMilliseconds /*native function*/,
+            writable: true,
+            enumerable: false,
+            configurable: true,
+        },
+        getUTCMinutes: {
+            value: Date.prototype.getUTCMinutes /*native function*/,
+            writable: true,
+            enumerable: false,
+            configurable: true,
+        },
+        setUTCMinutes: {
+            value: Date.prototype.setUTCMinutes /*native function*/,
+            writable: true,
+            enumerable: false,
+            configurable: true,
+        },
+        getUTCMonth: {
+            value: Date.prototype.getUTCMonth /*native function*/,
+            writable: true,
+            enumerable: false,
+            configurable: true,
+        },
+        setUTCMonth: {
+            value: Date.prototype.setUTCMonth /*native function*/,
+            writable: true,
+            enumerable: false,
+            configurable: true,
+        },
+        getUTCSeconds: {
+            value: Date.prototype.getUTCSeconds /*native function*/,
+            writable: true,
+            enumerable: false,
+            configurable: true,
+        },
+        setUTCSeconds: {
+            value: Date.prototype.setUTCSeconds /*native function*/,
+            writable: true,
+            enumerable: false,
+            configurable: true,
+        },
+        valueOf: {
+            value: Date.prototype.valueOf /*native function*/,
+            writable: true,
+            enumerable: false,
+            configurable: true,
+        },
+        toJSON: {
+            value: Date.prototype.toJSON /*native function*/,
+            writable: true,
+            enumerable: false,
+            configurable: true,
+        }
+    }]
 ])
 export const globalThisBaseDescriptors = {
     undefined: {
