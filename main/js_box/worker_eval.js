@@ -3,9 +3,17 @@ import nullEnvCodeImport from "./null_env.bundle.js.binaryified.js"
 let nullEnvCode = nullEnvCodeImport
 // dynamic bundle and read-as-string for the worker
 if (typeof Deno !== "undefined") {
-    const { build, stop } = await import("https://deno.land/x/esbuild@v0.24.0/mod.js")
-    const { FileSystem } = await import("https://deno.land/x/quickr@0.6.72/main/file_system.js")
-    const { denoPlugins } = await import("https://esm.sh/jsr/@duesabati/esbuild-deno-plugin@0.1.0/mod.ts")
+    const [
+        { build, stop },
+        { FileSystem },
+        { denoPlugins },
+        { stringToBacktickRepresentation },
+    ] = await Promise.all([
+        import("https://deno.land/x/esbuild@v0.24.0/mod.js"),
+        import("https://deno.land/x/quickr@0.6.72/main/file_system.js"),
+        import("https://esm.sh/jsr/@duesabati/esbuild-deno-plugin@0.1.0/mod.ts"),
+        import("https://deno.land/x/binaryify@2.5.3.0/tools.js"),
+    ])
     const targetToBuild = `${FileSystem.thisFolder}/support/enforce_null_env.js`
     if ((await FileSystem.info(targetToBuild)).isFile) {
         nullEnvCode = "{" + new TextDecoder().decode(await new Promise((resolve, reject)=>{
@@ -37,7 +45,13 @@ if (typeof Deno !== "undefined") {
                 ]
             }).catch(reject)
         }))+"}"
-        console.log(nullEnvCode.slice(0,100)+"..."+nullEnvCode.slice(-100))
+        // for next time
+        FileSystem.write({
+            path: `${FileSystem.thisFolder}/null_env.bundle.js.binaryified.js`,
+            data: "export default " +stringToBacktickRepresentation(nullEnvCode),
+            overwrite: true,
+        })
+        console.log(`loaded from file`)
     }
     // function makeImport(codeString) {
     // function replaceNonAsciiWithUnicode(str) {
@@ -62,7 +76,7 @@ if (typeof Deno !== "undefined") {
  */
 export function workerEval({ timeout, untrustedCode } = {}) {
     timeout = timeout ?? Infinity
-    return new Promise(function (resolve, reject) {
+    return new Promise((resolve, reject) =>{
         var blobURL = URL.createObjectURL(
             new Blob(
                 [
