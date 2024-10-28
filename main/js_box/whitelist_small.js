@@ -90,23 +90,23 @@ export default new Map([
             },
             constructor: {
                 value: Function,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             apply: {
                 value: Function.prototype.apply /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             bind: {
                 value: Function.prototype.bind /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             call: {
                 value: Function.prototype.call /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             toString: {
                 value: Function.prototype.toString /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
         },
     ],
@@ -133,95 +133,95 @@ export default new Map([
             },
             assign: {
                 value: Object.assign /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             getOwnPropertyDescriptor: {
                 value: Object.getOwnPropertyDescriptor /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             getOwnPropertyDescriptors: {
                 value: Object.getOwnPropertyDescriptors /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             getOwnPropertyNames: {
                 value: Object.getOwnPropertyNames /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             getOwnPropertySymbols: {
                 value: Object.getOwnPropertySymbols /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             hasOwn: {
                 value: Object.hasOwn /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             is: {
                 value: Object.is /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             preventExtensions: {
                 value: Object.preventExtensions /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             seal: {
                 value: Object.seal /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             create: {
                 value: Object.create /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             defineProperties: {
                 value: Object.defineProperties /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             defineProperty: {
                 value: Object.defineProperty /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             freeze: {
                 value: Object.freeze /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             getPrototypeOf: {
                 value: Object.getPrototypeOf /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             setPrototypeOf: {
                 value: Object.setPrototypeOf /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             isExtensible: {
                 value: Object.isExtensible /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             isFrozen: {
                 value: Object.isFrozen /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             isSealed: {
                 value: Object.isSealed /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             keys: {
                 value: Object.keys /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             entries: {
                 value: Object.entries /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             fromEntries: {
                 value: Object.fromEntries /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             values: {
                 value: Object.values /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             groupBy: {
                 value: Object.groupBy /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
         },
     ],
@@ -230,47 +230,47 @@ export default new Map([
         {
             constructor: {
                 value: Object,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             __defineGetter__: {
                 value: globalThis["__defineGetter__"],
-                ...notEnumerable,
+                ...notEnumerated,
             },
             __defineSetter__: {
                 value: globalThis["__defineSetter__"],
-                ...notEnumerable,
+                ...notEnumerated,
             },
             hasOwnProperty: {
                 value: Object.prototype.hasOwnProperty,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             __lookupGetter__: {
                 value: globalThis["__lookupGetter__"],
-                ...notEnumerable,
+                ...notEnumerated,
             },
             __lookupSetter__: {
                 value: globalThis["__lookupSetter__"],
-                ...notEnumerable,
+                ...notEnumerated,
             },
             isPrototypeOf: {
                 value: Object.prototype.isPrototypeOf,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             propertyIsEnumerable: {
                 value: Object.prototype.propertyIsEnumerable,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             toString: {
                 value: Object.prototype.toString,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             valueOf: {
                 value: Object.prototype.valueOf,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             toLocaleString: {
                 value: Object.prototype.toLocaleString,
-                ...notEnumerable,
+                ...notEnumerated,
             },
         },
     ],
@@ -302,15 +302,15 @@ export default new Map([
         {
             constructor: {
                 value: Boolean,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             toString: {
                 value: Boolean.prototype.toString /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             valueOf: {
                 value: Boolean.prototype.valueOf /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
         },
     ],
@@ -337,27 +337,27 @@ export default new Map([
             },
             isFinite: {
                 value: Number.isFinite /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             isInteger: {
                 value: Number.isInteger /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             isNaN: {
                 value: Number.isNaN /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             isSafeInteger: {
                 value: Number.isSafeInteger /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             parseFloat: {
                 value: Number.parseFloat,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             parseInt: {
                 value: Number.parseInt,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             MAX_VALUE: {
                 value: 1.7976931348623157e308,
@@ -414,31 +414,31 @@ export default new Map([
         {
             constructor: {
                 value: Number,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             toExponential: {
                 value: Number.prototype.toExponential /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             toFixed: {
                 value: Number.prototype.toFixed /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             toPrecision: {
                 value: Number.prototype.toPrecision /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             toString: {
                 value: Number.prototype.toString /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             valueOf: {
                 value: Number.prototype.valueOf /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             toLocaleString: {
                 value: Number.prototype.toLocaleString /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
         },
     ],
@@ -465,15 +465,15 @@ export default new Map([
             },
             fromCharCode: {
                 value: String.fromCharCode /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             fromCodePoint: {
                 value: String.fromCodePoint /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             raw: {
                 value: String.raw /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
         },
     ],
@@ -488,207 +488,207 @@ export default new Map([
             },
             constructor: {
                 value: String,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             anchor: {
                 value: String.prototype.anchor /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             at: {
                 value: String.prototype.at /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             big: {
                 value: String.prototype.big /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             blink: {
                 value: String.prototype.blink /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             bold: {
                 value: String.prototype.bold /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             charAt: {
                 value: String.prototype.charAt /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             charCodeAt: {
                 value: String.prototype.charCodeAt /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             codePointAt: {
                 value: String.prototype.codePointAt /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             concat: {
                 value: String.prototype.concat /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             endsWith: {
                 value: String.prototype.endsWith /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             fontcolor: {
                 value: String.prototype.fontcolor /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             fontsize: {
                 value: String.prototype.fontsize /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             fixed: {
                 value: String.prototype.fixed /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             includes: {
                 value: String.prototype.includes /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             indexOf: {
                 value: String.prototype.indexOf /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             isWellFormed: {
                 value: String.prototype.isWellFormed /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             italics: {
                 value: String.prototype.italics /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             lastIndexOf: {
                 value: String.prototype.lastIndexOf /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             link: {
                 value: String.prototype.link /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             localeCompare: {
                 value: String.prototype.localeCompare /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             match: {
                 value: String.prototype.match /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             matchAll: {
                 value: String.prototype.matchAll /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             normalize: {
                 value: String.prototype.normalize /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             padEnd: {
                 value: String.prototype.padEnd /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             padStart: {
                 value: String.prototype.padStart /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             repeat: {
                 value: String.prototype.repeat /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             replace: {
                 value: String.prototype.replace /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             replaceAll: {
                 value: String.prototype.replaceAll /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             search: {
                 value: String.prototype.search /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             slice: {
                 value: String.prototype.slice /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             small: {
                 value: String.prototype.small /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             split: {
                 value: String.prototype.split /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             strike: {
                 value: String.prototype.strike /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             sub: {
                 value: String.prototype.sub /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             substr: {
                 value: String.prototype.substr /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             substring: {
                 value: String.prototype.substring /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             sup: {
                 value: String.prototype.sup /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             startsWith: {
                 value: String.prototype.startsWith /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             toString: {
                 value: String.prototype.toString /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             toWellFormed: {
                 value: String.prototype.toWellFormed /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             trim: {
                 value: String.prototype.trim /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             trimStart: {
                 value: String.prototype.trimStart /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             trimLeft: {
                 value: String.prototype.trimStart /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             trimEnd: {
                 value: String.prototype.trimEnd /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             trimRight: {
                 value: String.prototype.trimEnd /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             toLocaleLowerCase: {
                 value: String.prototype.toLocaleLowerCase /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             toLocaleUpperCase: {
                 value: String.prototype.toLocaleUpperCase /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             toLowerCase: {
                 value: String.prototype.toLowerCase /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             toUpperCase: {
                 value: String.prototype.toUpperCase /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             valueOf: {
                 value: String.prototype.valueOf /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
         },
     ],
@@ -715,19 +715,19 @@ export default new Map([
             },
             isArray: {
                 value: Array.isArray /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             from: {
                 value: Array.from /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             fromAsync: {
                 value: Array.fromAsync /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             of: {
                 value: Array.of /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
         },
     ],
@@ -742,159 +742,159 @@ export default new Map([
             },
             constructor: {
                 value: Array,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             at: {
                 value: Array.prototype.at /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             concat: {
                 value: Array.prototype.concat /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             copyWithin: {
                 value: Array.prototype.copyWithin /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             fill: {
                 value: Array.prototype.fill /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             find: {
                 value: Array.prototype.find /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             findIndex: {
                 value: Array.prototype.findIndex /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             findLast: {
                 value: Array.prototype.findLast /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             findLastIndex: {
                 value: Array.prototype.findLastIndex /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             lastIndexOf: {
                 value: Array.prototype.lastIndexOf /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             pop: {
                 value: Array.prototype.pop /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             push: {
                 value: Array.prototype.push /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             reverse: {
                 value: Array.prototype.reverse /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             shift: {
                 value: Array.prototype.shift /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             unshift: {
                 value: Array.prototype.unshift /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             slice: {
                 value: Array.prototype.slice /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             sort: {
                 value: Array.prototype.sort /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             splice: {
                 value: Array.prototype.splice /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             includes: {
                 value: Array.prototype.includes /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             indexOf: {
                 value: Array.prototype.indexOf /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             join: {
                 value: Array.prototype.join /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             keys: {
                 value: Array.prototype.keys /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             entries: {
                 value: Array.prototype.entries /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             values: {
                 value: Array.prototype.values /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             forEach: {
                 value: Array.prototype.forEach /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             filter: {
                 value: Array.prototype.filter /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             flat: {
                 value: Array.prototype.flat /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             flatMap: {
                 value: Array.prototype.flatMap /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             map: {
                 value: Array.prototype.map /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             every: {
                 value: Array.prototype.every /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             some: {
                 value: Array.prototype.some /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             reduce: {
                 value: Array.prototype.reduce /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             reduceRight: {
                 value: Array.prototype.reduceRight /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             toReversed: {
                 value: Array.prototype.toReversed /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             toSorted: {
                 value: Array.prototype.toSorted /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             toSpliced: {
                 value: Array.prototype.toSpliced /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             with: {
                 value: Array.prototype.with /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             toLocaleString: {
                 value: Array.prototype.toLocaleString /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             toString: {
                 value: Array.prototype.toString /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
         },
     ],
@@ -1040,11 +1040,11 @@ export default new Map([
         {
             constructor: {
                 value: RegExp,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             exec: {
                 value: RegExp.prototype.exec,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             dotAll: {
                 get: Object.getOwnPropertyDescriptor(RegExp.prototype, "dotAll").get /*native function*/,
@@ -1108,15 +1108,15 @@ export default new Map([
             },
             compile: {
                 value: RegExp.prototype.compile /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             toString: {
                 value: RegExp.prototype.toString /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             test: {
                 value: RegExp.prototype.test /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
         },
     ],
@@ -1143,11 +1143,11 @@ export default new Map([
             },
             for: {
                 value: Symbol.for /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             keyFor: {
                 value: Symbol.keyFor /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             asyncIterator: {
                 value: Symbol.asyncIterator,
@@ -1252,15 +1252,15 @@ export default new Map([
         {
             constructor: {
                 value: Symbol,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             toString: {
                 value: Symbol.prototype.toString /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             valueOf: {
                 value: Symbol.prototype.valueOf /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             description: {
                 get: Object.getOwnPropertyDescriptor(Symbol.prototype, "description").get,
@@ -1293,7 +1293,7 @@ export default new Map([
             },
             captureStackTrace: {
                 value: Error.captureStackTrace /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             stackTraceLimit: {
                 value: 10,
@@ -1308,19 +1308,19 @@ export default new Map([
         {
             constructor: {
                 value: Error,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             name: {
                 value: "Error",
-                ...notEnumerable,
+                ...notEnumerated,
             },
             message: {
                 value: "",
-                ...notEnumerable,
+                ...notEnumerated,
             },
             toString: {
                 value: Error.prototype.toString /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
         },
     ],
@@ -1347,35 +1347,35 @@ export default new Map([
             },
             all: {
                 value: Promise.all /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             allSettled: {
                 value: Promise.allSettled /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             any: {
                 value: Promise.any /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             race: {
                 value: Promise.race /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             resolve: {
                 value: Promise.resolve /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             reject: {
                 value: Promise.reject /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             withResolvers: {
                 value: Promise.withResolvers /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             try: {
                 value: Promise.try /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
         },
     ],
@@ -1384,19 +1384,19 @@ export default new Map([
         {
             constructor: {
                 value: Promise,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             then: {
                 value: Promise.prototype.then /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             catch: {
                 value: Promise.prototype.catch /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
             finally: {
                 value: Promise.prototype.finally /*native function*/,
-                ...notEnumerable,
+                ...notEnumerated,
             },
         },
     ],
@@ -1990,6 +1990,25 @@ export default new Map([
                 value: Date.prototype.toJSON,
                 ...notEnumerated,
             },
+            // polyfills
+            getDate:         {value: Date.prototype.getUTCDate, ...notEnumerated},
+            setDate:         {value: Date.prototype.setUTCDate, ...notEnumerated},
+            getDay:          {value: Date.prototype.getUTCDay, ...notEnumerated},
+            getFullYear:     {value: Date.prototype.getUTCFullYear, ...notEnumerated},
+            setFullYear:     {value: Date.prototype.setUTCFullYear, ...notEnumerated},
+            getHours:        {value: Date.prototype.getUTCHours, ...notEnumerated},
+            setHours:        {value: Date.prototype.setUTCHours, ...notEnumerated},
+            getMilliseconds: {value: Date.prototype.getUTCMilliseconds, ...notEnumerated},
+            setMilliseconds: {value: Date.prototype.setUTCMilliseconds, ...notEnumerated},
+            getMinutes:      {value: Date.prototype.getUTCMinutes, ...notEnumerated},
+            setMinutes:      {value: Date.prototype.setUTCMinutes, ...notEnumerated},
+            getMonth:        {value: Date.prototype.getUTCMonth, ...notEnumerated},
+            setMonth:        {value: Date.prototype.setUTCMonth, ...notEnumerated},
+            getSeconds:      {value: Date.prototype.getUTCSeconds, ...notEnumerated},
+            setSeconds:      {value: Date.prototype.setUTCSeconds, ...notEnumerated},
+            getYear:         {value: (...args)=>`${Date.prototype.getUTCFullYear(...args)}`.slice(-2)-0, ...notEnumerated},
+            // TODO: setYear
+            // setYear:
         },
     ],
 ])

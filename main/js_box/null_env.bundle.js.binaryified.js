@@ -772,6 +772,11 @@ Error was: \${error?.stack || error}\`);
 };
 
 // main/js_box/whitelist_small.js
+var notEnumerated = {
+  writable: true,
+  enumerable: false,
+  configurable: true
+};
 var nameMap = /* @__PURE__ */ new Map([
   [NaN, "NaN"],
   [Infinity, "Infinity"],
@@ -806,2308 +811,1979 @@ var nameMap = /* @__PURE__ */ new Map([
   [EventTarget, "EventTarget"]
 ]);
 var whitelist_small_default = /* @__PURE__ */ new Map([
-  [Function, {
-    "length": {
-      "value": 1,
-      "writable": false,
-      "enumerable": false,
-      "configurable": true
-    },
-    "name": {
-      "value": "Function",
-      "writable": false,
-      "enumerable": false,
-      "configurable": true
-    },
-    "prototype": {
-      "value": Function.prototype,
-      "writable": false,
-      "enumerable": false,
-      "configurable": false
+  [
+    Function,
+    {
+      length: {
+        value: 1,
+        writable: false,
+        enumerable: false,
+        configurable: true
+      },
+      name: {
+        value: "Function",
+        writable: false,
+        enumerable: false,
+        configurable: true
+      },
+      prototype: {
+        value: Function.prototype,
+        writable: false,
+        enumerable: false,
+        configurable: false
+      }
     }
-  }],
-  [Function.prototype, {
-    "length": {
-      "value": 0,
-      "writable": false,
-      "enumerable": false,
-      "configurable": true
-    },
-    "name": {
-      "value": "",
-      "writable": false,
-      "enumerable": false,
-      "configurable": true
-    },
-    "arguments": {
-      "get": Object.getOwnPropertyDescriptor(Function.prototype, "arguments").get,
-      "set": Object.getOwnPropertyDescriptor(Function.prototype, "arguments").set,
-      "enumerable": false,
-      "configurable": true
-    },
-    "caller": {
-      "get": Object.getOwnPropertyDescriptor(Function.prototype, "caller").get,
-      "set": Object.getOwnPropertyDescriptor(Function.prototype, "caller").get,
-      "enumerable": false,
-      "configurable": true
-    },
-    "constructor": {
-      "value": Function,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "apply": {
-      "value": Function.prototype.apply,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "bind": {
-      "value": Function.prototype.bind,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "call": {
-      "value": Function.prototype.call,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "toString": {
-      "value": Function.prototype.toString,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
+  ],
+  [
+    Function.prototype,
+    {
+      length: {
+        value: 0,
+        writable: false,
+        enumerable: false,
+        configurable: true
+      },
+      name: {
+        value: "",
+        writable: false,
+        enumerable: false,
+        configurable: true
+      },
+      arguments: {
+        get: Object.getOwnPropertyDescriptor(Function.prototype, "arguments").get,
+        set: Object.getOwnPropertyDescriptor(Function.prototype, "arguments").set,
+        enumerable: false,
+        configurable: true
+      },
+      caller: {
+        get: Object.getOwnPropertyDescriptor(Function.prototype, "caller").get,
+        set: Object.getOwnPropertyDescriptor(Function.prototype, "caller").get,
+        enumerable: false,
+        configurable: true
+      },
+      constructor: {
+        value: Function,
+        ...notEnumerated
+      },
+      apply: {
+        value: Function.prototype.apply,
+        ...notEnumerated
+      },
+      bind: {
+        value: Function.prototype.bind,
+        ...notEnumerated
+      },
+      call: {
+        value: Function.prototype.call,
+        ...notEnumerated
+      },
+      toString: {
+        value: Function.prototype.toString,
+        ...notEnumerated
+      }
     }
-  }],
-  [Object, {
-    "length": {
-      "value": 1,
-      "writable": false,
-      "enumerable": false,
-      "configurable": true
-    },
-    "name": {
-      "value": "Object",
-      "writable": false,
-      "enumerable": false,
-      "configurable": true
-    },
-    "prototype": {
-      "value": Object.prototype,
-      "writable": false,
-      "enumerable": false,
-      "configurable": false
-    },
-    "assign": {
-      "value": Object.assign,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "getOwnPropertyDescriptor": {
-      "value": Object.getOwnPropertyDescriptor,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "getOwnPropertyDescriptors": {
-      "value": Object.getOwnPropertyDescriptors,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "getOwnPropertyNames": {
-      "value": Object.getOwnPropertyNames,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "getOwnPropertySymbols": {
-      "value": Object.getOwnPropertySymbols,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "hasOwn": {
-      "value": Object.hasOwn,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "is": {
-      "value": Object.is,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "preventExtensions": {
-      "value": Object.preventExtensions,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "seal": {
-      "value": Object.seal,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "create": {
-      "value": Object.create,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "defineProperties": {
-      "value": Object.defineProperties,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "defineProperty": {
-      "value": Object.defineProperty,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "freeze": {
-      "value": Object.freeze,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "getPrototypeOf": {
-      "value": Object.getPrototypeOf,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "setPrototypeOf": {
-      "value": Object.setPrototypeOf,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "isExtensible": {
-      "value": Object.isExtensible,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "isFrozen": {
-      "value": Object.isFrozen,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "isSealed": {
-      "value": Object.isSealed,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "keys": {
-      "value": Object.keys,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "entries": {
-      "value": Object.entries,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "fromEntries": {
-      "value": Object.fromEntries,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "values": {
-      "value": Object.values,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "groupBy": {
-      "value": Object.groupBy,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
+  ],
+  [
+    Object,
+    {
+      length: {
+        value: 1,
+        writable: false,
+        enumerable: false,
+        configurable: true
+      },
+      name: {
+        value: "Object",
+        writable: false,
+        enumerable: false,
+        configurable: true
+      },
+      prototype: {
+        value: Object.prototype,
+        writable: false,
+        enumerable: false,
+        configurable: false
+      },
+      assign: {
+        value: Object.assign,
+        ...notEnumerated
+      },
+      getOwnPropertyDescriptor: {
+        value: Object.getOwnPropertyDescriptor,
+        ...notEnumerated
+      },
+      getOwnPropertyDescriptors: {
+        value: Object.getOwnPropertyDescriptors,
+        ...notEnumerated
+      },
+      getOwnPropertyNames: {
+        value: Object.getOwnPropertyNames,
+        ...notEnumerated
+      },
+      getOwnPropertySymbols: {
+        value: Object.getOwnPropertySymbols,
+        ...notEnumerated
+      },
+      hasOwn: {
+        value: Object.hasOwn,
+        ...notEnumerated
+      },
+      is: {
+        value: Object.is,
+        ...notEnumerated
+      },
+      preventExtensions: {
+        value: Object.preventExtensions,
+        ...notEnumerated
+      },
+      seal: {
+        value: Object.seal,
+        ...notEnumerated
+      },
+      create: {
+        value: Object.create,
+        ...notEnumerated
+      },
+      defineProperties: {
+        value: Object.defineProperties,
+        ...notEnumerated
+      },
+      defineProperty: {
+        value: Object.defineProperty,
+        ...notEnumerated
+      },
+      freeze: {
+        value: Object.freeze,
+        ...notEnumerated
+      },
+      getPrototypeOf: {
+        value: Object.getPrototypeOf,
+        ...notEnumerated
+      },
+      setPrototypeOf: {
+        value: Object.setPrototypeOf,
+        ...notEnumerated
+      },
+      isExtensible: {
+        value: Object.isExtensible,
+        ...notEnumerated
+      },
+      isFrozen: {
+        value: Object.isFrozen,
+        ...notEnumerated
+      },
+      isSealed: {
+        value: Object.isSealed,
+        ...notEnumerated
+      },
+      keys: {
+        value: Object.keys,
+        ...notEnumerated
+      },
+      entries: {
+        value: Object.entries,
+        ...notEnumerated
+      },
+      fromEntries: {
+        value: Object.fromEntries,
+        ...notEnumerated
+      },
+      values: {
+        value: Object.values,
+        ...notEnumerated
+      },
+      groupBy: {
+        value: Object.groupBy,
+        ...notEnumerated
+      }
     }
-  }],
-  [Object.prototype, {
-    "constructor": {
-      "value": Object,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "__defineGetter__": {
-      "value": globalThis["__defineGetter__"],
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "__defineSetter__": {
-      "value": globalThis["__defineSetter__"],
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "hasOwnProperty": {
-      "value": Object.prototype.hasOwnProperty,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "__lookupGetter__": {
-      "value": globalThis["__lookupGetter__"],
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "__lookupSetter__": {
-      "value": globalThis["__lookupSetter__"],
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "isPrototypeOf": {
-      "value": Object.prototype.isPrototypeOf,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "propertyIsEnumerable": {
-      "value": Object.prototype.propertyIsEnumerable,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "toString": {
-      "value": Object.prototype.toString,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "valueOf": {
-      "value": Object.prototype.valueOf,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "toLocaleString": {
-      "value": Object.prototype.toLocaleString,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
+  ],
+  [
+    Object.prototype,
+    {
+      constructor: {
+        value: Object,
+        ...notEnumerated
+      },
+      __defineGetter__: {
+        value: globalThis["__defineGetter__"],
+        ...notEnumerated
+      },
+      __defineSetter__: {
+        value: globalThis["__defineSetter__"],
+        ...notEnumerated
+      },
+      hasOwnProperty: {
+        value: Object.prototype.hasOwnProperty,
+        ...notEnumerated
+      },
+      __lookupGetter__: {
+        value: globalThis["__lookupGetter__"],
+        ...notEnumerated
+      },
+      __lookupSetter__: {
+        value: globalThis["__lookupSetter__"],
+        ...notEnumerated
+      },
+      isPrototypeOf: {
+        value: Object.prototype.isPrototypeOf,
+        ...notEnumerated
+      },
+      propertyIsEnumerable: {
+        value: Object.prototype.propertyIsEnumerable,
+        ...notEnumerated
+      },
+      toString: {
+        value: Object.prototype.toString,
+        ...notEnumerated
+      },
+      valueOf: {
+        value: Object.prototype.valueOf,
+        ...notEnumerated
+      },
+      toLocaleString: {
+        value: Object.prototype.toLocaleString,
+        ...notEnumerated
+      }
     }
-  }],
-  [Boolean, {
-    "length": {
-      "value": 1,
-      "writable": false,
-      "enumerable": false,
-      "configurable": true
-    },
-    "name": {
-      "value": "Boolean",
-      "writable": false,
-      "enumerable": false,
-      "configurable": true
-    },
-    "prototype": {
-      "value": Boolean.prototype,
-      "writable": false,
-      "enumerable": false,
-      "configurable": false
+  ],
+  [
+    Boolean,
+    {
+      length: {
+        value: 1,
+        writable: false,
+        enumerable: false,
+        configurable: true
+      },
+      name: {
+        value: "Boolean",
+        writable: false,
+        enumerable: false,
+        configurable: true
+      },
+      prototype: {
+        value: Boolean.prototype,
+        writable: false,
+        enumerable: false,
+        configurable: false
+      }
     }
-  }],
-  [Boolean.prototype, {
-    "constructor": {
-      "value": Boolean,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "toString": {
-      "value": Boolean.prototype.toString,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "valueOf": {
-      "value": Boolean.prototype.valueOf,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
+  ],
+  [
+    Boolean.prototype,
+    {
+      constructor: {
+        value: Boolean,
+        ...notEnumerated
+      },
+      toString: {
+        value: Boolean.prototype.toString,
+        ...notEnumerated
+      },
+      valueOf: {
+        value: Boolean.prototype.valueOf,
+        ...notEnumerated
+      }
     }
-  }],
-  [Number, {
-    "length": {
-      "value": 1,
-      "writable": false,
-      "enumerable": false,
-      "configurable": true
-    },
-    "name": {
-      "value": "Number",
-      "writable": false,
-      "enumerable": false,
-      "configurable": true
-    },
-    "prototype": {
-      "value": Number.prototype,
-      "writable": false,
-      "enumerable": false,
-      "configurable": false
-    },
-    "isFinite": {
-      "value": Number.isFinite,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "isInteger": {
-      "value": Number.isInteger,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "isNaN": {
-      "value": Number.isNaN,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "isSafeInteger": {
-      "value": Number.isSafeInteger,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "parseFloat": {
-      "value": Number.parseFloat,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "parseInt": {
-      "value": Number.parseInt,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "MAX_VALUE": {
-      "value": 17976931348623157e292,
-      "writable": false,
-      "enumerable": false,
-      "configurable": false
-    },
-    "MIN_VALUE": {
-      "value": 5e-324,
-      "writable": false,
-      "enumerable": false,
-      "configurable": false
-    },
-    "NaN": {
-      "value": NaN,
-      "writable": false,
-      "enumerable": false,
-      "configurable": false
-    },
-    "NEGATIVE_INFINITY": {
-      "value": -Infinity,
-      "writable": false,
-      "enumerable": false,
-      "configurable": false
-    },
-    "POSITIVE_INFINITY": {
-      "value": Infinity,
-      "writable": false,
-      "enumerable": false,
-      "configurable": false
-    },
-    "MAX_SAFE_INTEGER": {
-      "value": 9007199254740991,
-      "writable": false,
-      "enumerable": false,
-      "configurable": false
-    },
-    "MIN_SAFE_INTEGER": {
-      "value": -9007199254740991,
-      "writable": false,
-      "enumerable": false,
-      "configurable": false
-    },
-    "EPSILON": {
-      "value": 2220446049250313e-31,
-      "writable": false,
-      "enumerable": false,
-      "configurable": false
+  ],
+  [
+    Number,
+    {
+      length: {
+        value: 1,
+        writable: false,
+        enumerable: false,
+        configurable: true
+      },
+      name: {
+        value: "Number",
+        writable: false,
+        enumerable: false,
+        configurable: true
+      },
+      prototype: {
+        value: Number.prototype,
+        writable: false,
+        enumerable: false,
+        configurable: false
+      },
+      isFinite: {
+        value: Number.isFinite,
+        ...notEnumerated
+      },
+      isInteger: {
+        value: Number.isInteger,
+        ...notEnumerated
+      },
+      isNaN: {
+        value: Number.isNaN,
+        ...notEnumerated
+      },
+      isSafeInteger: {
+        value: Number.isSafeInteger,
+        ...notEnumerated
+      },
+      parseFloat: {
+        value: Number.parseFloat,
+        ...notEnumerated
+      },
+      parseInt: {
+        value: Number.parseInt,
+        ...notEnumerated
+      },
+      MAX_VALUE: {
+        value: 17976931348623157e292,
+        writable: false,
+        enumerable: false,
+        configurable: false
+      },
+      MIN_VALUE: {
+        value: 5e-324,
+        writable: false,
+        enumerable: false,
+        configurable: false
+      },
+      NaN: {
+        value: NaN,
+        writable: false,
+        enumerable: false,
+        configurable: false
+      },
+      NEGATIVE_INFINITY: {
+        value: -Infinity,
+        writable: false,
+        enumerable: false,
+        configurable: false
+      },
+      POSITIVE_INFINITY: {
+        value: Infinity,
+        writable: false,
+        enumerable: false,
+        configurable: false
+      },
+      MAX_SAFE_INTEGER: {
+        value: 9007199254740991,
+        writable: false,
+        enumerable: false,
+        configurable: false
+      },
+      MIN_SAFE_INTEGER: {
+        value: -9007199254740991,
+        writable: false,
+        enumerable: false,
+        configurable: false
+      },
+      EPSILON: {
+        value: 2220446049250313e-31,
+        writable: false,
+        enumerable: false,
+        configurable: false
+      }
     }
-  }],
-  [Number.prototype, {
-    "constructor": {
-      "value": Number,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "toExponential": {
-      "value": Number.prototype.toExponential,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "toFixed": {
-      "value": Number.prototype.toFixed,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "toPrecision": {
-      "value": Number.prototype.toPrecision,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "toString": {
-      "value": Number.prototype.toString,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "valueOf": {
-      "value": Number.prototype.valueOf,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "toLocaleString": {
-      "value": Number.prototype.toLocaleString,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
+  ],
+  [
+    Number.prototype,
+    {
+      constructor: {
+        value: Number,
+        ...notEnumerated
+      },
+      toExponential: {
+        value: Number.prototype.toExponential,
+        ...notEnumerated
+      },
+      toFixed: {
+        value: Number.prototype.toFixed,
+        ...notEnumerated
+      },
+      toPrecision: {
+        value: Number.prototype.toPrecision,
+        ...notEnumerated
+      },
+      toString: {
+        value: Number.prototype.toString,
+        ...notEnumerated
+      },
+      valueOf: {
+        value: Number.prototype.valueOf,
+        ...notEnumerated
+      },
+      toLocaleString: {
+        value: Number.prototype.toLocaleString,
+        ...notEnumerated
+      }
     }
-  }],
-  [String, {
-    "length": {
-      "value": 1,
-      "writable": false,
-      "enumerable": false,
-      "configurable": true
-    },
-    "name": {
-      "value": "String",
-      "writable": false,
-      "enumerable": false,
-      "configurable": true
-    },
-    "prototype": {
-      "value": String.prototype,
-      "writable": false,
-      "enumerable": false,
-      "configurable": false
-    },
-    "fromCharCode": {
-      "value": String.fromCharCode,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "fromCodePoint": {
-      "value": String.fromCodePoint,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "raw": {
-      "value": String.raw,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
+  ],
+  [
+    String,
+    {
+      length: {
+        value: 1,
+        writable: false,
+        enumerable: false,
+        configurable: true
+      },
+      name: {
+        value: "String",
+        writable: false,
+        enumerable: false,
+        configurable: true
+      },
+      prototype: {
+        value: String.prototype,
+        writable: false,
+        enumerable: false,
+        configurable: false
+      },
+      fromCharCode: {
+        value: String.fromCharCode,
+        ...notEnumerated
+      },
+      fromCodePoint: {
+        value: String.fromCodePoint,
+        ...notEnumerated
+      },
+      raw: {
+        value: String.raw,
+        ...notEnumerated
+      }
     }
-  }],
-  [String.prototype, {
-    "length": {
-      "value": 0,
-      "writable": false,
-      "enumerable": false,
-      "configurable": false
-    },
-    "constructor": {
-      "value": String,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "anchor": {
-      "value": String.prototype.anchor,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "at": {
-      "value": String.prototype.at,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "big": {
-      "value": String.prototype.big,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "blink": {
-      "value": String.prototype.blink,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "bold": {
-      "value": String.prototype.bold,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "charAt": {
-      "value": String.prototype.charAt,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "charCodeAt": {
-      "value": String.prototype.charCodeAt,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "codePointAt": {
-      "value": String.prototype.codePointAt,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "concat": {
-      "value": String.prototype.concat,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "endsWith": {
-      "value": String.prototype.endsWith,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "fontcolor": {
-      "value": String.prototype.fontcolor,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "fontsize": {
-      "value": String.prototype.fontsize,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "fixed": {
-      "value": String.prototype.fixed,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "includes": {
-      "value": String.prototype.includes,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "indexOf": {
-      "value": String.prototype.indexOf,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "isWellFormed": {
-      "value": String.prototype.isWellFormed,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "italics": {
-      "value": String.prototype.italics,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "lastIndexOf": {
-      "value": String.prototype.lastIndexOf,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "link": {
-      "value": String.prototype.link,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "localeCompare": {
-      "value": String.prototype.localeCompare,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "match": {
-      "value": String.prototype.match,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "matchAll": {
-      "value": String.prototype.matchAll,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "normalize": {
-      "value": String.prototype.normalize,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "padEnd": {
-      "value": String.prototype.padEnd,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "padStart": {
-      "value": String.prototype.padStart,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "repeat": {
-      "value": String.prototype.repeat,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "replace": {
-      "value": String.prototype.replace,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "replaceAll": {
-      "value": String.prototype.replaceAll,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "search": {
-      "value": String.prototype.search,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "slice": {
-      "value": String.prototype.slice,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "small": {
-      "value": String.prototype.small,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "split": {
-      "value": String.prototype.split,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "strike": {
-      "value": String.prototype.strike,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "sub": {
-      "value": String.prototype.sub,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "substr": {
-      "value": String.prototype.substr,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "substring": {
-      "value": String.prototype.substring,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "sup": {
-      "value": String.prototype.sup,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "startsWith": {
-      "value": String.prototype.startsWith,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "toString": {
-      "value": String.prototype.toString,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "toWellFormed": {
-      "value": String.prototype.toWellFormed,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "trim": {
-      "value": String.prototype.trim,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "trimStart": {
-      "value": String.prototype.trimStart,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "trimLeft": {
-      "value": String.prototype.trimStart,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "trimEnd": {
-      "value": String.prototype.trimEnd,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "trimRight": {
-      "value": String.prototype.trimEnd,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "toLocaleLowerCase": {
-      "value": String.prototype.toLocaleLowerCase,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "toLocaleUpperCase": {
-      "value": String.prototype.toLocaleUpperCase,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "toLowerCase": {
-      "value": String.prototype.toLowerCase,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "toUpperCase": {
-      "value": String.prototype.toUpperCase,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "valueOf": {
-      "value": String.prototype.valueOf,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
+  ],
+  [
+    String.prototype,
+    {
+      length: {
+        value: 0,
+        writable: false,
+        enumerable: false,
+        configurable: false
+      },
+      constructor: {
+        value: String,
+        ...notEnumerated
+      },
+      anchor: {
+        value: String.prototype.anchor,
+        ...notEnumerated
+      },
+      at: {
+        value: String.prototype.at,
+        ...notEnumerated
+      },
+      big: {
+        value: String.prototype.big,
+        ...notEnumerated
+      },
+      blink: {
+        value: String.prototype.blink,
+        ...notEnumerated
+      },
+      bold: {
+        value: String.prototype.bold,
+        ...notEnumerated
+      },
+      charAt: {
+        value: String.prototype.charAt,
+        ...notEnumerated
+      },
+      charCodeAt: {
+        value: String.prototype.charCodeAt,
+        ...notEnumerated
+      },
+      codePointAt: {
+        value: String.prototype.codePointAt,
+        ...notEnumerated
+      },
+      concat: {
+        value: String.prototype.concat,
+        ...notEnumerated
+      },
+      endsWith: {
+        value: String.prototype.endsWith,
+        ...notEnumerated
+      },
+      fontcolor: {
+        value: String.prototype.fontcolor,
+        ...notEnumerated
+      },
+      fontsize: {
+        value: String.prototype.fontsize,
+        ...notEnumerated
+      },
+      fixed: {
+        value: String.prototype.fixed,
+        ...notEnumerated
+      },
+      includes: {
+        value: String.prototype.includes,
+        ...notEnumerated
+      },
+      indexOf: {
+        value: String.prototype.indexOf,
+        ...notEnumerated
+      },
+      isWellFormed: {
+        value: String.prototype.isWellFormed,
+        ...notEnumerated
+      },
+      italics: {
+        value: String.prototype.italics,
+        ...notEnumerated
+      },
+      lastIndexOf: {
+        value: String.prototype.lastIndexOf,
+        ...notEnumerated
+      },
+      link: {
+        value: String.prototype.link,
+        ...notEnumerated
+      },
+      localeCompare: {
+        value: String.prototype.localeCompare,
+        ...notEnumerated
+      },
+      match: {
+        value: String.prototype.match,
+        ...notEnumerated
+      },
+      matchAll: {
+        value: String.prototype.matchAll,
+        ...notEnumerated
+      },
+      normalize: {
+        value: String.prototype.normalize,
+        ...notEnumerated
+      },
+      padEnd: {
+        value: String.prototype.padEnd,
+        ...notEnumerated
+      },
+      padStart: {
+        value: String.prototype.padStart,
+        ...notEnumerated
+      },
+      repeat: {
+        value: String.prototype.repeat,
+        ...notEnumerated
+      },
+      replace: {
+        value: String.prototype.replace,
+        ...notEnumerated
+      },
+      replaceAll: {
+        value: String.prototype.replaceAll,
+        ...notEnumerated
+      },
+      search: {
+        value: String.prototype.search,
+        ...notEnumerated
+      },
+      slice: {
+        value: String.prototype.slice,
+        ...notEnumerated
+      },
+      small: {
+        value: String.prototype.small,
+        ...notEnumerated
+      },
+      split: {
+        value: String.prototype.split,
+        ...notEnumerated
+      },
+      strike: {
+        value: String.prototype.strike,
+        ...notEnumerated
+      },
+      sub: {
+        value: String.prototype.sub,
+        ...notEnumerated
+      },
+      substr: {
+        value: String.prototype.substr,
+        ...notEnumerated
+      },
+      substring: {
+        value: String.prototype.substring,
+        ...notEnumerated
+      },
+      sup: {
+        value: String.prototype.sup,
+        ...notEnumerated
+      },
+      startsWith: {
+        value: String.prototype.startsWith,
+        ...notEnumerated
+      },
+      toString: {
+        value: String.prototype.toString,
+        ...notEnumerated
+      },
+      toWellFormed: {
+        value: String.prototype.toWellFormed,
+        ...notEnumerated
+      },
+      trim: {
+        value: String.prototype.trim,
+        ...notEnumerated
+      },
+      trimStart: {
+        value: String.prototype.trimStart,
+        ...notEnumerated
+      },
+      trimLeft: {
+        value: String.prototype.trimStart,
+        ...notEnumerated
+      },
+      trimEnd: {
+        value: String.prototype.trimEnd,
+        ...notEnumerated
+      },
+      trimRight: {
+        value: String.prototype.trimEnd,
+        ...notEnumerated
+      },
+      toLocaleLowerCase: {
+        value: String.prototype.toLocaleLowerCase,
+        ...notEnumerated
+      },
+      toLocaleUpperCase: {
+        value: String.prototype.toLocaleUpperCase,
+        ...notEnumerated
+      },
+      toLowerCase: {
+        value: String.prototype.toLowerCase,
+        ...notEnumerated
+      },
+      toUpperCase: {
+        value: String.prototype.toUpperCase,
+        ...notEnumerated
+      },
+      valueOf: {
+        value: String.prototype.valueOf,
+        ...notEnumerated
+      }
     }
-  }],
-  [Array, {
-    "length": {
-      "value": 1,
-      "writable": false,
-      "enumerable": false,
-      "configurable": true
-    },
-    "name": {
-      "value": "Array",
-      "writable": false,
-      "enumerable": false,
-      "configurable": true
-    },
-    "prototype": {
-      "value": Array.prototype,
-      "writable": false,
-      "enumerable": false,
-      "configurable": false
-    },
-    "isArray": {
-      "value": Array.isArray,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "from": {
-      "value": Array.from,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "fromAsync": {
-      "value": Array.fromAsync,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "of": {
-      "value": Array.of,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
+  ],
+  [
+    Array,
+    {
+      length: {
+        value: 1,
+        writable: false,
+        enumerable: false,
+        configurable: true
+      },
+      name: {
+        value: "Array",
+        writable: false,
+        enumerable: false,
+        configurable: true
+      },
+      prototype: {
+        value: Array.prototype,
+        writable: false,
+        enumerable: false,
+        configurable: false
+      },
+      isArray: {
+        value: Array.isArray,
+        ...notEnumerated
+      },
+      from: {
+        value: Array.from,
+        ...notEnumerated
+      },
+      fromAsync: {
+        value: Array.fromAsync,
+        ...notEnumerated
+      },
+      of: {
+        value: Array.of,
+        ...notEnumerated
+      }
     }
-  }],
-  [Array.prototype, {
-    "length": {
-      "value": 0,
-      "writable": true,
-      "enumerable": false,
-      "configurable": false
-    },
-    "constructor": {
-      "value": Array,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "at": {
-      "value": Array.prototype.at,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "concat": {
-      "value": Array.prototype.concat,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "copyWithin": {
-      "value": Array.prototype.copyWithin,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "fill": {
-      "value": Array.prototype.fill,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "find": {
-      "value": Array.prototype.find,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "findIndex": {
-      "value": Array.prototype.findIndex,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "findLast": {
-      "value": Array.prototype.findLast,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "findLastIndex": {
-      "value": Array.prototype.findLastIndex,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "lastIndexOf": {
-      "value": Array.prototype.lastIndexOf,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "pop": {
-      "value": Array.prototype.pop,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "push": {
-      "value": Array.prototype.push,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "reverse": {
-      "value": Array.prototype.reverse,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "shift": {
-      "value": Array.prototype.shift,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "unshift": {
-      "value": Array.prototype.unshift,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "slice": {
-      "value": Array.prototype.slice,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "sort": {
-      "value": Array.prototype.sort,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "splice": {
-      "value": Array.prototype.splice,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "includes": {
-      "value": Array.prototype.includes,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "indexOf": {
-      "value": Array.prototype.indexOf,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "join": {
-      "value": Array.prototype.join,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "keys": {
-      "value": Array.prototype.keys,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "entries": {
-      "value": Array.prototype.entries,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "values": {
-      "value": Array.prototype.values,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "forEach": {
-      "value": Array.prototype.forEach,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "filter": {
-      "value": Array.prototype.filter,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "flat": {
-      "value": Array.prototype.flat,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "flatMap": {
-      "value": Array.prototype.flatMap,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "map": {
-      "value": Array.prototype.map,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "every": {
-      "value": Array.prototype.every,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "some": {
-      "value": Array.prototype.some,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "reduce": {
-      "value": Array.prototype.reduce,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "reduceRight": {
-      "value": Array.prototype.reduceRight,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "toReversed": {
-      "value": Array.prototype.toReversed,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "toSorted": {
-      "value": Array.prototype.toSorted,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "toSpliced": {
-      "value": Array.prototype.toSpliced,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "with": {
-      "value": Array.prototype.with,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "toLocaleString": {
-      "value": Array.prototype.toLocaleString,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "toString": {
-      "value": Array.prototype.toString,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
+  ],
+  [
+    Array.prototype,
+    {
+      length: {
+        value: 0,
+        writable: true,
+        enumerable: false,
+        configurable: false
+      },
+      constructor: {
+        value: Array,
+        ...notEnumerated
+      },
+      at: {
+        value: Array.prototype.at,
+        ...notEnumerated
+      },
+      concat: {
+        value: Array.prototype.concat,
+        ...notEnumerated
+      },
+      copyWithin: {
+        value: Array.prototype.copyWithin,
+        ...notEnumerated
+      },
+      fill: {
+        value: Array.prototype.fill,
+        ...notEnumerated
+      },
+      find: {
+        value: Array.prototype.find,
+        ...notEnumerated
+      },
+      findIndex: {
+        value: Array.prototype.findIndex,
+        ...notEnumerated
+      },
+      findLast: {
+        value: Array.prototype.findLast,
+        ...notEnumerated
+      },
+      findLastIndex: {
+        value: Array.prototype.findLastIndex,
+        ...notEnumerated
+      },
+      lastIndexOf: {
+        value: Array.prototype.lastIndexOf,
+        ...notEnumerated
+      },
+      pop: {
+        value: Array.prototype.pop,
+        ...notEnumerated
+      },
+      push: {
+        value: Array.prototype.push,
+        ...notEnumerated
+      },
+      reverse: {
+        value: Array.prototype.reverse,
+        ...notEnumerated
+      },
+      shift: {
+        value: Array.prototype.shift,
+        ...notEnumerated
+      },
+      unshift: {
+        value: Array.prototype.unshift,
+        ...notEnumerated
+      },
+      slice: {
+        value: Array.prototype.slice,
+        ...notEnumerated
+      },
+      sort: {
+        value: Array.prototype.sort,
+        ...notEnumerated
+      },
+      splice: {
+        value: Array.prototype.splice,
+        ...notEnumerated
+      },
+      includes: {
+        value: Array.prototype.includes,
+        ...notEnumerated
+      },
+      indexOf: {
+        value: Array.prototype.indexOf,
+        ...notEnumerated
+      },
+      join: {
+        value: Array.prototype.join,
+        ...notEnumerated
+      },
+      keys: {
+        value: Array.prototype.keys,
+        ...notEnumerated
+      },
+      entries: {
+        value: Array.prototype.entries,
+        ...notEnumerated
+      },
+      values: {
+        value: Array.prototype.values,
+        ...notEnumerated
+      },
+      forEach: {
+        value: Array.prototype.forEach,
+        ...notEnumerated
+      },
+      filter: {
+        value: Array.prototype.filter,
+        ...notEnumerated
+      },
+      flat: {
+        value: Array.prototype.flat,
+        ...notEnumerated
+      },
+      flatMap: {
+        value: Array.prototype.flatMap,
+        ...notEnumerated
+      },
+      map: {
+        value: Array.prototype.map,
+        ...notEnumerated
+      },
+      every: {
+        value: Array.prototype.every,
+        ...notEnumerated
+      },
+      some: {
+        value: Array.prototype.some,
+        ...notEnumerated
+      },
+      reduce: {
+        value: Array.prototype.reduce,
+        ...notEnumerated
+      },
+      reduceRight: {
+        value: Array.prototype.reduceRight,
+        ...notEnumerated
+      },
+      toReversed: {
+        value: Array.prototype.toReversed,
+        ...notEnumerated
+      },
+      toSorted: {
+        value: Array.prototype.toSorted,
+        ...notEnumerated
+      },
+      toSpliced: {
+        value: Array.prototype.toSpliced,
+        ...notEnumerated
+      },
+      with: {
+        value: Array.prototype.with,
+        ...notEnumerated
+      },
+      toLocaleString: {
+        value: Array.prototype.toLocaleString,
+        ...notEnumerated
+      },
+      toString: {
+        value: Array.prototype.toString,
+        ...notEnumerated
+      }
     }
-  }],
-  [RegExp, {
-    "length": {
-      "value": 2,
-      "writable": false,
-      "enumerable": false,
-      "configurable": true
-    },
-    "name": {
-      "value": "RegExp",
-      "writable": false,
-      "enumerable": false,
-      "configurable": true
-    },
-    "prototype": {
-      "value": RegExp.prototype,
-      "writable": false,
-      "enumerable": false,
-      "configurable": false
-    },
-    "input": {
-      "get": Object.getOwnPropertyDescriptor(RegExp, "input").get,
-      "set": Object.getOwnPropertyDescriptor(RegExp, "input").set,
-      "enumerable": false,
-      "configurable": true
-    },
-    "\$_": {
-      "get": Object.getOwnPropertyDescriptor(RegExp, "\$_").get,
-      "set": Object.getOwnPropertyDescriptor(RegExp, "\$_").set,
-      "enumerable": false,
-      "configurable": true
-    },
-    "lastMatch": {
-      "get": Object.getOwnPropertyDescriptor(RegExp, "lastMatch").get,
-      "set": Object.getOwnPropertyDescriptor(RegExp, "lastMatch").set,
-      "enumerable": false,
-      "configurable": true
-    },
-    "\$&": {
-      "get": Object.getOwnPropertyDescriptor(RegExp, "\$&").get,
-      "set": Object.getOwnPropertyDescriptor(RegExp, "\$&").set,
-      "enumerable": false,
-      "configurable": true
-    },
-    "lastParen": {
-      "get": Object.getOwnPropertyDescriptor(RegExp, "lastParen").get,
-      "set": Object.getOwnPropertyDescriptor(RegExp, "lastParen").set,
-      "enumerable": false,
-      "configurable": true
-    },
-    "\$+": {
-      "get": Object.getOwnPropertyDescriptor(RegExp, "\$+").get,
-      "set": Object.getOwnPropertyDescriptor(RegExp, "\$+").set,
-      "enumerable": false,
-      "configurable": true
-    },
-    "leftContext": {
-      "get": Object.getOwnPropertyDescriptor(RegExp, "leftContext").get,
-      "set": Object.getOwnPropertyDescriptor(RegExp, "leftContext").set,
-      "enumerable": false,
-      "configurable": true
-    },
-    "\$\`": {
-      "get": Object.getOwnPropertyDescriptor(RegExp, "\$\`").get,
-      "set": Object.getOwnPropertyDescriptor(RegExp, "\$\`").set,
-      "enumerable": false,
-      "configurable": true
-    },
-    "rightContext": {
-      "get": Object.getOwnPropertyDescriptor(RegExp, "rightContext").get,
-      "set": Object.getOwnPropertyDescriptor(RegExp, "rightContext").set,
-      "enumerable": false,
-      "configurable": true
-    },
-    "\$'": {
-      "get": Object.getOwnPropertyDescriptor(RegExp, "\$'").get,
-      "set": Object.getOwnPropertyDescriptor(RegExp, "\$'").set,
-      "enumerable": false,
-      "configurable": true
-    },
-    "\$1": {
-      "get": Object.getOwnPropertyDescriptor(RegExp, "\$1").get,
-      "set": Object.getOwnPropertyDescriptor(RegExp, "\$1").set,
-      "enumerable": false,
-      "configurable": true
-    },
-    "\$2": {
-      "get": Object.getOwnPropertyDescriptor(RegExp, "\$2").get,
-      "set": Object.getOwnPropertyDescriptor(RegExp, "\$2").set,
-      "enumerable": false,
-      "configurable": true
-    },
-    "\$3": {
-      "get": Object.getOwnPropertyDescriptor(RegExp, "\$3").get,
-      "set": Object.getOwnPropertyDescriptor(RegExp, "\$3").set,
-      "enumerable": false,
-      "configurable": true
-    },
-    "\$4": {
-      "get": Object.getOwnPropertyDescriptor(RegExp, "\$4").get,
-      "set": Object.getOwnPropertyDescriptor(RegExp, "\$4").set,
-      "enumerable": false,
-      "configurable": true
-    },
-    "\$5": {
-      "get": Object.getOwnPropertyDescriptor(RegExp, "\$5").get,
-      "set": Object.getOwnPropertyDescriptor(RegExp, "\$5").set,
-      "enumerable": false,
-      "configurable": true
-    },
-    "\$6": {
-      "get": Object.getOwnPropertyDescriptor(RegExp, "\$6").get,
-      "set": Object.getOwnPropertyDescriptor(RegExp, "\$6").set,
-      "enumerable": false,
-      "configurable": true
-    },
-    "\$7": {
-      "get": Object.getOwnPropertyDescriptor(RegExp, "\$7").get,
-      "set": Object.getOwnPropertyDescriptor(RegExp, "\$7").set,
-      "enumerable": false,
-      "configurable": true
-    },
-    "\$8": {
-      "get": Object.getOwnPropertyDescriptor(RegExp, "\$8").get,
-      "set": Object.getOwnPropertyDescriptor(RegExp, "\$8").set,
-      "enumerable": false,
-      "configurable": true
-    },
-    "\$9": {
-      "get": Object.getOwnPropertyDescriptor(RegExp, "\$9").get,
-      "set": Object.getOwnPropertyDescriptor(RegExp, "\$9").set,
-      "enumerable": false,
-      "configurable": true
+  ],
+  [
+    RegExp,
+    {
+      length: {
+        value: 2,
+        writable: false,
+        enumerable: false,
+        configurable: true
+      },
+      name: {
+        value: "RegExp",
+        writable: false,
+        enumerable: false,
+        configurable: true
+      },
+      prototype: {
+        value: RegExp.prototype,
+        writable: false,
+        enumerable: false,
+        configurable: false
+      },
+      input: {
+        get: Object.getOwnPropertyDescriptor(RegExp, "input").get,
+        set: Object.getOwnPropertyDescriptor(RegExp, "input").set,
+        enumerable: false,
+        configurable: true
+      },
+      \$_: {
+        get: Object.getOwnPropertyDescriptor(RegExp, "\$_").get,
+        set: Object.getOwnPropertyDescriptor(RegExp, "\$_").set,
+        enumerable: false,
+        configurable: true
+      },
+      lastMatch: {
+        get: Object.getOwnPropertyDescriptor(RegExp, "lastMatch").get,
+        set: Object.getOwnPropertyDescriptor(RegExp, "lastMatch").set,
+        enumerable: false,
+        configurable: true
+      },
+      "\$&": {
+        get: Object.getOwnPropertyDescriptor(RegExp, "\$&").get,
+        set: Object.getOwnPropertyDescriptor(RegExp, "\$&").set,
+        enumerable: false,
+        configurable: true
+      },
+      lastParen: {
+        get: Object.getOwnPropertyDescriptor(RegExp, "lastParen").get,
+        set: Object.getOwnPropertyDescriptor(RegExp, "lastParen").set,
+        enumerable: false,
+        configurable: true
+      },
+      "\$+": {
+        get: Object.getOwnPropertyDescriptor(RegExp, "\$+").get,
+        set: Object.getOwnPropertyDescriptor(RegExp, "\$+").set,
+        enumerable: false,
+        configurable: true
+      },
+      leftContext: {
+        get: Object.getOwnPropertyDescriptor(RegExp, "leftContext").get,
+        set: Object.getOwnPropertyDescriptor(RegExp, "leftContext").set,
+        enumerable: false,
+        configurable: true
+      },
+      "\$\`": {
+        get: Object.getOwnPropertyDescriptor(RegExp, "\$\`").get,
+        set: Object.getOwnPropertyDescriptor(RegExp, "\$\`").set,
+        enumerable: false,
+        configurable: true
+      },
+      rightContext: {
+        get: Object.getOwnPropertyDescriptor(RegExp, "rightContext").get,
+        set: Object.getOwnPropertyDescriptor(RegExp, "rightContext").set,
+        enumerable: false,
+        configurable: true
+      },
+      "\$'": {
+        get: Object.getOwnPropertyDescriptor(RegExp, "\$'").get,
+        set: Object.getOwnPropertyDescriptor(RegExp, "\$'").set,
+        enumerable: false,
+        configurable: true
+      },
+      \$1: {
+        get: Object.getOwnPropertyDescriptor(RegExp, "\$1").get,
+        set: Object.getOwnPropertyDescriptor(RegExp, "\$1").set,
+        enumerable: false,
+        configurable: true
+      },
+      \$2: {
+        get: Object.getOwnPropertyDescriptor(RegExp, "\$2").get,
+        set: Object.getOwnPropertyDescriptor(RegExp, "\$2").set,
+        enumerable: false,
+        configurable: true
+      },
+      \$3: {
+        get: Object.getOwnPropertyDescriptor(RegExp, "\$3").get,
+        set: Object.getOwnPropertyDescriptor(RegExp, "\$3").set,
+        enumerable: false,
+        configurable: true
+      },
+      \$4: {
+        get: Object.getOwnPropertyDescriptor(RegExp, "\$4").get,
+        set: Object.getOwnPropertyDescriptor(RegExp, "\$4").set,
+        enumerable: false,
+        configurable: true
+      },
+      \$5: {
+        get: Object.getOwnPropertyDescriptor(RegExp, "\$5").get,
+        set: Object.getOwnPropertyDescriptor(RegExp, "\$5").set,
+        enumerable: false,
+        configurable: true
+      },
+      \$6: {
+        get: Object.getOwnPropertyDescriptor(RegExp, "\$6").get,
+        set: Object.getOwnPropertyDescriptor(RegExp, "\$6").set,
+        enumerable: false,
+        configurable: true
+      },
+      \$7: {
+        get: Object.getOwnPropertyDescriptor(RegExp, "\$7").get,
+        set: Object.getOwnPropertyDescriptor(RegExp, "\$7").set,
+        enumerable: false,
+        configurable: true
+      },
+      \$8: {
+        get: Object.getOwnPropertyDescriptor(RegExp, "\$8").get,
+        set: Object.getOwnPropertyDescriptor(RegExp, "\$8").set,
+        enumerable: false,
+        configurable: true
+      },
+      \$9: {
+        get: Object.getOwnPropertyDescriptor(RegExp, "\$9").get,
+        set: Object.getOwnPropertyDescriptor(RegExp, "\$9").set,
+        enumerable: false,
+        configurable: true
+      }
     }
-  }],
-  [RegExp.prototype, {
-    "constructor": {
-      "value": RegExp,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "exec": {
-      "value": RegExp.prototype.exec,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "dotAll": {
-      "get": Object.getOwnPropertyDescriptor(RegExp.prototype, "dotAll").get,
-      "set": void 0,
-      "enumerable": false,
-      "configurable": true
-    },
-    "flags": {
-      "get": Object.getOwnPropertyDescriptor(RegExp.prototype, "flags").get,
-      "set": void 0,
-      "enumerable": false,
-      "configurable": true
-    },
-    "global": {
-      "get": Object.getOwnPropertyDescriptor(RegExp.prototype, "global").get,
-      "set": void 0,
-      "enumerable": false,
-      "configurable": true
-    },
-    "hasIndices": {
-      "get": Object.getOwnPropertyDescriptor(RegExp.prototype, "hasIndices").get,
-      "set": void 0,
-      "enumerable": false,
-      "configurable": true
-    },
-    "ignoreCase": {
-      "get": Object.getOwnPropertyDescriptor(RegExp.prototype, "ignoreCase").get,
-      "set": void 0,
-      "enumerable": false,
-      "configurable": true
-    },
-    "multiline": {
-      "get": Object.getOwnPropertyDescriptor(RegExp.prototype, "multiline").get,
-      "set": void 0,
-      "enumerable": false,
-      "configurable": true
-    },
-    "source": {
-      "get": Object.getOwnPropertyDescriptor(RegExp.prototype, "source").get,
-      "set": void 0,
-      "enumerable": false,
-      "configurable": true
-    },
-    "sticky": {
-      "get": Object.getOwnPropertyDescriptor(RegExp.prototype, "sticky").get,
-      "set": void 0,
-      "enumerable": false,
-      "configurable": true
-    },
-    "unicode": {
-      "get": Object.getOwnPropertyDescriptor(RegExp.prototype, "unicode").get,
-      "set": void 0,
-      "enumerable": false,
-      "configurable": true
-    },
-    "unicodeSets": {
-      "get": Object.getOwnPropertyDescriptor(RegExp.prototype, "unicodeSets").get,
-      "set": void 0,
-      "enumerable": false,
-      "configurable": true
-    },
-    "compile": {
-      "value": RegExp.prototype.compile,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "toString": {
-      "value": RegExp.prototype.toString,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "test": {
-      "value": RegExp.prototype.test,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
+  ],
+  [
+    RegExp.prototype,
+    {
+      constructor: {
+        value: RegExp,
+        ...notEnumerated
+      },
+      exec: {
+        value: RegExp.prototype.exec,
+        ...notEnumerated
+      },
+      dotAll: {
+        get: Object.getOwnPropertyDescriptor(RegExp.prototype, "dotAll").get,
+        set: void 0,
+        enumerable: false,
+        configurable: true
+      },
+      flags: {
+        get: Object.getOwnPropertyDescriptor(RegExp.prototype, "flags").get,
+        set: void 0,
+        enumerable: false,
+        configurable: true
+      },
+      global: {
+        get: Object.getOwnPropertyDescriptor(RegExp.prototype, "global").get,
+        set: void 0,
+        enumerable: false,
+        configurable: true
+      },
+      hasIndices: {
+        get: Object.getOwnPropertyDescriptor(RegExp.prototype, "hasIndices").get,
+        set: void 0,
+        enumerable: false,
+        configurable: true
+      },
+      ignoreCase: {
+        get: Object.getOwnPropertyDescriptor(RegExp.prototype, "ignoreCase").get,
+        set: void 0,
+        enumerable: false,
+        configurable: true
+      },
+      multiline: {
+        get: Object.getOwnPropertyDescriptor(RegExp.prototype, "multiline").get,
+        set: void 0,
+        enumerable: false,
+        configurable: true
+      },
+      source: {
+        get: Object.getOwnPropertyDescriptor(RegExp.prototype, "source").get,
+        set: void 0,
+        enumerable: false,
+        configurable: true
+      },
+      sticky: {
+        get: Object.getOwnPropertyDescriptor(RegExp.prototype, "sticky").get,
+        set: void 0,
+        enumerable: false,
+        configurable: true
+      },
+      unicode: {
+        get: Object.getOwnPropertyDescriptor(RegExp.prototype, "unicode").get,
+        set: void 0,
+        enumerable: false,
+        configurable: true
+      },
+      unicodeSets: {
+        get: Object.getOwnPropertyDescriptor(RegExp.prototype, "unicodeSets").get,
+        set: void 0,
+        enumerable: false,
+        configurable: true
+      },
+      compile: {
+        value: RegExp.prototype.compile,
+        ...notEnumerated
+      },
+      toString: {
+        value: RegExp.prototype.toString,
+        ...notEnumerated
+      },
+      test: {
+        value: RegExp.prototype.test,
+        ...notEnumerated
+      }
     }
-  }],
-  [Symbol, {
-    "length": {
-      "value": 0,
-      "writable": false,
-      "enumerable": false,
-      "configurable": true
-    },
-    "name": {
-      "value": "Symbol",
-      "writable": false,
-      "enumerable": false,
-      "configurable": true
-    },
-    "prototype": {
-      "value": Symbol.prototype,
-      "writable": false,
-      "enumerable": false,
-      "configurable": false
-    },
-    "for": {
-      "value": Symbol.for,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "keyFor": {
-      "value": Symbol.keyFor,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "asyncIterator": {
-      "value": Symbol.asyncIterator,
-      "writable": false,
-      "enumerable": false,
-      "configurable": false
-    },
-    "hasInstance": {
-      "value": Symbol.hasInstance,
-      "writable": false,
-      "enumerable": false,
-      "configurable": false
-    },
-    "isConcatSpreadable": {
-      "value": Symbol.isConcatSpreadable,
-      "writable": false,
-      "enumerable": false,
-      "configurable": false
-    },
-    "iterator": {
-      "value": Symbol.iterator,
-      "writable": false,
-      "enumerable": false,
-      "configurable": false
-    },
-    "match": {
-      "value": Symbol.match,
-      "writable": false,
-      "enumerable": false,
-      "configurable": false
-    },
-    "matchAll": {
-      "value": Symbol.matchAll,
-      "writable": false,
-      "enumerable": false,
-      "configurable": false
-    },
-    "replace": {
-      "value": Symbol.replace,
-      "writable": false,
-      "enumerable": false,
-      "configurable": false
-    },
-    "search": {
-      "value": Symbol.search,
-      "writable": false,
-      "enumerable": false,
-      "configurable": false
-    },
-    "species": {
-      "value": Symbol.species,
-      "writable": false,
-      "enumerable": false,
-      "configurable": false
-    },
-    "split": {
-      "value": Symbol.split,
-      "writable": false,
-      "enumerable": false,
-      "configurable": false
-    },
-    "toPrimitive": {
-      "value": Symbol.toPrimitive,
-      "writable": false,
-      "enumerable": false,
-      "configurable": false
-    },
-    "toStringTag": {
-      "value": Symbol.toStringTag,
-      "writable": false,
-      "enumerable": false,
-      "configurable": false
-    },
-    "unscopables": {
-      "value": Symbol.unscopables,
-      "writable": false,
-      "enumerable": false,
-      "configurable": false
-    },
-    "dispose": {
-      "value": Symbol.dispose,
-      "writable": false,
-      "enumerable": false,
-      "configurable": false
-    },
-    "asyncDispose": {
-      "value": Symbol.asyncDispose,
-      "writable": false,
-      "enumerable": false,
-      "configurable": false
-    },
-    "metadata": {
-      "value": Symbol.metadata,
-      "writable": false,
-      "enumerable": false,
-      "configurable": false
+  ],
+  [
+    Symbol,
+    {
+      length: {
+        value: 0,
+        writable: false,
+        enumerable: false,
+        configurable: true
+      },
+      name: {
+        value: "Symbol",
+        writable: false,
+        enumerable: false,
+        configurable: true
+      },
+      prototype: {
+        value: Symbol.prototype,
+        writable: false,
+        enumerable: false,
+        configurable: false
+      },
+      for: {
+        value: Symbol.for,
+        ...notEnumerated
+      },
+      keyFor: {
+        value: Symbol.keyFor,
+        ...notEnumerated
+      },
+      asyncIterator: {
+        value: Symbol.asyncIterator,
+        writable: false,
+        enumerable: false,
+        configurable: false
+      },
+      hasInstance: {
+        value: Symbol.hasInstance,
+        writable: false,
+        enumerable: false,
+        configurable: false
+      },
+      isConcatSpreadable: {
+        value: Symbol.isConcatSpreadable,
+        writable: false,
+        enumerable: false,
+        configurable: false
+      },
+      iterator: {
+        value: Symbol.iterator,
+        writable: false,
+        enumerable: false,
+        configurable: false
+      },
+      match: {
+        value: Symbol.match,
+        writable: false,
+        enumerable: false,
+        configurable: false
+      },
+      matchAll: {
+        value: Symbol.matchAll,
+        writable: false,
+        enumerable: false,
+        configurable: false
+      },
+      replace: {
+        value: Symbol.replace,
+        writable: false,
+        enumerable: false,
+        configurable: false
+      },
+      search: {
+        value: Symbol.search,
+        writable: false,
+        enumerable: false,
+        configurable: false
+      },
+      species: {
+        value: Symbol.species,
+        writable: false,
+        enumerable: false,
+        configurable: false
+      },
+      split: {
+        value: Symbol.split,
+        writable: false,
+        enumerable: false,
+        configurable: false
+      },
+      toPrimitive: {
+        value: Symbol.toPrimitive,
+        writable: false,
+        enumerable: false,
+        configurable: false
+      },
+      toStringTag: {
+        value: Symbol.toStringTag,
+        writable: false,
+        enumerable: false,
+        configurable: false
+      },
+      unscopables: {
+        value: Symbol.unscopables,
+        writable: false,
+        enumerable: false,
+        configurable: false
+      },
+      dispose: {
+        value: Symbol.dispose,
+        writable: false,
+        enumerable: false,
+        configurable: false
+      },
+      asyncDispose: {
+        value: Symbol.asyncDispose,
+        writable: false,
+        enumerable: false,
+        configurable: false
+      },
+      metadata: {
+        value: Symbol.metadata,
+        writable: false,
+        enumerable: false,
+        configurable: false
+      }
     }
-  }],
-  [Symbol.prototype, {
-    "constructor": {
-      "value": Symbol,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "toString": {
-      "value": Symbol.prototype.toString,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "valueOf": {
-      "value": Symbol.prototype.valueOf,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "description": {
-      "get": Object.getOwnPropertyDescriptor(Symbol.prototype, "description").get,
-      "set": void 0,
-      "enumerable": false,
-      "configurable": true
+  ],
+  [
+    Symbol.prototype,
+    {
+      constructor: {
+        value: Symbol,
+        ...notEnumerated
+      },
+      toString: {
+        value: Symbol.prototype.toString,
+        ...notEnumerated
+      },
+      valueOf: {
+        value: Symbol.prototype.valueOf,
+        ...notEnumerated
+      },
+      description: {
+        get: Object.getOwnPropertyDescriptor(Symbol.prototype, "description").get,
+        set: void 0,
+        enumerable: false,
+        configurable: true
+      }
     }
-  }],
-  [Error, {
-    "length": {
-      "value": 1,
-      "writable": false,
-      "enumerable": false,
-      "configurable": true
-    },
-    "name": {
-      "value": "Error",
-      "writable": false,
-      "enumerable": false,
-      "configurable": true
-    },
-    "prototype": {
-      "value": Error.prototype,
-      "writable": false,
-      "enumerable": false,
-      "configurable": false
-    },
-    "captureStackTrace": {
-      "value": Error.captureStackTrace,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "stackTraceLimit": {
-      "value": 10,
-      "writable": true,
-      "enumerable": true,
-      "configurable": true
+  ],
+  [
+    Error,
+    {
+      length: {
+        value: 1,
+        writable: false,
+        enumerable: false,
+        configurable: true
+      },
+      name: {
+        value: "Error",
+        writable: false,
+        enumerable: false,
+        configurable: true
+      },
+      prototype: {
+        value: Error.prototype,
+        writable: false,
+        enumerable: false,
+        configurable: false
+      },
+      captureStackTrace: {
+        value: Error.captureStackTrace,
+        ...notEnumerated
+      },
+      stackTraceLimit: {
+        value: 10,
+        writable: true,
+        enumerable: true,
+        configurable: true
+      }
     }
-  }],
-  [Error.prototype, {
-    "constructor": {
-      "value": Error,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "name": {
-      "value": "Error",
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "message": {
-      "value": "",
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "toString": {
-      "value": Error.prototype.toString,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
+  ],
+  [
+    Error.prototype,
+    {
+      constructor: {
+        value: Error,
+        ...notEnumerated
+      },
+      name: {
+        value: "Error",
+        ...notEnumerated
+      },
+      message: {
+        value: "",
+        ...notEnumerated
+      },
+      toString: {
+        value: Error.prototype.toString,
+        ...notEnumerated
+      }
     }
-  }],
-  [Promise, {
-    "length": {
-      "value": 1,
-      "writable": false,
-      "enumerable": false,
-      "configurable": true
-    },
-    "name": {
-      "value": "Promise",
-      "writable": false,
-      "enumerable": false,
-      "configurable": true
-    },
-    "prototype": {
-      "value": Promise.prototype,
-      "writable": false,
-      "enumerable": false,
-      "configurable": false
-    },
-    "all": {
-      "value": Promise.all,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "allSettled": {
-      "value": Promise.allSettled,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "any": {
-      "value": Promise.any,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "race": {
-      "value": Promise.race,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "resolve": {
-      "value": Promise.resolve,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "reject": {
-      "value": Promise.reject,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "withResolvers": {
-      "value": Promise.withResolvers,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "try": {
-      "value": Promise.try,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
+  ],
+  [
+    Promise,
+    {
+      length: {
+        value: 1,
+        writable: false,
+        enumerable: false,
+        configurable: true
+      },
+      name: {
+        value: "Promise",
+        writable: false,
+        enumerable: false,
+        configurable: true
+      },
+      prototype: {
+        value: Promise.prototype,
+        writable: false,
+        enumerable: false,
+        configurable: false
+      },
+      all: {
+        value: Promise.all,
+        ...notEnumerated
+      },
+      allSettled: {
+        value: Promise.allSettled,
+        ...notEnumerated
+      },
+      any: {
+        value: Promise.any,
+        ...notEnumerated
+      },
+      race: {
+        value: Promise.race,
+        ...notEnumerated
+      },
+      resolve: {
+        value: Promise.resolve,
+        ...notEnumerated
+      },
+      reject: {
+        value: Promise.reject,
+        ...notEnumerated
+      },
+      withResolvers: {
+        value: Promise.withResolvers,
+        ...notEnumerated
+      },
+      try: {
+        value: Promise.try,
+        ...notEnumerated
+      }
     }
-  }],
-  [Promise.prototype, {
-    "constructor": {
-      "value": Promise,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "then": {
-      "value": Promise.prototype.then,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "catch": {
-      "value": Promise.prototype.catch,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
-    },
-    "finally": {
-      "value": Promise.prototype.finally,
-      "writable": true,
-      "enumerable": false,
-      "configurable": true
+  ],
+  [
+    Promise.prototype,
+    {
+      constructor: {
+        value: Promise,
+        ...notEnumerated
+      },
+      then: {
+        value: Promise.prototype.then,
+        ...notEnumerated
+      },
+      catch: {
+        value: Promise.prototype.catch,
+        ...notEnumerated
+      },
+      finally: {
+        value: Promise.prototype.finally,
+        ...notEnumerated
+      }
     }
-  }],
-  [Set, {
-    length: {
-      value: 0,
-      writable: false,
-      enumerable: false,
-      configurable: true
-    },
-    name: {
-      value: "Set",
-      writable: false,
-      enumerable: false,
-      configurable: true
-    },
-    prototype: {
-      value: Set.prototype,
-      writable: false,
-      enumerable: false,
-      configurable: false
+  ],
+  [
+    Set,
+    {
+      length: {
+        value: 0,
+        writable: false,
+        enumerable: false,
+        configurable: true
+      },
+      name: {
+        value: "Set",
+        writable: false,
+        enumerable: false,
+        configurable: true
+      },
+      prototype: {
+        value: Set.prototype,
+        writable: false,
+        enumerable: false,
+        configurable: false
+      }
     }
-  }],
-  [Set.prototype, {
-    constructor: {
-      value: Set,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    has: {
-      value: Set.prototype.has,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    add: {
-      value: Set.prototype.add,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    delete: {
-      value: Set.prototype.delete,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    clear: {
-      value: Set.prototype.clear,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    entries: {
-      value: Set.prototype.entries,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    forEach: {
-      value: Set.prototype.forEach,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    size: {
-      get: Object.getOwnPropertyDescriptor(Set.prototype, "size").get,
-      set: void 0,
-      enumerable: false,
-      configurable: true
-    },
-    values: {
-      value: Set.prototype.values,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    keys: {
-      value: Set.prototype.values,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    union: {
-      value: Set.prototype.union,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    intersection: {
-      value: Set.prototype.intersection,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    difference: {
-      value: Set.prototype.difference,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    symmetricDifference: {
-      value: Set.prototype.symmetricDifference,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    isSubsetOf: {
-      value: Set.prototype.isSubsetOf,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    isSupersetOf: {
-      value: Set.prototype.isSupersetOf,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    isDisjointFrom: {
-      value: Set.prototype.isDisjointFrom,
-      writable: true,
-      enumerable: false,
-      configurable: true
+  ],
+  [
+    Set.prototype,
+    {
+      constructor: {
+        value: Set,
+        ...notEnumerated
+      },
+      has: {
+        value: Set.prototype.has,
+        ...notEnumerated
+      },
+      add: {
+        value: Set.prototype.add,
+        ...notEnumerated
+      },
+      delete: {
+        value: Set.prototype.delete,
+        ...notEnumerated
+      },
+      clear: {
+        value: Set.prototype.clear,
+        ...notEnumerated
+      },
+      entries: {
+        value: Set.prototype.entries,
+        ...notEnumerated
+      },
+      forEach: {
+        value: Set.prototype.forEach,
+        ...notEnumerated
+      },
+      size: {
+        get: Object.getOwnPropertyDescriptor(Set.prototype, "size").get,
+        set: void 0,
+        enumerable: false,
+        configurable: true
+      },
+      values: {
+        value: Set.prototype.values,
+        ...notEnumerated
+      },
+      keys: {
+        value: Set.prototype.values,
+        ...notEnumerated
+      },
+      union: {
+        value: Set.prototype.union,
+        ...notEnumerated
+      },
+      intersection: {
+        value: Set.prototype.intersection,
+        ...notEnumerated
+      },
+      difference: {
+        value: Set.prototype.difference,
+        ...notEnumerated
+      },
+      symmetricDifference: {
+        value: Set.prototype.symmetricDifference,
+        ...notEnumerated
+      },
+      isSubsetOf: {
+        value: Set.prototype.isSubsetOf,
+        ...notEnumerated
+      },
+      isSupersetOf: {
+        value: Set.prototype.isSupersetOf,
+        ...notEnumerated
+      },
+      isDisjointFrom: {
+        value: Set.prototype.isDisjointFrom,
+        ...notEnumerated
+      }
     }
-  }],
-  [Map, {
-    length: {
-      value: 0,
-      writable: false,
-      enumerable: false,
-      configurable: true
-    },
-    name: {
-      value: "Map",
-      writable: false,
-      enumerable: false,
-      configurable: true
-    },
-    prototype: {
-      value: Map.prototype,
-      writable: false,
-      enumerable: false,
-      configurable: false
-    },
-    groupBy: {
-      value: Map.groupBy,
-      writable: true,
-      enumerable: false,
-      configurable: true
+  ],
+  [
+    Map,
+    {
+      length: {
+        value: 0,
+        writable: false,
+        enumerable: false,
+        configurable: true
+      },
+      name: {
+        value: "Map",
+        writable: false,
+        enumerable: false,
+        configurable: true
+      },
+      prototype: {
+        value: Map.prototype,
+        writable: false,
+        enumerable: false,
+        configurable: false
+      },
+      groupBy: {
+        value: Map.groupBy,
+        ...notEnumerated
+      }
     }
-  }],
-  [Map.prototype, {
-    constructor: {
-      value: Map,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    get: {
-      value: Map.prototype.get,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    set: {
-      value: Map.prototype.set,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    has: {
-      value: Map.prototype.has,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    delete: {
-      value: Map.prototype.delete,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    clear: {
-      value: Map.prototype.clear,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    entries: {
-      value: Map.prototype.entries,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    forEach: {
-      value: Map.prototype.forEach,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    keys: {
-      value: Map.prototype.keys,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    size: {
-      get: Object.getOwnPropertyDescriptor(Map.prototype, "size").get,
-      set: void 0,
-      enumerable: false,
-      configurable: true
-    },
-    values: {
-      value: Map.prototype.values,
-      writable: true,
-      enumerable: false,
-      configurable: true
+  ],
+  [
+    Map.prototype,
+    {
+      constructor: {
+        value: Map,
+        ...notEnumerated
+      },
+      get: {
+        value: Map.prototype.get,
+        ...notEnumerated
+      },
+      set: {
+        value: Map.prototype.set,
+        ...notEnumerated
+      },
+      has: {
+        value: Map.prototype.has,
+        ...notEnumerated
+      },
+      delete: {
+        value: Map.prototype.delete,
+        ...notEnumerated
+      },
+      clear: {
+        value: Map.prototype.clear,
+        ...notEnumerated
+      },
+      entries: {
+        value: Map.prototype.entries,
+        ...notEnumerated
+      },
+      forEach: {
+        value: Map.prototype.forEach,
+        ...notEnumerated
+      },
+      keys: {
+        value: Map.prototype.keys,
+        ...notEnumerated
+      },
+      size: {
+        get: Object.getOwnPropertyDescriptor(Map.prototype, "size").get,
+        set: void 0,
+        enumerable: false,
+        configurable: true
+      },
+      values: {
+        value: Map.prototype.values,
+        ...notEnumerated
+      }
     }
-  }],
-  [Math, {
-    abs: {
-      value: Math.abs,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    acos: {
-      value: Math.acos,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    acosh: {
-      value: Math.acosh,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    asin: {
-      value: Math.asin,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    asinh: {
-      value: Math.asinh,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    atan: {
-      value: Math.atan,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    atanh: {
-      value: Math.atanh,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    atan2: {
-      value: Math.atan2,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    ceil: {
-      value: Math.ceil,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    cbrt: {
-      value: Math.cbrt,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    expm1: {
-      value: Math.expm1,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    clz32: {
-      value: Math.clz32,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    cos: {
-      value: Math.cos,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    cosh: {
-      value: Math.cosh,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    exp: {
-      value: Math.exp,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    floor: {
-      value: Math.floor,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    fround: {
-      value: Math.fround,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    hypot: {
-      value: Math.hypot,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    imul: {
-      value: Math.imul,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    log: {
-      value: Math.log,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    log1p: {
-      value: Math.log1p,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    log2: {
-      value: Math.log2,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    log10: {
-      value: Math.log10,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    max: {
-      value: Math.max,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    min: {
-      value: Math.min,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    pow: {
-      value: Math.pow,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    random: {
-      value: Math.random,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    round: {
-      value: Math.round,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    sign: {
-      value: Math.sign,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    sin: {
-      value: Math.sin,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    sinh: {
-      value: Math.sinh,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    sqrt: {
-      value: Math.sqrt,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    tan: {
-      value: Math.tan,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    tanh: {
-      value: Math.tanh,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    trunc: {
-      value: Math.trunc,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    E: {
-      value: 2.718281828459045,
-      writable: false,
-      enumerable: false,
-      configurable: false
-    },
-    LN10: {
-      value: 2.302585092994046,
-      writable: false,
-      enumerable: false,
-      configurable: false
-    },
-    LN2: {
-      value: 0.6931471805599453,
-      writable: false,
-      enumerable: false,
-      configurable: false
-    },
-    LOG10E: {
-      value: 0.4342944819032518,
-      writable: false,
-      enumerable: false,
-      configurable: false
-    },
-    LOG2E: {
-      value: 1.4426950408889634,
-      writable: false,
-      enumerable: false,
-      configurable: false
-    },
-    PI: {
-      value: 3.141592653589793,
-      writable: false,
-      enumerable: false,
-      configurable: false
-    },
-    SQRT1_2: {
-      value: 0.7071067811865476,
-      writable: false,
-      enumerable: false,
-      configurable: false
-    },
-    SQRT2: {
-      value: 1.4142135623730951,
-      writable: false,
-      enumerable: false,
-      configurable: false
-    },
-    f16round: {
-      value: Math.f16round,
-      writable: true,
-      enumerable: false,
-      configurable: true
+  ],
+  [
+    Math,
+    {
+      abs: {
+        value: Math.abs,
+        ...notEnumerated
+      },
+      acos: {
+        value: Math.acos,
+        ...notEnumerated
+      },
+      acosh: {
+        value: Math.acosh,
+        ...notEnumerated
+      },
+      asin: {
+        value: Math.asin,
+        ...notEnumerated
+      },
+      asinh: {
+        value: Math.asinh,
+        ...notEnumerated
+      },
+      atan: {
+        value: Math.atan,
+        ...notEnumerated
+      },
+      atanh: {
+        value: Math.atanh,
+        ...notEnumerated
+      },
+      atan2: {
+        value: Math.atan2,
+        ...notEnumerated
+      },
+      ceil: {
+        value: Math.ceil,
+        ...notEnumerated
+      },
+      cbrt: {
+        value: Math.cbrt,
+        ...notEnumerated
+      },
+      expm1: {
+        value: Math.expm1,
+        ...notEnumerated
+      },
+      clz32: {
+        value: Math.clz32,
+        ...notEnumerated
+      },
+      cos: {
+        value: Math.cos,
+        ...notEnumerated
+      },
+      cosh: {
+        value: Math.cosh,
+        ...notEnumerated
+      },
+      exp: {
+        value: Math.exp,
+        ...notEnumerated
+      },
+      floor: {
+        value: Math.floor,
+        ...notEnumerated
+      },
+      fround: {
+        value: Math.fround,
+        ...notEnumerated
+      },
+      hypot: {
+        value: Math.hypot,
+        ...notEnumerated
+      },
+      imul: {
+        value: Math.imul,
+        ...notEnumerated
+      },
+      log: {
+        value: Math.log,
+        ...notEnumerated
+      },
+      log1p: {
+        value: Math.log1p,
+        ...notEnumerated
+      },
+      log2: {
+        value: Math.log2,
+        ...notEnumerated
+      },
+      log10: {
+        value: Math.log10,
+        ...notEnumerated
+      },
+      max: {
+        value: Math.max,
+        ...notEnumerated
+      },
+      min: {
+        value: Math.min,
+        ...notEnumerated
+      },
+      pow: {
+        value: Math.pow,
+        ...notEnumerated
+      },
+      random: {
+        value: Math.random,
+        ...notEnumerated
+      },
+      round: {
+        value: Math.round,
+        ...notEnumerated
+      },
+      sign: {
+        value: Math.sign,
+        ...notEnumerated
+      },
+      sin: {
+        value: Math.sin,
+        ...notEnumerated
+      },
+      sinh: {
+        value: Math.sinh,
+        ...notEnumerated
+      },
+      sqrt: {
+        value: Math.sqrt,
+        ...notEnumerated
+      },
+      tan: {
+        value: Math.tan,
+        ...notEnumerated
+      },
+      tanh: {
+        value: Math.tanh,
+        ...notEnumerated
+      },
+      trunc: {
+        value: Math.trunc,
+        ...notEnumerated
+      },
+      E: {
+        value: 2.718281828459045,
+        writable: false,
+        enumerable: false,
+        configurable: false
+      },
+      LN10: {
+        value: 2.302585092994046,
+        writable: false,
+        enumerable: false,
+        configurable: false
+      },
+      LN2: {
+        value: 0.6931471805599453,
+        writable: false,
+        enumerable: false,
+        configurable: false
+      },
+      LOG10E: {
+        value: 0.4342944819032518,
+        writable: false,
+        enumerable: false,
+        configurable: false
+      },
+      LOG2E: {
+        value: 1.4426950408889634,
+        writable: false,
+        enumerable: false,
+        configurable: false
+      },
+      PI: {
+        value: 3.141592653589793,
+        writable: false,
+        enumerable: false,
+        configurable: false
+      },
+      SQRT1_2: {
+        value: 0.7071067811865476,
+        writable: false,
+        enumerable: false,
+        configurable: false
+      },
+      SQRT2: {
+        value: 1.4142135623730951,
+        writable: false,
+        enumerable: false,
+        configurable: false
+      },
+      f16round: {
+        value: Math.f16round,
+        ...notEnumerated
+      }
     }
-  }],
-  [Reflect, {
-    defineProperty: {
-      value: Reflect.defineProperty,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    deleteProperty: {
-      value: Reflect.deleteProperty,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    apply: {
-      value: Reflect.apply,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    construct: {
-      value: Reflect.construct,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    get: {
-      value: Reflect.get,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    getOwnPropertyDescriptor: {
-      value: Reflect.getOwnPropertyDescriptor,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    getPrototypeOf: {
-      value: Reflect.getPrototypeOf,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    has: {
-      value: Reflect.has,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    isExtensible: {
-      value: Reflect.isExtensible,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    ownKeys: {
-      value: Reflect.ownKeys,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    preventExtensions: {
-      value: Reflect.preventExtensions,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    set: {
-      value: Reflect.set,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    setPrototypeOf: {
-      value: Reflect.setPrototypeOf,
-      writable: true,
-      enumerable: false,
-      configurable: true
+  ],
+  [
+    Reflect,
+    {
+      defineProperty: {
+        value: Reflect.defineProperty,
+        ...notEnumerated
+      },
+      deleteProperty: {
+        value: Reflect.deleteProperty,
+        ...notEnumerated
+      },
+      apply: {
+        value: Reflect.apply,
+        ...notEnumerated
+      },
+      construct: {
+        value: Reflect.construct,
+        ...notEnumerated
+      },
+      get: {
+        value: Reflect.get,
+        ...notEnumerated
+      },
+      getOwnPropertyDescriptor: {
+        value: Reflect.getOwnPropertyDescriptor,
+        ...notEnumerated
+      },
+      getPrototypeOf: {
+        value: Reflect.getPrototypeOf,
+        ...notEnumerated
+      },
+      has: {
+        value: Reflect.has,
+        ...notEnumerated
+      },
+      isExtensible: {
+        value: Reflect.isExtensible,
+        ...notEnumerated
+      },
+      ownKeys: {
+        value: Reflect.ownKeys,
+        ...notEnumerated
+      },
+      preventExtensions: {
+        value: Reflect.preventExtensions,
+        ...notEnumerated
+      },
+      set: {
+        value: Reflect.set,
+        ...notEnumerated
+      },
+      setPrototypeOf: {
+        value: Reflect.setPrototypeOf,
+        ...notEnumerated
+      }
     }
-  }],
-  [JSON, {
-    parse: {
-      value: JSON.parse,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    stringify: {
-      value: JSON.stringify,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    rawJSON: {
-      value: JSON.rawJSON,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    isRawJSON: {
-      value: JSON.isRawJSON,
-      writable: true,
-      enumerable: false,
-      configurable: true
+  ],
+  [
+    JSON,
+    {
+      parse: {
+        value: JSON.parse,
+        ...notEnumerated
+      },
+      stringify: {
+        value: JSON.stringify,
+        ...notEnumerated
+      },
+      rawJSON: {
+        value: JSON.rawJSON,
+        ...notEnumerated
+      },
+      isRawJSON: {
+        value: JSON.isRawJSON,
+        ...notEnumerated
+      }
     }
-  }],
-  [EventTarget, {
-    length: {
-      value: 0,
-      writable: false,
-      enumerable: false,
-      configurable: true
-    },
-    name: {
-      value: "EventTarget",
-      writable: false,
-      enumerable: false,
-      configurable: true
-    },
-    prototype: {
-      value: EventTarget.prototype,
-      writable: false,
-      enumerable: false,
-      configurable: false
+  ],
+  [
+    EventTarget,
+    {
+      length: {
+        value: 0,
+        writable: false,
+        enumerable: false,
+        configurable: true
+      },
+      name: {
+        value: "EventTarget",
+        writable: false,
+        enumerable: false,
+        configurable: true
+      },
+      prototype: {
+        value: EventTarget.prototype,
+        writable: false,
+        enumerable: false,
+        configurable: false
+      }
     }
-  }],
-  [EventTarget.prototype, {
-    constructor: {
-      value: EventTarget,
-      writable: true,
-      enumerable: false,
-      configurable: true
-    },
-    addEventListener: {
-      value: addEventListener,
-      writable: true,
-      enumerable: true,
-      configurable: true
-    },
-    removeEventListener: {
-      value: removeEventListener,
-      writable: true,
-      enumerable: true,
-      configurable: true
-    },
-    dispatchEvent: {
-      value: dispatchEvent,
-      writable: true,
-      enumerable: true,
-      configurable: true
-    },
-    getParent: {
-      value: getParent,
-      writable: true,
-      enumerable: true,
-      configurable: true
+  ],
+  [
+    EventTarget.prototype,
+    {
+      constructor: {
+        value: EventTarget.prototype.EventTarget,
+        ...notEnumerated
+      },
+      addEventListener: {
+        value: EventTarget.prototype.addEventListener,
+        writable: true,
+        enumerable: true,
+        configurable: true
+      },
+      removeEventListener: {
+        value: EventTarget.prototype.removeEventListener,
+        writable: true,
+        enumerable: true,
+        configurable: true
+      },
+      dispatchEvent: {
+        value: EventTarget.prototype.dispatchEvent,
+        writable: true,
+        enumerable: true,
+        configurable: true
+      },
+      getParent: {
+        value: EventTarget.prototype.getParent,
+        writable: true,
+        enumerable: true,
+        configurable: true
+      }
     }
-  }]
+  ],
+  [
+    Date.prototype,
+    {
+      toISOString: {
+        value: Date.prototype.toISOString,
+        ...notEnumerated
+      },
+      getTime: {
+        value: Date.prototype.getTime,
+        ...notEnumerated
+      },
+      setTime: {
+        value: Date.prototype.setTime,
+        ...notEnumerated
+      },
+      getUTCDate: {
+        value: Date.prototype.getUTCDate,
+        ...notEnumerated
+      },
+      setUTCDate: {
+        value: Date.prototype.setUTCDate,
+        ...notEnumerated
+      },
+      getUTCDay: {
+        value: Date.prototype.getUTCDay,
+        ...notEnumerated
+      },
+      getUTCFullYear: {
+        value: Date.prototype.getUTCFullYear,
+        ...notEnumerated
+      },
+      setUTCFullYear: {
+        value: Date.prototype.setUTCFullYear,
+        ...notEnumerated
+      },
+      getUTCHours: {
+        value: Date.prototype.getUTCHours,
+        ...notEnumerated
+      },
+      setUTCHours: {
+        value: Date.prototype.setUTCHours,
+        ...notEnumerated
+      },
+      getUTCMilliseconds: {
+        value: Date.prototype.getUTCMilliseconds,
+        ...notEnumerated
+      },
+      setUTCMilliseconds: {
+        value: Date.prototype.setUTCMilliseconds,
+        ...notEnumerated
+      },
+      getUTCMinutes: {
+        value: Date.prototype.getUTCMinutes,
+        ...notEnumerated
+      },
+      setUTCMinutes: {
+        value: Date.prototype.setUTCMinutes,
+        ...notEnumerated
+      },
+      getUTCMonth: {
+        value: Date.prototype.getUTCMonth,
+        ...notEnumerated
+      },
+      setUTCMonth: {
+        value: Date.prototype.setUTCMonth,
+        ...notEnumerated
+      },
+      getUTCSeconds: {
+        value: Date.prototype.getUTCSeconds,
+        ...notEnumerated
+      },
+      setUTCSeconds: {
+        value: Date.prototype.setUTCSeconds,
+        ...notEnumerated
+      },
+      valueOf: {
+        value: Date.prototype.valueOf,
+        ...notEnumerated
+      },
+      toJSON: {
+        value: Date.prototype.toJSON,
+        ...notEnumerated
+      },
+      // polyfills
+      getDate: { value: Date.prototype.getUTCDate, ...notEnumerated },
+      setDate: { value: Date.prototype.setUTCDate, ...notEnumerated },
+      getDay: { value: Date.prototype.getUTCDay, ...notEnumerated },
+      getFullYear: { value: Date.prototype.getUTCFullYear, ...notEnumerated },
+      setFullYear: { value: Date.prototype.setUTCFullYear, ...notEnumerated },
+      getHours: { value: Date.prototype.getUTCHours, ...notEnumerated },
+      setHours: { value: Date.prototype.setUTCHours, ...notEnumerated },
+      getMilliseconds: { value: Date.prototype.getUTCMilliseconds, ...notEnumerated },
+      setMilliseconds: { value: Date.prototype.setUTCMilliseconds, ...notEnumerated },
+      getMinutes: { value: Date.prototype.getUTCMinutes, ...notEnumerated },
+      setMinutes: { value: Date.prototype.setUTCMinutes, ...notEnumerated },
+      getMonth: { value: Date.prototype.getUTCMonth, ...notEnumerated },
+      setMonth: { value: Date.prototype.setUTCMonth, ...notEnumerated },
+      getSeconds: { value: Date.prototype.getUTCSeconds, ...notEnumerated },
+      setSeconds: { value: Date.prototype.setUTCSeconds, ...notEnumerated },
+      getYear: { value: (...args) => \`\${Date.prototype.getUTCFullYear(...args)}\`.slice(-2) - 0, ...notEnumerated }
+      // TODO: setYear
+      // setYear:
+    }
+  ]
 ]);
 var globalThisBaseDescriptors = {
   undefined: {
@@ -3130,99 +2806,67 @@ var globalThisBaseDescriptors = {
   },
   Object: {
     value: Object,
-    writable: true,
-    enumerable: false,
-    configurable: true
+    ...notEnumerated
   },
   Function: {
     value: Function,
-    writable: true,
-    enumerable: false,
-    configurable: true
+    ...notEnumerated
   },
   Array: {
     value: Array,
-    writable: true,
-    enumerable: false,
-    configurable: true
+    ...notEnumerated
   },
   Number: {
     value: Number,
-    writable: true,
-    enumerable: false,
-    configurable: true
+    ...notEnumerated
   },
   Boolean: {
     value: Boolean,
-    writable: true,
-    enumerable: false,
-    configurable: true
+    ...notEnumerated
   },
   String: {
     value: String,
-    writable: true,
-    enumerable: false,
-    configurable: true
+    ...notEnumerated
   },
   Symbol: {
     value: Symbol,
-    writable: true,
-    enumerable: false,
-    configurable: true
+    ...notEnumerated
   },
   Promise: {
     value: Promise,
-    writable: true,
-    enumerable: false,
-    configurable: true
+    ...notEnumerated
   },
   RegExp: {
     value: RegExp,
-    writable: true,
-    enumerable: false,
-    configurable: true
+    ...notEnumerated
   },
   Error: {
     value: Error,
-    writable: true,
-    enumerable: false,
-    configurable: true
+    ...notEnumerated
   },
   Map: {
     value: Map,
-    writable: true,
-    enumerable: false,
-    configurable: true
+    ...notEnumerated
   },
   Set: {
     value: Set,
-    writable: true,
-    enumerable: false,
-    configurable: true
+    ...notEnumerated
   },
   Math: {
     value: Math,
-    writable: true,
-    enumerable: false,
-    configurable: true
+    ...notEnumerated
   },
   Reflect: {
     value: Reflect,
-    writable: true,
-    enumerable: false,
-    configurable: true
+    ...notEnumerated
   },
   JSON: {
     value: JSON,
-    writable: true,
-    enumerable: false,
-    configurable: true
+    ...notEnumerated
   },
   EventTarget: {
     value: EventTarget,
-    writable: true,
-    enumerable: false,
-    configurable: true
+    ...notEnumerated
   }
 };
 
@@ -3390,7 +3034,7 @@ runtime: \${toRepresentation(currentDescriptor)}\`);
 // main/js_box/support/null_env.js
 function enforceNullEnv() {
   const warnings = [];
-  if (!globalThis) {
+  if (typeof globalThis == "undefined") {
     throw new Error("catestrophic error: the spec requires globalThis, but globalThis is not defined");
   }
   const functionsToConsiderNative = /* @__PURE__ */ new Map();

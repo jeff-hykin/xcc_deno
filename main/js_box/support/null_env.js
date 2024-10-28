@@ -13,8 +13,7 @@ import { toRepresentation } from "https://deno.land/x/good@1.13.0.1/flattened/to
 // TODO:
     // determinism:
         // patch things recursively (ex: EventTarget.prototype.addEventListener.length)
-        // delete the extraeous Date methods (only have timezone-and-locale irrelevant methods)
-        // add DOMException
+        // add DOMException, Event
         // add properties of the inlined functions to the whitelist/locklist
         // add all the error constructors to the whitelist
         // make the descriptors of setTimeout and friends align with the default descriptors
