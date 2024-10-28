@@ -12,6 +12,7 @@ import { toRepresentation } from "https://deno.land/x/good@1.13.0.1/flattened/to
 
 // TODO:
     // determinism:
+        // patch things recursively (ex: EventTarget.prototype.addEventListener.length)
         // add DOMException
         // add properties of the inlined functions to the whitelist/locklist
         // add all the error constructors to the whitelist
@@ -79,9 +80,6 @@ export function enforceNullEnv() {
             const realToLocaleUpperCase = String.prototype.toLocaleUpperCase
             const realLocaleCompare     = String.prototype.localeCompare
             const localCompareDefaults  = { usage: "sort", localeMatcher: "best fit", collation: "default", sensitivity: "base", ignorePunctuation: true, numeric: false, caseFirst: false, }
-            const realDispatchEvent     = globalThis.dispatchEvent
-            const realPostMessage       = globalThis.postMessage
-            const realAddEventListener  = globalThis.addEventListener
         
         // 
         // patching
@@ -120,8 +118,8 @@ export function enforceNullEnv() {
     // 
     // globalThis patching
     // 
-        const proto = {}
-        // Object.setPrototypeOf(globalThis, proto) // TODO: fix this
+        const globalProto = new EventTarget()
+        Object.setPrototypeOf(globalThis, globalProto)
         warnings.push(
             ...ensureDescriptorAgreement({
                 object: globalThis,
@@ -170,8 +168,6 @@ export function enforceNullEnv() {
                 markAsNative,
             })
         )
-        // TODO: fix. Idk why these don't work when passed into ensureDescriptorAgreement
-        globalThis.postMessage = markAsNative("postMessage", realPostMessage)
         
     return warnings
 }
