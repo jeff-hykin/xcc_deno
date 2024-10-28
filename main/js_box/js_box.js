@@ -10,15 +10,20 @@ import { get } from "https://deno.land/x/good@1.10.0.0/flattened/get.js"
 
 import { workerEval } from "./worker_eval.js"
 
-// impure things:
-    // import.meta
-    // import()
-    // ;((async ()=>{})())
-    // the methods of all the global objects
+// overall goal:
+    // try to build make (a wasmer output, MacOS-arm, x86 linux, etc) in a deterministic env
+    // which will probably need bash to be loaded with wasmer in a deterministic env
+    // which will need WebAssembly, and probably fetch, and several other API's to be available
+
+    // smaller goals. Get these working in the deterministic env:
+        // esbuild
+        // wasmer
+        // bash (wasmer)
+        // python (wasmer)
+        // ruby
 
 // overview TODO:
-    // 1. connect enforceNullEnv to workerEval
-        // will need a bundling/binaryifying step so it can be loaded into the worker
+    // 1. add bundling step to workerEval, and somehow make it deterministic (might need to fake )
     // 2. design a record mode for fetch
         // some way to dump and reload
     // 3. get the bundler working
