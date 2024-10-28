@@ -2304,31 +2304,31 @@ export default new Map([
     }],
     [EventTarget.prototype, {
         constructor: {
-            value: EventTarget,
+            value: EventTarget.prototype.EventTarget,
             writable: true,
             enumerable: false,
             configurable: true,
         },
         addEventListener: {
-            value: addEventListener,
+            value: EventTarget.prototype.addEventListener,
             writable: true,
             enumerable: true,
             configurable: true,
         },
         removeEventListener: {
-            value: removeEventListener,
+            value: EventTarget.prototype.removeEventListener,
             writable: true,
             enumerable: true,
             configurable: true,
         },
         dispatchEvent: {
-            value: dispatchEvent,
+            value: EventTarget.prototype.dispatchEvent,
             writable: true,
             enumerable: true,
             configurable: true,
         },
         getParent: {
-            value: getParent,
+            value: EventTarget.prototype.getParent,
             writable: true,
             enumerable: true,
             configurable: true,
