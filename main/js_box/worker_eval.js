@@ -10,7 +10,6 @@ function makeImport(codeString) {
     return `import "data:text/javascript;base64,${btoa(replaceNonAsciiWithUnicode(codeString))}"`
 }
 const nullEnvCode = new TextDecoder().decode(nullEnvBytes)
-console.debug(`nullEnvCode.slice(-200) is:`,nullEnvCode.slice(-200))
 const importString = makeImport(nullEnvCode+'\nenforceNullEnv()')
 
 /**

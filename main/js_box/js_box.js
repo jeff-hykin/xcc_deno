@@ -36,8 +36,20 @@ import { workerEval } from "./worker_eval.js"
         // wasm
         // isomorphic git connected to world fs
         // bash converter
+import nullEnvBytes from "./null_env.bundle.js.binaryified.js"
 
-function startEvironment(code, {mode="reproduce", world}) {
+function makeImport(codeString) {
+    function replaceNonAsciiWithUnicode(str) {
+        return str.replace(/[^\0-~](?<!\n|\r|\t|\0)/g, (char) => {
+            return '\\u' + ('0000' + char.charCodeAt(0).toString(16)).slice(-4);
+        })
+    }
+
+    return `import "data:text/javascript;base64,${btoa(replaceNonAsciiWithUnicode(codeString))}"`
+}
+const nullEnvCode = new TextEncoder().encode(nullEnvBytes)
+const importString = makeImport(nullEnvCode+'\nenforceNullEnv()')
+export function deterministicEval(code, {mode="reproduce", world}) {
     // todo: run code though bundler
-    await workerEval({world:{}, timeout:Infinity, untrustedCode:`10`})
+   return workerEval({timeout:Infinity, untrustedCode:`10`})
 }
