@@ -68,8 +68,10 @@ const assert = (boolValue, message) => {
 }
 let exportedDefault = Object.assign(assert, exported)
 if (!config.forceBrowser && (globalThis.Deno || globalThis.process)) {
-     exported = await import("node:assert")
-     exportedDefault = exported.default
+    import("node:assert").then((result)=>{
+        exported = result
+        exportedDefault = exported.default
+    })
 }
 
 var {
