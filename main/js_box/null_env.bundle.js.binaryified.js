@@ -802,7 +802,8 @@ var nameMap = /* @__PURE__ */ new Map([
   [Map.prototype, "Map.prototype"],
   [Math, "Math"],
   [Reflect, "Reflect"],
-  [JSON, "JSON"]
+  [JSON, "JSON"],
+  [EventTarget, "EventTarget"]
 ]);
 var whitelist_small_default = /* @__PURE__ */ new Map([
   [Function, {
@@ -3054,6 +3055,58 @@ var whitelist_small_default = /* @__PURE__ */ new Map([
       enumerable: false,
       configurable: true
     }
+  }],
+  [EventTarget, {
+    length: {
+      value: 0,
+      writable: false,
+      enumerable: false,
+      configurable: true
+    },
+    name: {
+      value: "EventTarget",
+      writable: false,
+      enumerable: false,
+      configurable: true
+    },
+    prototype: {
+      value: EventTarget.prototype,
+      writable: false,
+      enumerable: false,
+      configurable: false
+    }
+  }],
+  [EventTarget.prototype, {
+    constructor: {
+      value: EventTarget,
+      writable: true,
+      enumerable: false,
+      configurable: true
+    },
+    addEventListener: {
+      value: addEventListener,
+      writable: true,
+      enumerable: true,
+      configurable: true
+    },
+    removeEventListener: {
+      value: removeEventListener,
+      writable: true,
+      enumerable: true,
+      configurable: true
+    },
+    dispatchEvent: {
+      value: dispatchEvent,
+      writable: true,
+      enumerable: true,
+      configurable: true
+    },
+    getParent: {
+      value: getParent,
+      writable: true,
+      enumerable: true,
+      configurable: true
+    }
   }]
 ]);
 var globalThisBaseDescriptors = {
@@ -3161,6 +3214,12 @@ var globalThisBaseDescriptors = {
   },
   JSON: {
     value: JSON,
+    writable: true,
+    enumerable: false,
+    configurable: true
+  },
+  EventTarget: {
+    value: EventTarget,
     writable: true,
     enumerable: false,
     configurable: true
@@ -3364,9 +3423,6 @@ function enforceNullEnv() {
   const realToLocaleUpperCase = String.prototype.toLocaleUpperCase;
   const realLocaleCompare = String.prototype.localeCompare;
   const localCompareDefaults = { usage: "sort", localeMatcher: "best fit", collation: "default", sensitivity: "base", ignorePunctuation: true, numeric: false, caseFirst: false };
-  const realDispatchEvent = globalThis.dispatchEvent;
-  const realPostMessage = globalThis.postMessage;
-  const realAddEventListener = globalThis.addEventListener;
   Function.prototype.toString = markAsNative("toString", function(...args) {
     if (functionsToConsiderNative.has(this)) {
       return \`function \${functionsToConsiderNative.get(this)}() { [native code] }\`;
@@ -3392,7 +3448,8 @@ function enforceNullEnv() {
   }
   Object.assign(globalThis, timingTools);
   Error.stackTraceLimit = Infinity;
-  const proto = {};
+  const globalProto = new EventTarget();
+  Object.setPrototypeOf(globalThis, globalProto);
   warnings.push(
     ...ensureDescriptorAgreement({
       object: globalThis,
@@ -3441,7 +3498,6 @@ function enforceNullEnv() {
       markAsNative
     })
   );
-  globalThis.postMessage = markAsNative("postMessage", realPostMessage);
   return warnings;
 }
 
