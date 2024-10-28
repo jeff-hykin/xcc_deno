@@ -175,4 +175,4 @@ export function enforceNullEnv() {
         
     return warnings
 }
-// enforceNullEnv
+enforceNullEnv()
