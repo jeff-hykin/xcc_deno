@@ -17,6 +17,7 @@ var conservativeGlobalsNames = [
     "Set",
     "Map",
     "JSON",
+    "EventTarget",
 ]
 var objects = new Map()
 for (const each of conservativeGlobalsNames) {
