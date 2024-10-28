@@ -29,6 +29,7 @@ export const nameMap = new Map([
     [Math, "Math" ],
     [Reflect, "Reflect" ],
     [JSON, "JSON" ],
+    [EventTarget, "EventTarget" ],
 ])
 export default new Map([
     [Function, {
@@ -2281,6 +2282,58 @@ export default new Map([
             configurable: true,
         },
     }],
+    [EventTarget, {
+        length: {
+            value: 0,
+            writable: false,
+            enumerable: false,
+            configurable: true,
+        },
+        name: {
+            value: "EventTarget",
+            writable: false,
+            enumerable: false,
+            configurable: true,
+        },
+        prototype: {
+            value: EventTarget.prototype,
+            writable: false,
+            enumerable: false,
+            configurable: false,
+        },
+    }],
+    [EventTarget.prototype, {
+        constructor: {
+            value: EventTarget,
+            writable: true,
+            enumerable: false,
+            configurable: true,
+        },
+        addEventListener: {
+            value: addEventListener,
+            writable: true,
+            enumerable: true,
+            configurable: true,
+        },
+        removeEventListener: {
+            value: removeEventListener,
+            writable: true,
+            enumerable: true,
+            configurable: true,
+        },
+        dispatchEvent: {
+            value: dispatchEvent,
+            writable: true,
+            enumerable: true,
+            configurable: true,
+        },
+        getParent: {
+            value: getParent,
+            writable: true,
+            enumerable: true,
+            configurable: true,
+        },
+    }],
 ])
 export const globalThisBaseDescriptors = {
     undefined: {
@@ -2387,6 +2440,12 @@ export const globalThisBaseDescriptors = {
     },
     JSON: {
         value: JSON,
+        writable: true,
+        enumerable: false,
+        configurable: true,
+    },
+    EventTarget: {
+        value: EventTarget,
         writable: true,
         enumerable: false,
         configurable: true,
